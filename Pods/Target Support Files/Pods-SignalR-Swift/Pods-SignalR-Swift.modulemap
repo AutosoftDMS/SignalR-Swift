@@ -1,0 +1,6 @@
+framework module Pods_SignalR_Swift {
+  umbrella header "Pods-SignalR-Swift-umbrella.h"
+
+  export *
+  module * { export * }
+}
