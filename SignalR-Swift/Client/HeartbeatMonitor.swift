@@ -9,9 +9,14 @@
 import Foundation
 
 class HeartbeatMonitor {
-    private var hasBeenWarned = false
-    var beenWarned: Bool! {
-        return self.hasBeenWarned
+    private var beenWarned = false
+    var hasBeenWarned: Bool! {
+        return self.beenWarned
+    }
+
+    private var timedOut = false
+    var didTimeOut: Bool! {
+        return self.timedOut
     }
 
     private var connection: ConnectionProtocol!
@@ -22,5 +27,41 @@ class HeartbeatMonitor {
     }
 
     func start() {
+        self.connection.updateLastKeepAlive()
+        self.beenWarned = false
+        self.timedOut = false
+        if let interval = self.connection.keepAliveData?.checkInterval {
+            self.timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(self.heartBeat(withTimer:)), userInfo: nil, repeats: true)
+        }
+    }
+
+    @objc func heartBeat(withTimer timer: Timer) {
+        if let lastKeepAlive = self.connection.keepAliveData?.lastKeepAlive {
+            let timeElapsed = Date.timeIntervalSince(lastKeepAlive)
+        }
+    }
+
+    func beat(timeElapsed: Int) {
+        if self.connection.state == .connected, let keepAlive = self.connection.keepAliveData {
+            if timeElapsed >= keepAlive.timeout {
+                if self.didTimeOut! {
+                    self.timedOut = true
+                    self.connection.transport?.lostConnection(connection: self.connection)
+                }
+            } else if timeElapsed >= keepAlive.timeoutWarning {
+                if self.hasBeenWarned! {
+                    self.beenWarned = true
+                    self.connection.connectionDidSlow()
+                }
+            } else {
+                self.beenWarned = false
+                self.timedOut = false
+            }
+        }
+    }
+
+    func stop() {
+        self.timer?.invalidate()
+        self.timer = nil
     }
 }

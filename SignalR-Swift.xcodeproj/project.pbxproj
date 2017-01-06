@@ -19,6 +19,8 @@
 		C9E1CA0A1E1FFB6600335B1E /* KeepAliveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1CA091E1FFB6600335B1E /* KeepAliveData.swift */; };
 		C9E1CA0C1E1FFDA800335B1E /* ClientTransportProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1CA0B1E1FFDA800335B1E /* ClientTransportProtocol.swift */; };
 		C9E1CA0E1E1FFE0400335B1E /* NegotiationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1CA0D1E1FFE0400335B1E /* NegotiationResponse.swift */; };
+		C9FC2D951E2025B80027FE59 /* AutoTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D941E2025B80027FE59 /* AutoTransport.swift */; };
+		C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */; };
 		E9F26EC5EFFC4FD08A0158BB /* Pods_SignalR_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024E4E8C48AB529FE2E25FA4 /* Pods_SignalR_Swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,8 @@
 		C9E1CA091E1FFB6600335B1E /* KeepAliveData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeepAliveData.swift; sourceTree = "<group>"; };
 		C9E1CA0B1E1FFDA800335B1E /* ClientTransportProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTransportProtocol.swift; sourceTree = "<group>"; };
 		C9E1CA0D1E1FFE0400335B1E /* NegotiationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NegotiationResponse.swift; sourceTree = "<group>"; };
+		C9FC2D941E2025B80027FE59 /* AutoTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoTransport.swift; sourceTree = "<group>"; };
+		C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpTransport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				C9E1C9F61E1FEEBE00335B1E /* Client */,
+				C9FC2D931E2025990027FE59 /* Transports */,
 				C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */,
 				C9330B2C1E1FE59A00B1F2D5 /* Info.plist */,
 			);
@@ -172,6 +177,15 @@
 				C9E1CA031E1FF3B700335B1E /* Version.swift */,
 			);
 			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		C9FC2D931E2025990027FE59 /* Transports */ = {
+			isa = PBXGroup;
+			children = (
+				C9FC2D941E2025B80027FE59 /* AutoTransport.swift */,
+				C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */,
+			);
+			path = Transports;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,6 +391,8 @@
 				C9E1CA0E1E1FFE0400335B1E /* NegotiationResponse.swift in Sources */,
 				C9E1CA041E1FF3B700335B1E /* Version.swift in Sources */,
 				C9E1C9FB1E1FF03400335B1E /* ConnectionState.swift in Sources */,
+				C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */,
+				C9FC2D951E2025B80027FE59 /* AutoTransport.swift in Sources */,
 				C9E1CA081E1FFB0C00335B1E /* ConnectionProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

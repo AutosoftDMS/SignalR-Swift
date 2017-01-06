@@ -8,6 +8,7 @@ target 'SignalR-Swift' do
   # Pods for SignalR-Swift
   pod 'Alamofire', '~> 4.2.0'
   pod 'Starscream', '~> 2.0.0'
+  pod 'AlamofireObjectMapper', '~> 4.0'
 
   target 'SignalR-SwiftTests' do
     inherit! :search_paths

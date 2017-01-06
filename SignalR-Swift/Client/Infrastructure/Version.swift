@@ -39,7 +39,7 @@ class Version : Equatable, CustomStringConvertible {
         self.revision = revision
     }
 
-    func parse(input: String?, forVersion version: inout Version) -> Bool {
+    static func parse(input: String?, forVersion version: inout Version?) -> Bool {
 
         if input == nil || input!.isEmpty {
             return false
@@ -66,6 +66,7 @@ class Version : Equatable, CustomStringConvertible {
                     break
                 }
             }
+            version = tempVersion
         }
 
         return true
