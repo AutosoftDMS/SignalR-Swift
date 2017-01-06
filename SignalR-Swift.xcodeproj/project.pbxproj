@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C5960C651DF5F2AD09EDB49C /* Pods_SignalR_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A58447B140C1BFFC079FBCEC /* Pods_SignalR_SwiftTests.framework */; };
-		C9330B321E1FE59A00B1F2D5 /* SignalR-Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalR-Swift.framework */; };
+		C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */; };
 		C9330B371E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9330B361E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift */; };
 		C9330B391E1FE59A00B1F2D5 /* SignalR-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E9F26EC5EFFC4FD08A0158BB /* Pods_SignalR_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024E4E8C48AB529FE2E25FA4 /* Pods_SignalR_Swift.framework */; };
@@ -31,7 +31,7 @@
 		65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A58447B140C1BFFC079FBCEC /* Pods_SignalR_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
-		C9330B281E1FE59A00B1F2D5 /* SignalR-Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "SignalR-Swift.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignalR-Swift.h"; sourceTree = "<group>"; };
 		C9330B2C1E1FE59A00B1F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9330B311E1FE59A00B1F2D5 /* SignalR-SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SignalR-SwiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9330B321E1FE59A00B1F2D5 /* SignalR-Swift.framework in Frameworks */,
+				C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */,
 				C5960C651DF5F2AD09EDB49C /* Pods_SignalR_SwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,7 +94,7 @@
 		C9330B291E1FE59A00B1F2D5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C9330B281E1FE59A00B1F2D5 /* SignalR-Swift.framework */,
+				C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */,
 				C9330B311E1FE59A00B1F2D5 /* SignalR-SwiftTests.xctest */,
 			);
 			name = Products;
@@ -132,9 +132,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C9330B271E1FE59A00B1F2D5 /* SignalR-Swift */ = {
+		C9330B271E1FE59A00B1F2D5 /* SignalRSwift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C9330B3C1E1FE59A00B1F2D5 /* Build configuration list for PBXNativeTarget "SignalR-Swift" */;
+			buildConfigurationList = C9330B3C1E1FE59A00B1F2D5 /* Build configuration list for PBXNativeTarget "SignalRSwift" */;
 			buildPhases = (
 				8893B2F1770B24873610B1CA /* [CP] Check Pods Manifest.lock */,
 				C9330B231E1FE59A00B1F2D5 /* Sources */,
@@ -147,9 +147,9 @@
 			);
 			dependencies = (
 			);
-			name = "SignalR-Swift";
+			name = SignalRSwift;
 			productName = "SignalR-Swift";
-			productReference = C9330B281E1FE59A00B1F2D5 /* SignalR-Swift.framework */;
+			productReference = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		C9330B301E1FE59A00B1F2D5 /* SignalR-SwiftTests */ = {
@@ -207,7 +207,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C9330B271E1FE59A00B1F2D5 /* SignalR-Swift */,
+				C9330B271E1FE59A00B1F2D5 /* SignalRSwift */,
 				C9330B301E1FE59A00B1F2D5 /* SignalR-SwiftTests */,
 			);
 		};
@@ -329,7 +329,7 @@
 /* Begin PBXTargetDependency section */
 		C9330B341E1FE59A00B1F2D5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C9330B271E1FE59A00B1F2D5 /* SignalR-Swift */;
+			target = C9330B271E1FE59A00B1F2D5 /* SignalRSwift */;
 			targetProxy = C9330B331E1FE59A00B1F2D5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -512,13 +512,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C9330B3C1E1FE59A00B1F2D5 /* Build configuration list for PBXNativeTarget "SignalR-Swift" */ = {
+		C9330B3C1E1FE59A00B1F2D5 /* Build configuration list for PBXNativeTarget "SignalRSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9330B3D1E1FE59A00B1F2D5 /* Debug */,
 				C9330B3E1E1FE59A00B1F2D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9330B3F1E1FE59A00B1F2D5 /* Build configuration list for PBXNativeTarget "SignalR-SwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +528,7 @@
 				C9330B411E1FE59A00B1F2D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

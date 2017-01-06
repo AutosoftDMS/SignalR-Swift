@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C9330B271E1FE59A00B1F2D5"
-               BuildableName = "SignalR-Swift.framework"
-               BlueprintName = "SignalR-Swift"
+               BuildableName = "SignalRSwift.framework"
+               BlueprintName = "SignalRSwift"
                ReferencedContainer = "container:SignalR-Swift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C9330B271E1FE59A00B1F2D5"
-            BuildableName = "SignalR-Swift.framework"
-            BlueprintName = "SignalR-Swift"
+            BuildableName = "SignalRSwift.framework"
+            BlueprintName = "SignalRSwift"
             ReferencedContainer = "container:SignalR-Swift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,8 +65,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C9330B271E1FE59A00B1F2D5"
-            BuildableName = "SignalR-Swift.framework"
-            BlueprintName = "SignalR-Swift"
+            BuildableName = "SignalRSwift.framework"
+            BlueprintName = "SignalRSwift"
             ReferencedContainer = "container:SignalR-Swift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,8 +83,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C9330B271E1FE59A00B1F2D5"
-            BuildableName = "SignalR-Swift.framework"
-            BlueprintName = "SignalR-Swift"
+            BuildableName = "SignalRSwift.framework"
+            BlueprintName = "SignalRSwift"
             ReferencedContainer = "container:SignalR-Swift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
