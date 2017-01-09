@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		92C2EF866E5552EF8D15CBC4 /* Pods_SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A73B9447FB7A33F1C139E7D /* Pods_SignalRSwift.framework */; };
 		C5960C651DF5F2AD09EDB49C /* Pods_SignalR_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A58447B140C1BFFC079FBCEC /* Pods_SignalR_SwiftTests.framework */; };
+		C91154611E23D20E007C0DD9 /* ConnectionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154601E23D20E007C0DD9 /* ConnectionParameters.swift */; };
 		C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */; };
 		C9330B371E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9330B361E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift */; };
 		C9330B391E1FE59A00B1F2D5 /* SignalR-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -46,6 +47,7 @@
 		A58447B140C1BFFC079FBCEC /* Pods_SignalR_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.release.xcconfig"; sourceTree = "<group>"; };
+		C91154601E23D20E007C0DD9 /* ConnectionParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionParameters.swift; sourceTree = "<group>"; };
 		C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignalR-Swift.h"; sourceTree = "<group>"; };
 		C9330B2C1E1FE59A00B1F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,6 +112,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C911545F1E23D205007C0DD9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C91154601E23D20E007C0DD9 /* ConnectionParameters.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		C9330B1E1E1FE59A00B1F2D5 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +143,7 @@
 		C9330B2A1E1FE59A00B1F2D5 /* SignalR-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				C911545F1E23D205007C0DD9 /* Models */,
 				C9E1C9F61E1FEEBE00335B1E /* Client */,
 				C9FC2D931E2025990027FE59 /* Transports */,
 				C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */,
@@ -396,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9E1C9F81E1FEEF800335B1E /* Connection.swift in Sources */,
+				C91154611E23D20E007C0DD9 /* ConnectionParameters.swift in Sources */,
 				C9E1CA061E1FFADA00335B1E /* HeartbeatMonitor.swift in Sources */,
 				C9E1CA0A1E1FFB6600335B1E /* KeepAliveData.swift in Sources */,
 				C9E1CA0C1E1FFDA800335B1E /* ClientTransportProtocol.swift in Sources */,

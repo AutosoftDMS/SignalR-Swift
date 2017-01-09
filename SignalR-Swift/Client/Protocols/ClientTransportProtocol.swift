@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ObjectMapper
 
 protocol ClientTransportProtocol {
     func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((_ response: NegotiationResponse, _ error: Error?) -> ()))

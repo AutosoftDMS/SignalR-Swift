@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Alamofire
+import ObjectMapper
 
 class HttpTransport: ClientTransportProtocol {
 
@@ -17,6 +19,8 @@ class HttpTransport: ClientTransportProtocol {
     var supportsKeepAlive: Bool {
         return false
     }
+
+    private var startedAbort = false
 
     func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse, Error?) -> ())) {
 
@@ -43,12 +47,24 @@ class HttpTransport: ClientTransportProtocol {
     }
 
     func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
+        if timeout <= 0 {
+            return
+        }
 
+        if !self.startedAbort {
+            self.startedAbort = true
+
+            let parameters = ConnectionParameters()
+            parameters.clientProtocol = connection.version
+            parameters.transport = self.name
+            parameters.connectionData = connectionData
+            parameters.connectionToken = connection.connectionToken
+            parameters.queryString = connection.queryString
+
+            let url = connection.url.appending("abort")
+
+            // refactor this so that headers are common
+            let request = Alamofire.request(url, method: HTTPMethod.get, parameters: parameters.toJSON(), encoding: JSONEncoding.default, headers: nil)
+        }
     }
-
-    func connectionParameters(connection: ConnectionProtocol, connectionData: String) {
-
-    }
-
-
 }

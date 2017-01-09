@@ -20,7 +20,7 @@ class Connection: ConnectionProtocol {
     var url: String
 
     var items = [String : AnyObject]()
-    let queryString: [String: AnyObject]?
+    let queryString: [String: String]?
 
     var connectionData: String!
     var monitor: HeartbeatMonitor?
@@ -42,7 +42,7 @@ class Connection: ConnectionProtocol {
         return Connection(withUrl: url)
     }
 
-    static func connection(withUrl url: String, queryString: [String: AnyObject]?) -> Connection {
+    static func connection(withUrl url: String, queryString: [String: String]?) -> Connection {
         return Connection(withUrl: url, queryString: queryString)
     }
 
@@ -50,7 +50,7 @@ class Connection: ConnectionProtocol {
         self.init(withUrl: url, queryString: nil)
     }
 
-    init(withUrl url: String, queryString: [String: AnyObject]?) {
+    init(withUrl url: String, queryString: [String: String]?) {
         self.url = url.hasSuffix("/") ? url : url.appending("/")
         self.queryString = queryString
 

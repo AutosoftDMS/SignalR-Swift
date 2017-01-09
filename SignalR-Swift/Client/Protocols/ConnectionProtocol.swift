@@ -20,7 +20,7 @@ protocol ConnectionProtocol {
     var connectionId: String? { get set }
     var connectionToken: String? { get set }
     var url: String { get }
-    var queryString: [String: AnyObject]? { get }
+    var queryString: [String: String]? { get }
     var state: ConnectionState { get }
     var transport: ClientTransportProtocol? { get }
     var headers: [String: String] { get set }

@@ -8,14 +8,28 @@
 
 import Foundation
 import UIKit
+import ObjectMapper
 
-class Version : Equatable, CustomStringConvertible {
+class Version : Equatable, CustomStringConvertible, Mappable {
     var build = 0
     var major = 0
     var majorRevision = 0
     var minor = 0
     var minorRevision = 0
     var revision = 0
+
+    required init?(map: Map) {
+
+    }
+
+    func mapping(map: Map) {
+        build <- map["build"]
+        major <- map["major"]
+        majorRevision <- map["majorRevision"]
+        minor <- map["minor"]
+        minorRevision <- map["minorRevision"]
+        revision <- map["revision"]
+    }
 
     init() {
 
