@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 
 class Connection: ConnectionProtocol {
-    var defaultAbortTimeout = 0
+    var defaultAbortTimeout = 0.0
     var assemblyVersion: Version?
     var disconnectTimeout = 0.0
     var disconnectTimeoutOperation: BlockOperation!
@@ -36,7 +36,7 @@ class Connection: ConnectionProtocol {
     var keepAliveData: KeepAliveData?
 
     var transport: ClientTransportProtocol?
-    var transportConnectTimeout: Int
+    var transportConnectTimeout: Double
 
     static func connection(withUrl url: String) -> Connection {
         return Connection(withUrl: url)
@@ -124,7 +124,7 @@ class Connection: ConnectionProtocol {
 
     }
 
-    func stop(withTimeout timeout: Int) {
+    func stop(withTimeout timeout: Double) {
         if self.state != .disconnected {
 
             self.monitor?.stop()

@@ -37,11 +37,13 @@ class HeartbeatMonitor {
 
     @objc func heartBeat(withTimer timer: Timer) {
         if let lastKeepAlive = self.connection.keepAliveData?.lastKeepAlive {
-            let timeElapsed = Date.timeIntervalSince(lastKeepAlive)
+            let date = Date()
+            let timeElapsed = date.timeIntervalSince(lastKeepAlive)
+            self.beat(timeElapsed: timeElapsed)
         }
     }
 
-    func beat(timeElapsed: Int) {
+    func beat(timeElapsed: Double) {
         if self.connection.state == .connected, let keepAlive = self.connection.keepAliveData {
             if timeElapsed >= keepAlive.timeout {
                 if self.didTimeOut! {

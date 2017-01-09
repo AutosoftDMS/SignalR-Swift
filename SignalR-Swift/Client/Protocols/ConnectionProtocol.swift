@@ -12,7 +12,7 @@ import Alamofire
 
 protocol ConnectionProtocol {
     var version: Version { get set }
-    var transportConnectTimeout: Int { get set }
+    var transportConnectTimeout: Double { get set }
     var keepAliveData: KeepAliveData? { get set }
     var messageId: String? { get set }
     var groupsToken: String? { get set }

@@ -10,17 +10,17 @@ import Foundation
 
 class KeepAliveData {
     var lastKeepAlive: Date?
-    var timeout: Int!
-    var timeoutWarning: Int!
+    var timeout: Double!
+    var timeoutWarning: Double!
     var checkInterval: Double!
 
-    init(timeout: Int) {
+    init(timeout: Double) {
         self.timeout = timeout
-        self.timeoutWarning = timeout * ( 2 / 3)
-        self.checkInterval = Double(timeout - self.timeoutWarning) / 3.0
+        self.timeoutWarning = timeout * (2 / 3)
+        self.checkInterval = timeout - self.timeoutWarning / 3.0
     }
 
-    init(withLastKeepAlive lastKeepAlive: Date, timeout: Int, timeoutWarning: Int, checkInterval: Double) {
+    init(withLastKeepAlive lastKeepAlive: Date, timeout: Double, timeoutWarning: Double, checkInterval: Double) {
         self.lastKeepAlive = lastKeepAlive
         self.timeout = timeout
         self.timeoutWarning = timeoutWarning

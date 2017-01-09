@@ -24,25 +24,25 @@ class NegotiationResponse {
     var url = ""
 
     var protocolVersion = ""
-    var disconnectTimeout = 0
+    var disconnectTimeout = 0.0
     var tryWebSockets = false
 
-    var keepAliveTimeout: Int?
-    var transportConnectTimeout: Int?
+    var keepAliveTimeout: Double?
+    var transportConnectTimeout: Double?
 
     init(dict: [String: AnyObject]) {
         self.connectionId = dict[kConnectionId] as! String
         self.connectionToken = dict[kConnectionToken] as! String
         self.url = dict[kUrl] as! String
         self.protocolVersion = dict[kProtocolVersion] as! String
-        self.disconnectTimeout = dict[kDisconnectTimeout] as! Int
+        self.disconnectTimeout = dict[kDisconnectTimeout] as! Double
         self.tryWebSockets = dict[kTryWebSockets] as! Bool
 
-        if let keepAlive = dict[kKeepAliveTimeout] as? Int {
+        if let keepAlive = dict[kKeepAliveTimeout] as? Double {
             self.keepAliveTimeout = keepAlive
         }
 
-        if let transportConnect = dict[kTransportConnectTimeout] as? Int {
+        if let transportConnect = dict[kTransportConnectTimeout] as? Double {
             self.transportConnectTimeout = transportConnect
         }
     }

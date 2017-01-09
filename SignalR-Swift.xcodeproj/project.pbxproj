@@ -21,6 +21,7 @@
 		C9E1CA0E1E1FFE0400335B1E /* NegotiationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1CA0D1E1FFE0400335B1E /* NegotiationResponse.swift */; };
 		C9FC2D951E2025B80027FE59 /* AutoTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D941E2025B80027FE59 /* AutoTransport.swift */; };
 		C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */; };
+		C9FC2D991E23BC600027FE59 /* ConnectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D981E23BC600027FE59 /* ConnectionDelegate.swift */; };
 		E9F26EC5EFFC4FD08A0158BB /* Pods_SignalR_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024E4E8C48AB529FE2E25FA4 /* Pods_SignalR_Swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		C9E1CA0D1E1FFE0400335B1E /* NegotiationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NegotiationResponse.swift; sourceTree = "<group>"; };
 		C9FC2D941E2025B80027FE59 /* AutoTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoTransport.swift; sourceTree = "<group>"; };
 		C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpTransport.swift; sourceTree = "<group>"; };
+		C9FC2D981E23BC600027FE59 /* ConnectionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 			children = (
 				C9E1CA071E1FFB0C00335B1E /* ConnectionProtocol.swift */,
 				C9E1CA0B1E1FFDA800335B1E /* ClientTransportProtocol.swift */,
+				C9FC2D981E23BC600027FE59 /* ConnectionDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */,
 				C9FC2D951E2025B80027FE59 /* AutoTransport.swift in Sources */,
 				C9E1CA081E1FFB0C00335B1E /* ConnectionProtocol.swift in Sources */,
+				C9FC2D991E23BC600027FE59 /* ConnectionDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

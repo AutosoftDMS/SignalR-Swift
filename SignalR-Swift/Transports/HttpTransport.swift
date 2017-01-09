@@ -42,7 +42,7 @@ class HttpTransport: ClientTransportProtocol {
 
     }
 
-    func abort(connection: ConnectionProtocol, timeout: Int, connectionData: String) {
+    func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
 
     }
 
