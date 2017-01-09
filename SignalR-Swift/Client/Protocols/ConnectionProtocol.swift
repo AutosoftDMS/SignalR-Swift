@@ -41,5 +41,5 @@ protocol ConnectionProtocol {
     func connectionDidSlow()
 
     func updateLastKeepAlive()
-    func getRequest(url: URLConvertible, httpMethod: HTTPMethod, parameters: Parameters?) -> DataRequest
+    func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest
 }

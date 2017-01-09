@@ -11,7 +11,7 @@ import Alamofire
 import ObjectMapper
 import AlamofireObjectMapper
 
-class HttpTransport: ClientTransportProtocol {
+class HttpTransport<TResponse>: ClientTransportProtocol where TResponse: Mappable {
 
     var name: String! {
         return ""
@@ -21,14 +21,14 @@ class HttpTransport: ClientTransportProtocol {
         return false
     }
 
-    private var startedAbort = false
+    var startedAbort = false
 
     func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         let url = connection.url.appending("negotiate")
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-        let encodedRequest = Alamofire.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.queryString, headers: nil)
+        let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters.toJSON())
 
         encodedRequest.validate().responseObject { (response: DataResponse<NegotiationResponse>) in
             switch response.result {
@@ -48,14 +48,14 @@ class HttpTransport: ClientTransportProtocol {
 
     }
 
-    func send<T>(connection: ConnectionProtocol, data: String, connectionData: String, completionHandler: ((T?, Error?) -> ())?) where T: Mappable {
+    func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((T?, Error?) -> ())?) where T: Mappable {
         let url = connection.url.appending("send")
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
         let encodedRequest = Alamofire.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.queryString, headers: nil)
 
-        let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, parameters: ["data": data])
+        let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: JSONEncoding.default, parameters: ["data": data.toJSON()])
 
         request.validate().responseObject { (response: DataResponse<T>) in
             switch response.result {
@@ -99,9 +99,9 @@ class HttpTransport: ClientTransportProtocol {
 
             let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-            let encodedRequest = Alamofire.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.queryString, headers: nil)
+            let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters.toJSON())
 
-            let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, parameters: nil)
+            let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: JSONEncoding.default, parameters: nil)
             request.validate().responseJSON(completionHandler: { (response) in
                 switch response.result {
                 case .success(_):
@@ -121,5 +121,51 @@ class HttpTransport: ClientTransportProtocol {
         parameters.connectionToken = connection.connectionToken
         parameters.queryString = connection.queryString
         return parameters
+    }
+
+    func processResponse<T>(connection: inout ConnectionProtocol, response: T?, shouldReconnect: inout Bool, disconnected: inout Bool) where T: Mappable {
+        connection.updateLastKeepAlive()
+
+        shouldReconnect = false
+        disconnected = false
+
+        if response == nil {
+            return
+        }
+
+        if let result = response?.toJSON() {
+            if let iResult = result["I"] as? T {
+                connection.didReceiveData(data: iResult)
+            }
+
+            if let tResult = result["T"] as? Bool {
+                shouldReconnect = tResult
+            }
+
+            if let dResult = result["D"] as? Bool {
+                disconnected = dResult
+            }
+
+            if disconnected {
+                return
+            }
+
+            if let groupsToken = result["G"] as? String {
+                connection.groupsToken = groupsToken
+            }
+
+            if let messages = result["M"] as? [T] {
+                if let messageId = result["C"] as? String {
+                    connection.messageId = messageId
+                }
+
+                for message in messages {
+                    connection.didReceiveData(data: message)
+                }
+
+            }
+        }
+
+
     }
 }

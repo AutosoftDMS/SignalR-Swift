@@ -60,6 +60,18 @@ class Connection: ConnectionProtocol {
         self.transportConnectTimeout = 0
     }
 
+    static func ensureReconnecting(connection: ConnectionProtocol?) -> Bool {
+        if connection == nil {
+            return false
+        }
+
+        if connection!.changeState(oldState: .connected, toState: .reconnecting) {
+            connection!.willReconnect()
+        }
+
+        return connection!.state == .reconnecting
+    }
+
     // MARK: - Connection management
 
     func start() {
@@ -84,11 +96,11 @@ class Connection: ConnectionProtocol {
     }
 
     func startTransport() {
-        self.transport?.start(connection: self, connectionData: self.connectionData, completionHandler: { (response, error) in
-            if error == nil {
-
-            }
-        })
+//        self.transport?.start(connection: self, connectionData: self.connectionData, completionHandler: { (response, error) in
+//            if error == nil {
+//
+//            }
+//        })
     }
 
     func changeState(oldState: ConnectionState, toState newState: ConnectionState) -> Bool {
@@ -231,9 +243,9 @@ class Connection: ConnectionProtocol {
         }
     }
 
-    func getRequest(url: URLConvertible, httpMethod: HTTPMethod, parameters: Parameters?) -> DataRequest {
+    func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest {
         self.headers["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
-        return Alamofire.request(url, method: httpMethod, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers)
+        return Alamofire.request(url, method: httpMethod, parameters: parameters, encoding: encoding, headers: self.headers)
     }
 
     func createUserAgentString(client: String) -> String {
