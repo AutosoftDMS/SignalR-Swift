@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import ObjectMapper
 
 protocol ConnectionProtocol {
     var version: Version { get set }
@@ -33,7 +34,7 @@ protocol ConnectionProtocol {
 
     func send(object: Any, completionHandler: ((_ response: Any, _ error: Error) -> ()))
 
-    func didReceiveData(data: Any)
+    func didReceiveData<T>(data: T) where T: Mappable
     func didReceiveError(error: Error)
     func willReconnect()
     func didReconnect()

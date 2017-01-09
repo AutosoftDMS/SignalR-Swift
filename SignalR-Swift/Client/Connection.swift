@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import ObjectMapper
 
 class Connection: ConnectionProtocol {
     var defaultAbortTimeout = 0.0
@@ -172,7 +173,7 @@ class Connection: ConnectionProtocol {
 
     // MARK: - Received Data
 
-    func didReceiveData(data: Any) {
+    func didReceiveData<T>(data: T) where T: Mappable {
         // received
     }
 

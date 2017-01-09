@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ObjectMapper
 
 private let kConnectionId = "ConnectionId"
 private let kConnectionToken = "ConnectionToken"
@@ -17,7 +18,7 @@ private let kTryWebSockets = "TryWebSockets"
 private let kKeepAliveTimeout = "KeepAliveTimeout"
 private let kTransportConnectTimeout = "TransportConnectTimeout"
 
-class NegotiationResponse {
+class NegotiationResponse: Mappable {
     var connectionId = ""
     var connectionToken = ""
 
@@ -30,20 +31,18 @@ class NegotiationResponse {
     var keepAliveTimeout: Double?
     var transportConnectTimeout: Double?
 
-    init(dict: [String: Any]) {
-        self.connectionId = dict[kConnectionId] as! String
-        self.connectionToken = dict[kConnectionToken] as! String
-        self.url = dict[kUrl] as! String
-        self.protocolVersion = dict[kProtocolVersion] as! String
-        self.disconnectTimeout = dict[kDisconnectTimeout] as! Double
-        self.tryWebSockets = dict[kTryWebSockets] as! Bool
+    required init?(map: Map) {
 
-        if let keepAlive = dict[kKeepAliveTimeout] as? Double {
-            self.keepAliveTimeout = keepAlive
-        }
+    }
 
-        if let transportConnect = dict[kTransportConnectTimeout] as? Double {
-            self.transportConnectTimeout = transportConnect
-        }
+    func mapping(map: Map) {
+        connectionId <- map[kConnectionId]
+        connectionToken <- map[kConnectionToken]
+        url <- map[kUrl]
+        protocolVersion <- map[kProtocolVersion]
+        disconnectTimeout <- map[kDisconnectTimeout]
+        tryWebSockets <- map[kTryWebSockets]
+        keepAliveTimeout <- map[kKeepAliveTimeout]
+        transportConnectTimeout <- map[kTransportConnectTimeout]
     }
 }
