@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92C2EF866E5552EF8D15CBC4 /* Pods_SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A73B9447FB7A33F1C139E7D /* Pods_SignalRSwift.framework */; };
 		C5960C651DF5F2AD09EDB49C /* Pods_SignalR_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A58447B140C1BFFC079FBCEC /* Pods_SignalR_SwiftTests.framework */; };
 		C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */; };
 		C9330B371E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9330B361E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift */; };
@@ -39,9 +40,12 @@
 		024E4E8C48AB529FE2E25FA4 /* Pods_SignalR_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F4417DA6DB4C6D98141D660 /* Pods-SignalR-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift/Pods-SignalR-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		363C73CFE5251D608E6D5632 /* Pods-SignalR-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift/Pods-SignalR-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.debug.xcconfig"; sourceTree = "<group>"; };
+		5A73B9447FB7A33F1C139E7D /* Pods_SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A58447B140C1BFFC079FBCEC /* Pods_SignalR_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.release.xcconfig"; sourceTree = "<group>"; };
 		C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignalR-Swift.h"; sourceTree = "<group>"; };
 		C9330B2C1E1FE59A00B1F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9F26EC5EFFC4FD08A0158BB /* Pods_SignalR_Swift.framework in Frameworks */,
+				92C2EF866E5552EF8D15CBC4 /* Pods_SignalRSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +92,7 @@
 			children = (
 				024E4E8C48AB529FE2E25FA4 /* Pods_SignalR_Swift.framework */,
 				A58447B140C1BFFC079FBCEC /* Pods_SignalR_SwiftTests.framework */,
+				5A73B9447FB7A33F1C139E7D /* Pods_SignalRSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -98,6 +104,8 @@
 				363C73CFE5251D608E6D5632 /* Pods-SignalR-Swift.release.xcconfig */,
 				65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */,
 				B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */,
+				42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */,
+				B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -347,7 +355,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-Swift/Pods-SignalR-Swift-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E29934DC4C7132EA079822B1 /* [CP] Copy Pods Resources */ = {
@@ -521,7 +529,7 @@
 		};
 		C9330B3D1E1FE59A00B1F2D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F4417DA6DB4C6D98141D660 /* Pods-SignalR-Swift.debug.xcconfig */;
+			baseConfigurationReference = 42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -543,7 +551,7 @@
 		};
 		C9330B3E1E1FE59A00B1F2D5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 363C73CFE5251D608E6D5632 /* Pods-SignalR-Swift.release.xcconfig */;
+			baseConfigurationReference = B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";

@@ -9,12 +9,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-SignalR-Swift.xcscheme</key>
+		<key>AlamofireObjectMapper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-SignalR-SwiftTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SignalRSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,7 +37,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4700862BBF556C5308592C1ED5050D5C</key>
+		<key>2519BAA3B0C42FBE6EA20C450B10CA33</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2F5622F3B18DF497981AB58C6D1FC72F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>697EA15FDB03330D75D098AC790B8799</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -37,12 +57,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9815DE879E5298894EF48DE0A2C5F412</key>
+		<key>9502FB01641FBABB78522037E882757B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ACC43788C7285AA0A90CE56F5D0AC9EF</key>
+		<key>E0FC1E4CF1CC8A7D147DDAF39533EC54</key>
 		<dict>
 			<key>primary</key>
 			<true/>
