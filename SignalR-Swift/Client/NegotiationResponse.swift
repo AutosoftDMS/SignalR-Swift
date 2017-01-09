@@ -30,7 +30,7 @@ class NegotiationResponse {
     var keepAliveTimeout: Double?
     var transportConnectTimeout: Double?
 
-    init(dict: [String: AnyObject]) {
+    init(dict: [String: Any]) {
         self.connectionId = dict[kConnectionId] as! String
         self.connectionToken = dict[kConnectionToken] as! String
         self.url = dict[kUrl] as! String

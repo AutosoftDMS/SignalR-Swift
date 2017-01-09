@@ -26,11 +26,11 @@ class HttpTransport: ClientTransportProtocol {
 
     }
 
-    func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((AnyObject, Error?) -> ())) {
+    func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any, Error?) -> ())) {
 
     }
 
-    func send(connection: ConnectionProtocol, data: String, connectionData: String, completionHandler: ((AnyObject, Error?) -> ())) {
+    func send(connection: ConnectionProtocol, data: String, connectionData: String, completionHandler: ((Any, Error?) -> ())) {
 
     }
 
@@ -64,7 +64,8 @@ class HttpTransport: ClientTransportProtocol {
             let url = connection.url.appending("abort")
 
             // refactor this so that headers are common
-            let request = Alamofire.request(url, method: HTTPMethod.get, parameters: parameters.toJSON(), encoding: JSONEncoding.default, headers: nil)
+            let request = connection.getRequest(url: url, httpMethod: .get, parameters: parameters.toJSON())
+
         }
     }
 }

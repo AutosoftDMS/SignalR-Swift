@@ -16,14 +16,14 @@ protocol ConnectionProtocol {
     var keepAliveData: KeepAliveData? { get set }
     var messageId: String? { get set }
     var groupsToken: String? { get set }
-    var items: [String: AnyObject] { get set }
+    var items: [String: Any] { get set }
     var connectionId: String? { get set }
     var connectionToken: String? { get set }
     var url: String { get }
     var queryString: [String: String]? { get }
     var state: ConnectionState { get }
     var transport: ClientTransportProtocol? { get }
-    var headers: [String: String] { get set }
+    var headers: HTTPHeaders { get set }
 
     func onSending() -> String?
 
@@ -31,14 +31,14 @@ protocol ConnectionProtocol {
     func stop()
     func disconnect()
 
-    func send(object: AnyObject, completionHandler: ((_ response: AnyObject, _ error: Error) -> ()))
+    func send(object: Any, completionHandler: ((_ response: Any, _ error: Error) -> ()))
 
-    func didReceiveData(data: AnyObject)
+    func didReceiveData(data: Any)
     func didReceiveError(error: Error)
     func willReconnect()
     func didReconnect()
     func connectionDidSlow()
 
     func updateLastKeepAlive()
-    func prepareRequest(request: DataRequest)
+    func getRequest(url: URLConvertible, httpMethod: HTTPMethod, parameters: Parameters?) -> DataRequest
 }

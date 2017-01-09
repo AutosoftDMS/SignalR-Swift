@@ -19,7 +19,7 @@ class Connection: ConnectionProtocol {
     var state = ConnectionState.disconnected
     var url: String
 
-    var items = [String : AnyObject]()
+    var items = [String : Any]()
     let queryString: [String: String]?
 
     var connectionData: String!
@@ -32,7 +32,7 @@ class Connection: ConnectionProtocol {
     var groupsToken: String?
     var messageId: String?
 
-    var headers = [String: String]()
+    var headers = HTTPHeaders()
     var keepAliveData: KeepAliveData?
 
     var transport: ClientTransportProtocol?
@@ -160,7 +160,7 @@ class Connection: ConnectionProtocol {
         return nil
     }
 
-    func send(object: AnyObject, completionHandler: ((AnyObject, Error) -> ())) {
+    func send(object: Any, completionHandler: ((Any, Error) -> ())) {
         if self.state == .disconnected {
 
         }
@@ -172,7 +172,7 @@ class Connection: ConnectionProtocol {
 
     // MARK: - Received Data
 
-    func didReceiveData(data: AnyObject) {
+    func didReceiveData(data: Any) {
         // received
     }
 
@@ -230,13 +230,16 @@ class Connection: ConnectionProtocol {
         }
     }
 
-    func prepareRequest(request: DataRequest) {
-
+    func getRequest(url: URLConvertible, httpMethod: HTTPMethod, parameters: Parameters?) -> DataRequest {
+        self.headers["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
+        return Alamofire.request(url, method: httpMethod, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers)
     }
 
-    func createUserAgentString(client: String) {
+    func createUserAgentString(client: String) -> String {
         if self.assemblyVersion == nil {
             self.assemblyVersion = Version(major: 2, minor: 0, build: 0, revision: 0)
         }
+
+        return "\(client)/\(self.assemblyVersion) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
     }
 }

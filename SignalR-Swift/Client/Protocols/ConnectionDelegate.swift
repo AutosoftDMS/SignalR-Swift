@@ -12,7 +12,7 @@ protocol ConnectionDelegate {
     func didOpen(connection: ConnectionProtocol)
     func willReconnect(connection: ConnectionProtocol)
     func didReconnect(connection: ConnectionProtocol)
-    func connection(connection: ConnectionProtocol, didReceiveData data: AnyObject)
+    func connection(connection: ConnectionProtocol, didReceiveData data: Any)
     func connection(connection: ConnectionProtocol, didReceiveError error: Error)
     func connection(connection: ConnectionProtocol, didChangeState oldState: ConnectionState, newState: ConnectionState)
     func didSlow(connection: ConnectionProtocol)
