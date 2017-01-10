@@ -28,7 +28,7 @@ class HttpTransport: ClientTransportProtocol {
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-        let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters.toJSON())
+        let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters.toJSON(), timeout: 30.0)
 
         encodedRequest.validate().responseObject { (response: DataResponse<NegotiationResponse>) in
             switch response.result {
@@ -99,7 +99,7 @@ class HttpTransport: ClientTransportProtocol {
 
             let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-            let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters.toJSON())
+            let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters.toJSON(), timeout: 2.0)
 
             let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: JSONEncoding.default, parameters: nil)
             request.validate().responseJSON(completionHandler: { (response) in
