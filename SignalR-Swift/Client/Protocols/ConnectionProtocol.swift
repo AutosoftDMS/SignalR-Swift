@@ -34,7 +34,7 @@ protocol ConnectionProtocol {
 
     func send(object: Any, completionHandler: ((_ response: Any, _ error: Error) -> ()))
 
-    func didReceiveData<T>(data: T) where T: Mappable
+    func didReceiveData(data: String)
     func didReceiveError(error: Error)
     func willReconnect()
     func didReconnect()

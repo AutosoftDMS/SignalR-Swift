@@ -13,7 +13,7 @@ import Alamofire
 
 typealias WebSocketStartBlock = ((_ response: Any, _ error: Error?) -> ())
 
-class WebSocketTransport<TResponse>: HttpTransport<TResponse>, WebSocketDelegate where TResponse: Mappable {
+class WebSocketTransport: HttpTransport, WebSocketDelegate {
     var reconnectDelay = 2.0
     private var connectionInfo: WebSocketConnectionInfo?
     private var webSocket: WebSocket?
@@ -38,7 +38,7 @@ class WebSocketTransport<TResponse>: HttpTransport<TResponse>, WebSocketDelegate
         self.performConnect(completionHandler: completionHandler)
     }
 
-    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((T?, Error?) -> ())?) where T : Mappable {
+    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((String?, Error?) -> ())?) where T : Mappable {
         self.webSocket?.write(string: data.toJSONString()!)
 
         if let handler = completionHandler {
@@ -65,18 +65,14 @@ class WebSocketTransport<TResponse>: HttpTransport<TResponse>, WebSocketDelegate
         }
     }
 
-    func websocketDidReceiveData(socket: WebSocket, data: Data) {
-    }
+    func websocketDidReceiveData(socket: WebSocket, data: Data) { }
 
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         var timedOut = false
         var disconnected = false
 
-        let mapper = Mapper<TResponse>()
-        let response = mapper.map(JSONString: text)
-
         if var connection = self.connectionInfo?.connection {
-            self.processResponse(connection: &connection, response: response, shouldReconnect: &timedOut, disconnected: &disconnected)
+            self.processResponse(connection: &connection, response: text, shouldReconnect: &timedOut, disconnected: &disconnected)
         }
     }
 
@@ -120,12 +116,10 @@ class WebSocketTransport<TResponse>: HttpTransport<TResponse>, WebSocketDelegate
     }
 
     func reconnect(connection: ConnectionProtocol?) {
-        let operation = BlockOperation { [unowned self] () -> () in
+        _ = BlockOperation { [unowned self] () -> () in
             if Connection.ensureReconnecting(connection: connection) {
                 self.performConnect(reconnecting: true, completionHandler: nil)
             }
-        }
-
-//        operation.perform(#selector(WebSocketTransport.start(connection:connectionData:completionHandler:)), with: nil, afterDelay: self.reconnectDelay)
+            }.perform(#selector(BlockOperation.start), with: nil, afterDelay: self.reconnectDelay)
     }
 }

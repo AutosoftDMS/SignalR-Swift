@@ -185,7 +185,7 @@ class Connection: ConnectionProtocol {
 
     // MARK: - Received Data
 
-    func didReceiveData<T>(data: T) where T: Mappable {
+    func didReceiveData(data: String) {
         // received
     }
 
