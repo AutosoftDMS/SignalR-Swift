@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import Alamofire
-import ObjectMapper
 
 class Connection: ConnectionProtocol {
     var defaultAbortTimeout = 0.0

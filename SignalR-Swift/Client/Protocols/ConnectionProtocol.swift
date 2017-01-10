@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import Alamofire
-import ObjectMapper
 
 protocol ConnectionProtocol {
     var version: Version { get set }
