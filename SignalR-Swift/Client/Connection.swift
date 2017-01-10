@@ -9,11 +9,21 @@
 import Foundation
 import UIKit
 import Alamofire
+import ObjectMapper
+
+typealias ConnectionStartedClosure = (() -> ())
+typealias ConnectionReceivedClosure = ((String) -> ())
+typealias ConnectionErrorClosure = ((Error) -> ())
+typealias ConnectionClosedClosure = (() -> ())
+typealias ConnectionReconnectingClosure = (() -> ())
+typealias ConnectionReconnectedClosure = (() -> ())
+typealias ConnectionStateChangedClosure = ((ConnectionState) -> ())
+typealias ConnectionConnectionSlowClosure = (() -> ())
 
 class Connection: ConnectionProtocol {
-    var defaultAbortTimeout = 0.0
+    var defaultAbortTimeout = 30.0
     var assemblyVersion: Version?
-    var disconnectTimeout = 0.0
+    var disconnectTimeout: Double?
     var disconnectTimeoutOperation: BlockOperation!
 
     var state = ConnectionState.disconnected
@@ -36,7 +46,18 @@ class Connection: ConnectionProtocol {
     var keepAliveData: KeepAliveData?
 
     var transport: ClientTransportProtocol?
-    var transportConnectTimeout: Double
+    var transportConnectTimeout = 0.0
+
+    var started: ConnectionStartedClosure?
+    var received: ConnectionReceivedClosure?
+    var error: ConnectionErrorClosure?
+    var closed: ConnectionClosedClosure?
+    var reconnecting: ConnectionReconnectingClosure?
+    var reconnected: ConnectionReconnectedClosure?
+    var stateChanged: ConnectionStateChangedClosure?
+    var connectionSlow: ConnectionConnectionSlowClosure?
+
+    weak var delegate: ConnectionDelegate?
 
     static func connection(withUrl url: String) -> Connection {
         return Connection(withUrl: url)
@@ -53,10 +74,6 @@ class Connection: ConnectionProtocol {
     init(withUrl url: String, queryString: [String: String]?) {
         self.url = url.hasSuffix("/") ? url : url.appending("/")
         self.queryString = queryString
-
-        self.state = .disconnected
-        self.defaultAbortTimeout = 30
-        self.transportConnectTimeout = 0
     }
 
     static func ensureReconnecting(connection: ConnectionProtocol?) -> Bool {
@@ -74,45 +91,82 @@ class Connection: ConnectionProtocol {
     // MARK: - Connection management
 
     func start() {
-
+//        self.start(transport: AutoTransport())
     }
 
     func start(transport: ClientTransportProtocol) {
-        // change state
+        if !self.changeState(oldState: .disconnected, toState: .connecting) {
+            return
+        }
 
         self.monitor = HeartbeatMonitor(withConnection: self)
         self.transport = transport
+
+        self.negotiate(transport: transport)
     }
 
     func negotiate(transport: ClientTransportProtocol) {
         self.connectionData = self.onSending()
 
-        transport.negotiate(connection: self, connectionData: self.connectionData, completionHandler: { (response, error) in
+        transport.negotiate(connection: self, connectionData: self.connectionData, completionHandler: { [unowned self] (response, error) in
             if error == nil {
+                self.verifyProtocolVersion(versionString: response?.protocolVersion)
 
+                self.connectionId = response?.connectionId
+                self.connectionToken = response?.connectionToken
+                self.disconnectTimeout = response?.disconnectTimeout
+
+                if let transportTimeout = response?.transportConnectTimeout {
+                    self.transportConnectTimeout += transportTimeout
+                }
+
+                if let keepAlive = response?.keepAliveTimeout {
+                    self.keepAliveData = KeepAliveData(timeout: keepAlive)
+                }
+
+                self.startTransport()
+            } else if let error = error {
+                self.didReceiveError(error: error)
+                self.stopButDoNotCallServer()
             }
         })
     }
 
     func startTransport() {
-//        self.transport?.start(connection: self, connectionData: self.connectionData, completionHandler: { (response, error) in
-//            if error == nil {
-//
-//            }
-//        })
+        self.transport?.start(connection: self, connectionData: self.connectionData, completionHandler: { [unowned self] (response, error) in
+            if error == nil {
+                _ = self.changeState(oldState: .connecting, toState: .connected)
+
+                if let _ = self.keepAliveData, let transport = self.transport, transport.supportsKeepAlive {
+                    self.monitor?.start()
+                }
+
+                if let started = self.started {
+                    started()
+                }
+
+                self.delegate?.connectionDidOpen(connection: self)
+            } else if let error = error {
+                self.didReceiveError(error: error)
+                self.stopButDoNotCallServer()
+            }
+        })
     }
 
     func changeState(oldState: ConnectionState, toState newState: ConnectionState) -> Bool {
         if self.state == oldState {
             self.state = newState
 
-            // stateChanged
+            if let stateChanged = self.stateChanged {
+                stateChanged(self.state)
+            }
 
-            //delegate
+            self.delegate?.connection(connection: self, didChangeState: oldState, newState: newState)
 
             return true
         }
 
+        // invalid transition
         return false
     }
 
@@ -125,15 +179,15 @@ class Connection: ConnectionProtocol {
     }
 
     func stopAndCallServer() {
-
+        self.stop(withTimeout: self.defaultAbortTimeout)
     }
 
     func stopButDoNotCallServer() {
-
+        self.stop(withTimeout: -1.0)
     }
 
     func stop() {
-
+        self.stopAndCallServer()
     }
 
     func stop(withTimeout timeout: Double) {
@@ -162,7 +216,7 @@ class Connection: ConnectionProtocol {
             self.groupsToken = nil
             self.messageId = nil
 
-//            self.didClose()
+            self.didClose()
         }
     }
 
@@ -172,26 +226,55 @@ class Connection: ConnectionProtocol {
         return nil
     }
 
-    func send(object: Any, completionHandler: ((Any, Error) -> ())) {
+    func send<T>(object: T, completionHandler: ((String?, Error?) -> ())?) where T: Mappable {
         if self.state == .disconnected {
+            let userInfo = [
+                NSLocalizedFailureReasonErrorKey: NSExceptionName.internalInconsistencyException.rawValue,
+                NSLocalizedDescriptionKey: NSLocalizedString("Start must be called before data can be sent.", comment: "start order exception")
+            ]
 
+            let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: 0, userInfo: userInfo)
+            self.didReceiveError(error: error)
+            if let handler = completionHandler {
+                handler(nil, error)
+            }
+
+            return
         }
 
         if self.state == .connecting {
-            
+            let userInfo = [
+                NSLocalizedFailureReasonErrorKey: NSExceptionName.internalInconsistencyException.rawValue,
+                NSLocalizedDescriptionKey: NSLocalizedString("The connection has not been established.", comment: "connection not established exception")
+            ]
+
+            let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: 0, userInfo: userInfo)
+            self.didReceiveError(error: error)
+            if let handler = completionHandler {
+                handler(nil, error)
+            }
+            return
         }
+
+        self.transport?.send(connection: self, data: object, connectionData: self.connectionData, completionHandler: completionHandler)
     }
 
     // MARK: - Received Data
 
-    func didReceiveData(data: String) {
-        // received
+    func didReceiveData(message: String) {
+        if let received = self.received {
+            received(message)
+        }
+
+        self.delegate?.connection(connection: self, didReceiveData: message)
     }
 
     func didReceiveError(error: Error) {
-        // error
+        if let errorClosure = self.error {
+            errorClosure(error)
+        }
 
-        // delegate
+        self.delegate?.connection(connection: self, didReceiveError: error)
     }
 
     func willReconnect() {
@@ -199,13 +282,15 @@ class Connection: ConnectionProtocol {
             self.stopButDoNotCallServer()
         })
 
-//        self.disconnectTimeoutOperation.perform(#selector(Connection.start), with: nil, afterDelay: self.disconnectTimeout)
+        if let disconnectTimeout = self.disconnectTimeout {
+            self.disconnectTimeoutOperation.perform(#selector(BlockOperation.start), with: nil, afterDelay: disconnectTimeout)
+        }
 
-//        if self.reconnecting != nil {
-//            self.reconnecting()
-//        }
+        if let reconnecting = self.reconnecting {
+            reconnecting()
+        }
 
-        // delegate
+        self.delegate?.connectionWillReconnect(connection: self)
     }
 
     func didReconnect() {
@@ -213,21 +298,29 @@ class Connection: ConnectionProtocol {
 
         self.disconnectTimeoutOperation = nil
 
-        // if self.reconnected != nil {
-        // self.reconnected()
-        // }
+        if let reconnected = self.reconnected {
+            reconnected()
+        }
 
-        // delegate
+        self.delegate?.connectionDidReconnect(connection: self)
 
         self.updateLastKeepAlive()
     }
 
     func connectionDidSlow() {
-//        if self.connectionSlow != nil {
-//            self.connectionSlow()
-//        }
+        if let connectionSlow = self.connectionSlow {
+            connectionSlow()
+        }
 
-        // delegate
+        self.delegate?.connectionDidSlow(connection: self)
+    }
+
+    func didClose() {
+        if let closed = self.closed {
+            closed()
+        }
+
+        self.delegate?.connectionDidClose(connection: self)
     }
 
     // MARK: - Prepare Request

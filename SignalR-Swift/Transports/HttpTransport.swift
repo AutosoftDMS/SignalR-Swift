@@ -60,7 +60,7 @@ class HttpTransport: ClientTransportProtocol {
         request.validate().responseString { (response: DataResponse<String>) in
             switch response.result {
             case .success(let result):
-                connection.didReceiveData(data: result)
+                connection.didReceiveData(message: result)
 
                 if let handler = completionHandler {
                     handler(result, nil)
@@ -135,7 +135,7 @@ class HttpTransport: ClientTransportProtocol {
 
         if let responseString = response, let message = ReceivedMessage(JSONString: responseString) {
             if let resultMessage = message.result {
-                connection.didReceiveData(data: resultMessage)
+                connection.didReceiveData(message: resultMessage)
             }
 
             if let disconnected = message.disconnected, disconnected {
@@ -152,7 +152,7 @@ class HttpTransport: ClientTransportProtocol {
                 }
 
                 for message in messages {
-                    connection.didReceiveData(data: message)
+                    connection.didReceiveData(message: message)
                 }
             }
         }
