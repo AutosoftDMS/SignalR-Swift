@@ -122,39 +122,4 @@ class HttpTransport: ClientTransportProtocol {
         parameters.queryString = connection.queryString
         return parameters
     }
-
-    func processResponse(connection: inout ConnectionProtocol, response: String?, shouldReconnect: inout Bool, disconnected: inout Bool) {
-        connection.updateLastKeepAlive()
-
-        shouldReconnect = false
-        disconnected = false
-
-        if response == nil || response!.isEmpty {
-            return
-        }
-
-        if let responseString = response, let message = ReceivedMessage(JSONString: responseString) {
-            if let resultMessage = message.result {
-                connection.didReceiveData(message: resultMessage)
-            }
-
-            if let disconnected = message.disconnected, disconnected {
-                return
-            }
-
-            if let groupsToken = message.groupsToken {
-                connection.groupsToken = groupsToken
-            }
-
-            if let messages = message.messages {
-                if let messageId = message.messageId {
-                    connection.messageId = messageId
-                }
-
-                for message in messages {
-                    connection.didReceiveData(message: message)
-                }
-            }
-        }
-    }
 }

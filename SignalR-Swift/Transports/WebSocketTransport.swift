@@ -134,8 +134,8 @@ class WebSocketTransport: HttpTransport, WebSocketDelegate {
         var timedOut = false
         var disconnected = false
 
-        if var connection = self.connectionInfo?.connection {
-            self.processResponse(connection: &connection, response: text, shouldReconnect: &timedOut, disconnected: &disconnected)
+        if let connection = self.connectionInfo?.connection {
+            connection.processResponse(response: text, shouldReconnect: &timedOut, disconnected: &disconnected)
         }
     }
 

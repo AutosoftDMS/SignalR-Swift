@@ -354,4 +354,39 @@ class Connection: ConnectionProtocol {
 
         return "\(client)/\(self.assemblyVersion) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
     }
+
+    func processResponse(response: String?, shouldReconnect: inout Bool, disconnected: inout Bool) {
+        self.updateLastKeepAlive()
+
+        shouldReconnect = false
+        disconnected = false
+
+        if response == nil || response!.isEmpty {
+            return
+        }
+
+        if let responseString = response, let message = ReceivedMessage(JSONString: responseString) {
+            if let resultMessage = message.result {
+                self.didReceiveData(message: resultMessage)
+            }
+
+            if let disconnected = message.disconnected, disconnected {
+                return
+            }
+
+            if let groupsToken = message.groupsToken {
+                self.groupsToken = groupsToken
+            }
+
+            if let messages = message.messages {
+                if let messageId = message.messageId {
+                    self.messageId = messageId
+                }
+
+                for message in messages {
+                    self.didReceiveData(message: message)
+                }
+            }
+        }
+    }
 }

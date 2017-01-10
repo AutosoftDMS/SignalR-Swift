@@ -44,4 +44,5 @@ protocol ConnectionProtocol {
 
     func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest
     func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double) -> DataRequest
+    func processResponse(response: String?, shouldReconnect: inout Bool, disconnected: inout Bool)
 }

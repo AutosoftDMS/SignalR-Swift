@@ -13,6 +13,8 @@
 		C91154631E24113F007C0DD9 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154621E24113F007C0DD9 /* WebSocketTransport.swift */; };
 		C91154661E241239007C0DD9 /* WebSocketConnectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154651E241239007C0DD9 /* WebSocketConnectionInfo.swift */; };
 		C91154681E243082007C0DD9 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154671E243082007C0DD9 /* ReceivedMessage.swift */; };
+		C911546A1E253B1B007C0DD9 /* LongPollingTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154691E253B1B007C0DD9 /* LongPollingTransport.swift */; };
+		C911546C1E255CB2007C0DD9 /* ExceptionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911546B1E255CB2007C0DD9 /* ExceptionHelper.swift */; };
 		C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */; };
 		C9330B371E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9330B361E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift */; };
 		C9330B391E1FE59A00B1F2D5 /* SignalR-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -54,6 +56,8 @@
 		C91154621E24113F007C0DD9 /* WebSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketTransport.swift; sourceTree = "<group>"; };
 		C91154651E241239007C0DD9 /* WebSocketConnectionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketConnectionInfo.swift; sourceTree = "<group>"; };
 		C91154671E243082007C0DD9 /* ReceivedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceivedMessage.swift; sourceTree = "<group>"; };
+		C91154691E253B1B007C0DD9 /* LongPollingTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPollingTransport.swift; sourceTree = "<group>"; };
+		C911546B1E255CB2007C0DD9 /* ExceptionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionHelper.swift; sourceTree = "<group>"; };
 		C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignalR-Swift.h"; sourceTree = "<group>"; };
 		C9330B2C1E1FE59A00B1F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				C9E1CA031E1FF3B700335B1E /* Version.swift */,
+				C911546B1E255CB2007C0DD9 /* ExceptionHelper.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				C9FC2D941E2025B80027FE59 /* AutoTransport.swift */,
 				C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */,
 				C91154621E24113F007C0DD9 /* WebSocketTransport.swift */,
+				C91154691E253B1B007C0DD9 /* LongPollingTransport.swift */,
 			);
 			path = Transports;
 			sourceTree = "<group>";
@@ -426,10 +432,12 @@
 				C9E1C9F81E1FEEF800335B1E /* Connection.swift in Sources */,
 				C91154611E23D20E007C0DD9 /* ConnectionParameters.swift in Sources */,
 				C9E1CA061E1FFADA00335B1E /* HeartbeatMonitor.swift in Sources */,
+				C911546C1E255CB2007C0DD9 /* ExceptionHelper.swift in Sources */,
 				C9E1CA0A1E1FFB6600335B1E /* KeepAliveData.swift in Sources */,
 				C9E1CA0C1E1FFDA800335B1E /* ClientTransportProtocol.swift in Sources */,
 				C9E1CA0E1E1FFE0400335B1E /* NegotiationResponse.swift in Sources */,
 				C9E1CA041E1FF3B700335B1E /* Version.swift in Sources */,
+				C911546A1E253B1B007C0DD9 /* LongPollingTransport.swift in Sources */,
 				C9E1C9FB1E1FF03400335B1E /* ConnectionState.swift in Sources */,
 				C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */,
 				C91154661E241239007C0DD9 /* WebSocketConnectionInfo.swift in Sources */,
