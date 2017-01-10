@@ -19,7 +19,7 @@ class WebSocketTransport: HttpTransport, WebSocketDelegate {
     private var webSocket: WebSocket?
     private var startClosure: WebSocketStartClosure?
 
-    override var name: String! {
+    override var name: String? {
         return "webSockets"
     }
 
@@ -31,7 +31,7 @@ class WebSocketTransport: HttpTransport, WebSocketDelegate {
         super.negotiate(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((String?, Error?) -> ())?) {
         self.connectionInfo = WebSocketConnectionInfo(connection: connection, data: connectionData)
 
         // perform connection
@@ -76,7 +76,7 @@ class WebSocketTransport: HttpTransport, WebSocketDelegate {
     func performConnect(reconnecting: Bool, completionHandler: ((_ response: String?, _ error: Error?) -> ())?) {
         let connection = self.connectionInfo?.connection
         var parameters: [String: Any] = [
-            "transport": self.name,
+            "transport": self.name ?? "",
             "connectionToken": connection?.connectionToken ?? "",
             "messageId": connection?.messageId ?? "",
             "groupsToken": connection?.groupsToken ?? "",

@@ -13,7 +13,7 @@ import AlamofireObjectMapper
 
 class HttpTransport: ClientTransportProtocol {
 
-    var name: String! {
+    var name: String? {
         return ""
     }
 
@@ -44,7 +44,7 @@ class HttpTransport: ClientTransportProtocol {
         }
     }
 
-    func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((String?, Error?) -> ())?) {
 
     }
 
