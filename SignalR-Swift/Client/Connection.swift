@@ -67,15 +67,6 @@ class Connection: ConnectionProtocol {
         return Connection(withUrl: url, queryString: queryString)
     }
 
-    convenience init(withUrl url: String) {
-        self.init(withUrl: url, queryString: nil)
-    }
-
-    init(withUrl url: String, queryString: [String: String]?) {
-        self.url = url.hasSuffix("/") ? url : url.appending("/")
-        self.queryString = queryString
-    }
-
     static func ensureReconnecting(connection: ConnectionProtocol?) -> Bool {
         if connection == nil {
             return false
@@ -86,6 +77,15 @@ class Connection: ConnectionProtocol {
         }
 
         return connection!.state == .reconnecting
+    }
+
+    convenience init(withUrl url: String) {
+        self.init(withUrl: url, queryString: nil)
+    }
+
+    init(withUrl url: String, queryString: [String: String]?) {
+        self.url = url.hasSuffix("/") ? url : url.appending("/")
+        self.queryString = queryString
     }
 
     // MARK: - Connection management
