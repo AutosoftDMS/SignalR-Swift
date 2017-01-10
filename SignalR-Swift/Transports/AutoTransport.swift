@@ -13,7 +13,7 @@ class AutoTransport: HttpTransport {
     var transports = [ClientTransportProtocol]()
     var transport: ClientTransportProtocol?
 
-    convenience override init() {
+    override convenience init() {
         let transports = [
             WebSocketTransport(),
 

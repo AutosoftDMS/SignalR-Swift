@@ -15,6 +15,14 @@
 		C91154681E243082007C0DD9 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154671E243082007C0DD9 /* ReceivedMessage.swift */; };
 		C911546A1E253B1B007C0DD9 /* LongPollingTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154691E253B1B007C0DD9 /* LongPollingTransport.swift */; };
 		C911546C1E255CB2007C0DD9 /* ExceptionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911546B1E255CB2007C0DD9 /* ExceptionHelper.swift */; };
+		C911546F1E256491007C0DD9 /* HubConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911546E1E256491007C0DD9 /* HubConnectionProtocol.swift */; };
+		C91154711E2564C1007C0DD9 /* HubResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154701E2564C1007C0DD9 /* HubResult.swift */; };
+		C91154731E2566DC007C0DD9 /* HubConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154721E2566DC007C0DD9 /* HubConnection.swift */; };
+		C91154751E256721007C0DD9 /* HubProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154741E256721007C0DD9 /* HubProxy.swift */; };
+		C91154771E256741007C0DD9 /* HubProxyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154761E256741007C0DD9 /* HubProxyProtocol.swift */; };
+		C91154791E256760007C0DD9 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154781E256760007C0DD9 /* Subscription.swift */; };
+		C911547B1E256F98007C0DD9 /* HubInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911547A1E256F98007C0DD9 /* HubInvocation.swift */; };
+		C911547D1E25777F007C0DD9 /* HubRegistrationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */; };
 		C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */; };
 		C9330B371E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9330B361E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift */; };
 		C9330B391E1FE59A00B1F2D5 /* SignalR-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,6 +66,14 @@
 		C91154671E243082007C0DD9 /* ReceivedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceivedMessage.swift; sourceTree = "<group>"; };
 		C91154691E253B1B007C0DD9 /* LongPollingTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPollingTransport.swift; sourceTree = "<group>"; };
 		C911546B1E255CB2007C0DD9 /* ExceptionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionHelper.swift; sourceTree = "<group>"; };
+		C911546E1E256491007C0DD9 /* HubConnectionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubConnectionProtocol.swift; sourceTree = "<group>"; };
+		C91154701E2564C1007C0DD9 /* HubResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubResult.swift; sourceTree = "<group>"; };
+		C91154721E2566DC007C0DD9 /* HubConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubConnection.swift; sourceTree = "<group>"; };
+		C91154741E256721007C0DD9 /* HubProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubProxy.swift; sourceTree = "<group>"; };
+		C91154761E256741007C0DD9 /* HubProxyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubProxyProtocol.swift; sourceTree = "<group>"; };
+		C91154781E256760007C0DD9 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		C911547A1E256F98007C0DD9 /* HubInvocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubInvocation.swift; sourceTree = "<group>"; };
+		C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubRegistrationData.swift; sourceTree = "<group>"; };
 		C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignalR-Swift.h"; sourceTree = "<group>"; };
 		C9330B2C1E1FE59A00B1F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -139,6 +155,19 @@
 			path = WebSockets;
 			sourceTree = "<group>";
 		};
+		C911546D1E25643D007C0DD9 /* Hubs */ = {
+			isa = PBXGroup;
+			children = (
+				C91154701E2564C1007C0DD9 /* HubResult.swift */,
+				C91154721E2566DC007C0DD9 /* HubConnection.swift */,
+				C91154741E256721007C0DD9 /* HubProxy.swift */,
+				C91154781E256760007C0DD9 /* Subscription.swift */,
+				C911547A1E256F98007C0DD9 /* HubInvocation.swift */,
+				C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */,
+			);
+			path = Hubs;
+			sourceTree = "<group>";
+		};
 		C9330B1E1E1FE59A00B1F2D5 = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +212,7 @@
 		C9E1C9F61E1FEEBE00335B1E /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				C911546D1E25643D007C0DD9 /* Hubs */,
 				C9E1CA021E1FF3B700335B1E /* Infrastructure */,
 				C9E1C9F91E1FF02200335B1E /* Enums */,
 				C9E1C9FC1E1FF1B100335B1E /* Protocols */,
@@ -208,6 +238,8 @@
 				C9E1CA071E1FFB0C00335B1E /* ConnectionProtocol.swift */,
 				C9E1CA0B1E1FFDA800335B1E /* ClientTransportProtocol.swift */,
 				C9FC2D981E23BC600027FE59 /* ConnectionDelegate.swift */,
+				C911546E1E256491007C0DD9 /* HubConnectionProtocol.swift */,
+				C91154761E256741007C0DD9 /* HubProxyProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -430,10 +462,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9E1C9F81E1FEEF800335B1E /* Connection.swift in Sources */,
+				C91154731E2566DC007C0DD9 /* HubConnection.swift in Sources */,
 				C91154611E23D20E007C0DD9 /* ConnectionParameters.swift in Sources */,
 				C9E1CA061E1FFADA00335B1E /* HeartbeatMonitor.swift in Sources */,
+				C91154791E256760007C0DD9 /* Subscription.swift in Sources */,
 				C911546C1E255CB2007C0DD9 /* ExceptionHelper.swift in Sources */,
 				C9E1CA0A1E1FFB6600335B1E /* KeepAliveData.swift in Sources */,
+				C91154711E2564C1007C0DD9 /* HubResult.swift in Sources */,
+				C911547D1E25777F007C0DD9 /* HubRegistrationData.swift in Sources */,
 				C9E1CA0C1E1FFDA800335B1E /* ClientTransportProtocol.swift in Sources */,
 				C9E1CA0E1E1FFE0400335B1E /* NegotiationResponse.swift in Sources */,
 				C9E1CA041E1FF3B700335B1E /* Version.swift in Sources */,
@@ -441,11 +477,15 @@
 				C9E1C9FB1E1FF03400335B1E /* ConnectionState.swift in Sources */,
 				C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */,
 				C91154661E241239007C0DD9 /* WebSocketConnectionInfo.swift in Sources */,
+				C91154771E256741007C0DD9 /* HubProxyProtocol.swift in Sources */,
 				C9FC2D951E2025B80027FE59 /* AutoTransport.swift in Sources */,
+				C911546F1E256491007C0DD9 /* HubConnectionProtocol.swift in Sources */,
 				C9E1CA081E1FFB0C00335B1E /* ConnectionProtocol.swift in Sources */,
 				C91154681E243082007C0DD9 /* ReceivedMessage.swift in Sources */,
 				C9FC2D991E23BC600027FE59 /* ConnectionDelegate.swift in Sources */,
+				C91154751E256721007C0DD9 /* HubProxy.swift in Sources */,
 				C91154631E24113F007C0DD9 /* WebSocketTransport.swift in Sources */,
+				C911547B1E256F98007C0DD9 /* HubInvocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

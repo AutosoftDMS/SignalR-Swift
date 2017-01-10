@@ -135,7 +135,7 @@ class LongPollingTransport: HttpTransport {
 
     func delayConnectionReconnect(connection: ConnectionProtocol, canReconnect: inout Bool) {
         if self.isConnectionReconnecting(connection: connection) {
-            let canReconnectCopy = Bool(canReconnect)
+            let canReconnectCopy = canReconnect
             if canReconnect {
                 canReconnect = false
 

@@ -79,8 +79,9 @@ class Connection: ConnectionProtocol {
         return connection!.state == .reconnecting
     }
 
-    convenience init(withUrl url: String) {
-        self.init(withUrl: url, queryString: nil)
+    init(withUrl url: String) {
+        self.url = url.hasSuffix("/") ? url : url.appending("/")
+        self.queryString = nil
     }
 
     init(withUrl url: String, queryString: [String: String]?) {
