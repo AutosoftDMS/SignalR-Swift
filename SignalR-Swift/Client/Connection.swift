@@ -91,7 +91,7 @@ class Connection: ConnectionProtocol {
     // MARK: - Connection management
 
     func start() {
-//        self.start(transport: AutoTransport())
+        self.start(transport: AutoTransport())
     }
 
     func start(transport: ClientTransportProtocol) {

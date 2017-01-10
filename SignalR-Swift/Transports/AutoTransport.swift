@@ -15,11 +15,11 @@ class AutoTransport: HttpTransport {
 
     convenience override init() {
         let transports = [
-            WebSocketTransport()
+            WebSocketTransport(),
 
-            // server sent events
+            //TODO: implement server sent events. it was decided that for now web sockets and long polling should be enough
 
-            // long polling
+            LongPollingTransport()
         ]
 
         self.init(withTransports: transports)
