@@ -66,7 +66,7 @@ class AutoTransport: HttpTransport {
         }
     }
 
-    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((String?, Error?) -> ())?) {
+    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
         self.start(connection: connection, connectionData: connectionData, transportIndex: 0, completionHandler: completionHandler)
     }
 
@@ -101,7 +101,7 @@ class AutoTransport: HttpTransport {
         }
     }
 
-    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((String?, Error?) -> ())?) where T : Mappable {
+    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
         self.transport?.send(connection: connection, data: data, connectionData: connectionData, completionHandler: completionHandler)
     }
 

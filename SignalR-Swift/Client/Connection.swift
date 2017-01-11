@@ -12,7 +12,7 @@ import Alamofire
 import ObjectMapper
 
 typealias ConnectionStartedClosure = (() -> ())
-typealias ConnectionReceivedClosure = ((String) -> ())
+typealias ConnectionReceivedClosure = ((Any) -> ())
 typealias ConnectionErrorClosure = ((Error) -> ())
 typealias ConnectionClosedClosure = (() -> ())
 typealias ConnectionReconnectingClosure = (() -> ())
@@ -227,7 +227,7 @@ class Connection: ConnectionProtocol {
         return nil
     }
 
-    func send<T>(object: T, completionHandler: ((String?, Error?) -> ())?) where T: Mappable {
+    func send<T>(object: T, completionHandler: ((Any?, Error?) -> ())?) where T: Mappable {
         if self.state == .disconnected {
             let userInfo = [
                 NSLocalizedFailureReasonErrorKey: NSExceptionName.internalInconsistencyException.rawValue,
@@ -262,12 +262,12 @@ class Connection: ConnectionProtocol {
 
     // MARK: - Received Data
 
-    func didReceiveData(message: String) {
+    func didReceiveData(data: Any) {
         if let received = self.received {
-            received(message)
+            received(data)
         }
 
-        self.delegate?.connection(connection: self, didReceiveData: message)
+        self.delegate?.connection(connection: self, didReceiveData: data)
     }
 
     func didReceiveError(error: Error) {
@@ -356,19 +356,19 @@ class Connection: ConnectionProtocol {
         return "\(client)/\(self.assemblyVersion) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
     }
 
-    func processResponse(response: String?, shouldReconnect: inout Bool, disconnected: inout Bool) {
+    func processResponse(response: Any?, shouldReconnect: inout Bool, disconnected: inout Bool) {
         self.updateLastKeepAlive()
 
         shouldReconnect = false
         disconnected = false
 
-        if response == nil || response!.isEmpty {
+        if response == nil {
             return
         }
 
-        if let responseString = response, let message = ReceivedMessage(JSONString: responseString) {
+        if let responseDict = response as? [String: Any], let message = ReceivedMessage(JSON: responseDict) {
             if let resultMessage = message.result {
-                self.didReceiveData(message: resultMessage)
+                self.didReceiveData(data: resultMessage)
             }
 
             if let disconnected = message.disconnected, disconnected {
@@ -385,7 +385,7 @@ class Connection: ConnectionProtocol {
                 }
 
                 for message in messages {
-                    self.didReceiveData(message: message)
+                    self.didReceiveData(data: message)
                 }
             }
         }

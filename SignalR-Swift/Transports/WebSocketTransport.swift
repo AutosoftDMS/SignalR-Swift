@@ -31,14 +31,14 @@ class WebSocketTransport: HttpTransport, WebSocketDelegate {
         super.negotiate(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((String?, Error?) -> ())?) {
+    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
         self.connectionInfo = WebSocketConnectionInfo(connection: connection, data: connectionData)
 
         // perform connection
         self.performConnect(completionHandler: completionHandler)
     }
 
-    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((String?, Error?) -> ())?) where T : Mappable {
+    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
         self.webSocket?.write(string: data.toJSONString()!)
 
         if let handler = completionHandler {

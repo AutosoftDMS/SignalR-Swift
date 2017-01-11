@@ -53,7 +53,7 @@ class HubProxy: HubProxyProtocol {
         self.invoke(method: method, withArgs: args)
     }
 
-    func invoke(method: String?, withArgs args: [Any], completionHandler: ((String?, Error?) -> ())?) {
+    func invoke(method: String?, withArgs args: [Any], completionHandler: ((Any?, Error?) -> ())?) {
         guard method != nil && !method!.isEmpty else {
             NSException.raise(.invalidArgumentException, format: NSLocalizedString("Argument method is null", comment: "null event name exception"), arguments: getVaList(["nil"]))
             return

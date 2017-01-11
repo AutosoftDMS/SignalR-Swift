@@ -96,8 +96,8 @@ class HubConnection: Connection, HubConnectionProtocol {
 
     // MARK: - Received Data
 
-    override func didReceiveData(message: String) {
-        
+    override func didReceiveData(data: Any) {
+
     }
 
     override func willReconnect() {

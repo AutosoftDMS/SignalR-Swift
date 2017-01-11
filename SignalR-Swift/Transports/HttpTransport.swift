@@ -44,11 +44,11 @@ class HttpTransport: ClientTransportProtocol {
         }
     }
 
-    func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((String?, Error?) -> ())?) {
+    func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
 
     }
 
-    func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((String?, Error?) -> ())?) where T: Mappable {
+    func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T: Mappable {
         let url = connection.url.appending("send")
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
@@ -57,10 +57,10 @@ class HttpTransport: ClientTransportProtocol {
 
         let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: JSONEncoding.default, parameters: ["data": data.toJSON()])
 
-        request.validate().responseString { (response: DataResponse<String>) in
+        request.validate().responseJSON { (response: DataResponse<Any>) in
             switch response.result {
             case .success(let result):
-                connection.didReceiveData(message: result)
+                connection.didReceiveData(data: result)
 
                 if let handler = completionHandler {
                     handler(result, nil)

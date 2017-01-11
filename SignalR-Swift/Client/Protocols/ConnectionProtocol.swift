@@ -32,9 +32,9 @@ protocol ConnectionProtocol {
     func stop()
     func disconnect()
 
-    func send<T>(object: T, completionHandler: ((String?, Error?) -> ())?) where T: Mappable
+    func send<T>(object: T, completionHandler: ((Any?, Error?) -> ())?) where T: Mappable
 
-    func didReceiveData(message: String)
+    func didReceiveData(data: Any)
     func didReceiveError(error: Error)
     func willReconnect()
     func didReconnect()
@@ -44,5 +44,5 @@ protocol ConnectionProtocol {
 
     func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest
     func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double) -> DataRequest
-    func processResponse(response: String?, shouldReconnect: inout Bool, disconnected: inout Bool)
+    func processResponse(response: Any?, shouldReconnect: inout Bool, disconnected: inout Bool)
 }

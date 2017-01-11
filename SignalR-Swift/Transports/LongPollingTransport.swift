@@ -33,11 +33,11 @@ class LongPollingTransport: HttpTransport {
         super.negotiate(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((String?, Error?) -> ())?) {
+    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
         self.poll(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((String?, Error?) -> ())?) where T : Mappable {
+    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
         super.send(connection: connection, data: data, connectionData: connectionData, completionHandler: completionHandler)
     }
 
