@@ -1,3 +1,16 @@
-PODFILE CHECKSUM: dc48eb8f7e392b8f36bc2e47f51006e63c74381c
+PODS:
+  - SignalR-Swift (0.0.1)
+
+DEPENDENCIES:
+  - SignalR-Swift (from `..`)
+
+EXTERNAL SOURCES:
+  SignalR-Swift:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  SignalR-Swift: c52e7a5b8e605288d21d2f04f9c50fbcec64736d
+
+PODFILE CHECKSUM: fb69854dbf3861da171aead34d36f09aec795133
 
 COCOAPODS: 1.1.1
