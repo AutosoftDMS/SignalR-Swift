@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "SignalR-Swift"
+  s.name         = "SignalRSwift"
   s.version      = "0.0.1"
   s.summary      = "A short description of SignalR-Swift."
 
@@ -132,5 +132,8 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
+  s.dependency "Alamofire", "~> 4.2.0"
+  s.dependency "Starscream", "~> 2.0.0"
+  s.dependency "AlamofireObjectMapper", "~> 4.0"
 
 end

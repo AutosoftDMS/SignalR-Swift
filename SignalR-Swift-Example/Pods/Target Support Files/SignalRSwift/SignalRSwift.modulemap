@@ -1,0 +1,6 @@
+framework module SignalRSwift {
+  umbrella header "SignalRSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

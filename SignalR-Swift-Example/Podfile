@@ -6,7 +6,7 @@ target 'SignalR-Swift-Example' do
   use_frameworks!
 
   # Pods for SignalR-Swift-Example
-  pod 'SignalR-Swift', :path => '..'
+  pod 'SignalRSwift', :path => '../'
 
   target 'SignalR-Swift-ExampleTests' do
     inherit! :search_paths

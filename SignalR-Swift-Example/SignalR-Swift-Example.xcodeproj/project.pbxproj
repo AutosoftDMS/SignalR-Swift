@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0133D342FD2ABAECB44CBC5C /* Pods_SignalR_Swift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FFF387C78E72E85D2EFDEF /* Pods_SignalR_Swift_Example.framework */; };
 		C9E64D701E27DC3300DEDC20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E64D6F1E27DC3300DEDC20 /* AppDelegate.swift */; };
 		C9E64D721E27DC3300DEDC20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E64D711E27DC3300DEDC20 /* ViewController.swift */; };
-		C9E64D751E27DC3300DEDC20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9E64D731E27DC3300DEDC20 /* Main.storyboard */; };
 		C9E64D771E27DC3300DEDC20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9E64D761E27DC3300DEDC20 /* Assets.xcassets */; };
 		C9E64D7A1E27DC3300DEDC20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9E64D781E27DC3300DEDC20 /* LaunchScreen.storyboard */; };
 		C9E64D851E27DC3400DEDC20 /* SignalR_Swift_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E64D841E27DC3400DEDC20 /* SignalR_Swift_ExampleTests.swift */; };
+		C9E64D911E27E47800DEDC20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9E64D8F1E27E47800DEDC20 /* Main.storyboard */; };
 		F4612E1AC0F02B88174631F0 /* Pods_SignalR_Swift_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA7F9E57044110B56627D8F /* Pods_SignalR_Swift_ExampleTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,13 +35,13 @@
 		C9E64D6C1E27DC3300DEDC20 /* SignalR-Swift-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SignalR-Swift-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E64D6F1E27DC3300DEDC20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9E64D711E27DC3300DEDC20 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C9E64D741E27DC3300DEDC20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C9E64D761E27DC3300DEDC20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9E64D791E27DC3300DEDC20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9E64D7B1E27DC3300DEDC20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9E64D801E27DC3400DEDC20 /* SignalR-Swift-ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SignalR-Swift-ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E64D841E27DC3400DEDC20 /* SignalR_Swift_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalR_Swift_ExampleTests.swift; sourceTree = "<group>"; };
 		C9E64D861E27DC3400DEDC20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9E64D901E27E47800DEDC20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D0FFF387C78E72E85D2EFDEF /* Pods_SignalR_Swift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -51,7 +50,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0133D342FD2ABAECB44CBC5C /* Pods_SignalR_Swift_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,9 +109,9 @@
 			children = (
 				C9E64D6F1E27DC3300DEDC20 /* AppDelegate.swift */,
 				C9E64D711E27DC3300DEDC20 /* ViewController.swift */,
-				C9E64D731E27DC3300DEDC20 /* Main.storyboard */,
 				C9E64D761E27DC3300DEDC20 /* Assets.xcassets */,
 				C9E64D781E27DC3300DEDC20 /* LaunchScreen.storyboard */,
+				C9E64D8F1E27E47800DEDC20 /* Main.storyboard */,
 				C9E64D7B1E27DC3300DEDC20 /* Info.plist */,
 			);
 			path = "SignalR-Swift-Example";
@@ -219,9 +217,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E64D911E27E47800DEDC20 /* Main.storyboard in Resources */,
 				C9E64D7A1E27DC3300DEDC20 /* LaunchScreen.storyboard in Resources */,
 				C9E64D771E27DC3300DEDC20 /* Assets.xcassets in Resources */,
-				C9E64D751E27DC3300DEDC20 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,20 +354,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C9E64D731E27DC3300DEDC20 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C9E64D741E27DC3300DEDC20 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C9E64D781E27DC3300DEDC20 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C9E64D791E27DC3300DEDC20 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C9E64D8F1E27E47800DEDC20 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9E64D901E27E47800DEDC20 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -547,6 +545,7 @@
 				C9E64D8B1E27DC3400DEDC20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9E64D8C1E27DC3400DEDC20 /* Build configuration list for PBXNativeTarget "SignalR-Swift-ExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -555,6 +554,7 @@
 				C9E64D8E1E27DC3400DEDC20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

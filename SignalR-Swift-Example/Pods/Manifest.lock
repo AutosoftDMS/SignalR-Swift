@@ -1,16 +1,29 @@
 PODS:
-  - SignalR-Swift (0.0.1)
+  - Alamofire (4.2.0)
+  - AlamofireObjectMapper (4.0.1):
+    - Alamofire (~> 4.1)
+    - ObjectMapper (~> 2.0)
+  - ObjectMapper (2.2.2)
+  - SignalRSwift (0.0.1):
+    - Alamofire (~> 4.2.0)
+    - AlamofireObjectMapper (~> 4.0)
+    - Starscream (~> 2.0.0)
+  - Starscream (2.0.2)
 
 DEPENDENCIES:
-  - SignalR-Swift (from `..`)
+  - SignalRSwift (from `../`)
 
 EXTERNAL SOURCES:
-  SignalR-Swift:
-    :path: ".."
+  SignalRSwift:
+    :path: "../"
 
 SPEC CHECKSUMS:
-  SignalR-Swift: c52e7a5b8e605288d21d2f04f9c50fbcec64736d
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  AlamofireObjectMapper: 842d2eed43a4d0593ff0110d54ac86a170c4519c
+  ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
+  SignalRSwift: 22b2735d45d1803fb7792e1e685d95b574bba312
+  Starscream: 6c135a34e0a6e60cedaa0b30db67a4c05cf7cd38
 
-PODFILE CHECKSUM: fb69854dbf3861da171aead34d36f09aec795133
+PODFILE CHECKSUM: 6fa37cc77306f26239ba0290aca56e4f46a7ed86
 
 COCOAPODS: 1.1.1

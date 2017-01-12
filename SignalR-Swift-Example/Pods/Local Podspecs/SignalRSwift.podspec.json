@@ -1,0 +1,37 @@
+{
+  "name": "SignalRSwift",
+  "version": "0.0.1",
+  "summary": "A short description of SignalR-Swift.",
+  "description": "This is a signalR client written purely in swift using Alamofire, Starscream and ObjectMapper",
+  "homepage": "http://EXAMPLE/SignalR-Swift",
+  "license": "MIT",
+  "authors": {
+    "Jordan Camara": "jcamara@autosoftdms.com"
+  },
+  "source": {
+    "git": "ssh://git@asigit:7999/srs/signalr-swift.git",
+    "tag": "0.0.1"
+  },
+  "source_files": [
+    "*",
+    "SignalR-Swift/*.swift"
+  ],
+  "exclude_files": "Classes/Exclude",
+  "dependencies": {
+    "Alamofire": [
+      "~> 4.2.0"
+    ],
+    "Starscream": [
+      "~> 2.0.0"
+    ],
+    "AlamofireObjectMapper": [
+      "~> 4.0"
+    ]
+  },
+  "platforms": {
+    "osx": null,
+    "ios": null,
+    "tvos": null,
+    "watchos": null
+  }
+}
