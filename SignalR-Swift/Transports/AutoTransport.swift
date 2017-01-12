@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class AutoTransport: HttpTransport {
+public class AutoTransport: HttpTransport {
     var transports = [ClientTransportProtocol]()
     var transport: ClientTransportProtocol?
 
@@ -31,7 +31,7 @@ class AutoTransport: HttpTransport {
 
     // MARK: - Client Transport Protocol
 
-    override var name: String? {
+    override public var name: String? {
         if self.transport == nil {
             return nil
         }
@@ -39,7 +39,7 @@ class AutoTransport: HttpTransport {
         return self.transport?.name
     }
 
-    override var supportsKeepAlive: Bool {
+    override public var supportsKeepAlive: Bool {
         if let transport = self.transport {
             return transport.supportsKeepAlive
         }
@@ -47,7 +47,7 @@ class AutoTransport: HttpTransport {
         return false
     }
 
-    override func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
+    override public func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         super.negotiate(connection: connection, connectionData: connectionData) { [unowned self] (response, error) in
 
             if error == nil {
@@ -66,7 +66,7 @@ class AutoTransport: HttpTransport {
         }
     }
 
-    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override public func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
         self.start(connection: connection, connectionData: connectionData, transportIndex: 0, completionHandler: completionHandler)
     }
 
@@ -101,11 +101,11 @@ class AutoTransport: HttpTransport {
         }
     }
 
-    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
+    override public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
         self.transport?.send(connection: connection, data: data, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override func lostConnection(connection: ConnectionProtocol) {
+    override public func lostConnection(connection: ConnectionProtocol) {
         self.transport?.lostConnection(connection: connection)
     }
 }

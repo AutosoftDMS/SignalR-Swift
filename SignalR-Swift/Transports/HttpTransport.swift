@@ -11,19 +11,19 @@ import Alamofire
 import ObjectMapper
 import AlamofireObjectMapper
 
-class HttpTransport: ClientTransportProtocol {
+public class HttpTransport: ClientTransportProtocol {
 
-    var name: String? {
+    public var name: String? {
         return ""
     }
 
-    var supportsKeepAlive: Bool {
+    public var supportsKeepAlive: Bool {
         return false
     }
 
     var startedAbort = false
 
-    func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
+    public func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         let url = connection.url.appending("negotiate")
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
@@ -44,11 +44,11 @@ class HttpTransport: ClientTransportProtocol {
         }
     }
 
-    func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    public func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
 
     }
 
-    func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T: Mappable {
+    public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T: Mappable {
         let url = connection.url.appending("send")
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
@@ -83,11 +83,11 @@ class HttpTransport: ClientTransportProtocol {
         return self.startedAbort
     }
 
-    func lostConnection(connection: ConnectionProtocol) {
+    public func lostConnection(connection: ConnectionProtocol) {
 
     }
 
-    func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
+    public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
         if timeout <= 0 {
             return
         }

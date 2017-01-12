@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HeartbeatMonitor {
+public class HeartbeatMonitor {
     private var beenWarned = false
     var hasBeenWarned: Bool! {
         return self.beenWarned

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KeepAliveData {
+public class KeepAliveData {
     var lastKeepAlive: Date?
     var timeout: Double!
     var timeoutWarning: Double!

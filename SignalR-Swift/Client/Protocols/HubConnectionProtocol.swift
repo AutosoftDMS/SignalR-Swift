@@ -8,9 +8,9 @@
 
 import Foundation
 
-typealias HubConnectionHubResultClosure = (HubResult?) -> ()
+public typealias HubConnectionHubResultClosure = (HubResult?) -> ()
 
-protocol HubConnectionProtocol: ConnectionProtocol {
+public protocol HubConnectionProtocol: ConnectionProtocol {
     func registerCallback(callback: @escaping HubConnectionHubResultClosure) -> String
     func removeCallback(callbackId: String)
 }

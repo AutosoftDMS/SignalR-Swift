@@ -8,9 +8,9 @@
 
 import Foundation
 
-class HubProxy: HubProxyProtocol {
+public class HubProxy: HubProxyProtocol {
 
-    var state = [String: Any]()
+    public var state = [String: Any]()
 
     private var connection: HubConnectionProtocol!
     private var hubName: String?
@@ -18,7 +18,7 @@ class HubProxy: HubProxyProtocol {
 
     // MARK: - Init
 
-    init(connection: HubConnectionProtocol, hubName: String) {
+    public init(connection: HubConnectionProtocol, hubName: String) {
         self.connection = connection
         self.hubName = hubName
     }
@@ -41,7 +41,7 @@ class HubProxy: HubProxyProtocol {
         return subscription!
     }
 
-    func invokeEvent(eventName: String, withArgs args: [Any]) {
+    public func invokeEvent(eventName: String, withArgs args: [Any]) {
         if let subscription = self.subscriptions[eventName], let handler = subscription.handler {
             handler(args)
         }

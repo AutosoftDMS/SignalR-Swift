@@ -13,32 +13,32 @@ import Alamofire
 
 typealias WebSocketStartClosure = ((_ response: String?, _ error: Error?) -> ())
 
-class WebSocketTransport: HttpTransport, WebSocketDelegate {
+public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     var reconnectDelay = 2.0
     private var connectionInfo: WebSocketConnectionInfo?
     private var webSocket: WebSocket?
     private var startClosure: WebSocketStartClosure?
 
-    override var name: String? {
+    override public var name: String? {
         return "webSockets"
     }
 
-    override var supportsKeepAlive: Bool {
+    override public var supportsKeepAlive: Bool {
         return true
     }
 
-    override func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
+    override public func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         super.negotiate(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override public func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
         self.connectionInfo = WebSocketConnectionInfo(connection: connection, data: connectionData)
 
         // perform connection
         self.performConnect(completionHandler: completionHandler)
     }
 
-    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
+    override public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
         self.webSocket?.write(string: data.toJSONString()!)
 
         if let handler = completionHandler {
@@ -46,12 +46,12 @@ class WebSocketTransport: HttpTransport, WebSocketDelegate {
         }
     }
 
-    override func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
+    override public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
         self.stopWebSocket()
         super.abort(connection: connection, timeout: timeout, connectionData: connectionData)
     }
 
-    override func lostConnection(connection: ConnectionProtocol) {
+    override public func lostConnection(connection: ConnectionProtocol) {
         self.stopWebSocket()
 
         if self.tryCompleteAbort() {
@@ -122,15 +122,15 @@ class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
     // MARK: - WebSocketDelegate
 
-    func websocketDidConnect(socket: WebSocket) {
+    public func websocketDidConnect(socket: WebSocket) {
         if let connection = self.connectionInfo?.connection, connection.changeState(oldState: .reconnecting, toState: .connected) {
             connection.didReconnect()
         }
     }
 
-    func websocketDidReceiveData(socket: WebSocket, data: Data) { }
+    public func websocketDidReceiveData(socket: WebSocket, data: Data) { }
 
-    func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+    public func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         var timedOut = false
         var disconnected = false
 
@@ -139,7 +139,7 @@ class WebSocketTransport: HttpTransport, WebSocketDelegate {
         }
     }
 
-    func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
+    public func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
         if self.tryCompleteAbort() {
             return
         }

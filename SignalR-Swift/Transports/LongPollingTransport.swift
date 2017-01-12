@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 import Alamofire
 
-class LongPollingTransport: HttpTransport {
+public class LongPollingTransport: HttpTransport {
     var reconnectDelay = 5.0
     var errorDelay = 2.0
     private var pollingOperationQueue = OperationQueue()
@@ -21,31 +21,31 @@ class LongPollingTransport: HttpTransport {
 
     // MARK: - Client Transport Protocol
 
-    override var name: String? {
+    override public var name: String? {
         return "longPolling"
     }
 
-    override var supportsKeepAlive: Bool {
+    override public var supportsKeepAlive: Bool {
         return false
     }
 
-    override func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
+    override public func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         super.negotiate(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override public func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
         self.poll(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
+    override public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
         super.send(connection: connection, data: data, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
+    override public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
         super.abort(connection: connection, timeout: timeout, connectionData: connectionData)
     }
 
-    override func lostConnection(connection: ConnectionProtocol) {
+    override public func lostConnection(connection: ConnectionProtocol) {
 
     }
 

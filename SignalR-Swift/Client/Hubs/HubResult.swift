@@ -16,7 +16,7 @@ private let kError = "E"
 private let kErrorData = "D"
 private let kState = "S"
 
-class HubResult: Mappable {
+public class HubResult: Mappable {
 
     var id: String?
 
@@ -32,11 +32,11 @@ class HubResult: Mappable {
         
     }
 
-    required init?(map: Map) {
+    required public init?(map: Map) {
 
     }
 
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         id <- map[kId]
         result <- map[kResult]
         hubException <- map[kHubException]

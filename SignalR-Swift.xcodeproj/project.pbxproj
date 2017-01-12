@@ -161,9 +161,9 @@
 				C91154701E2564C1007C0DD9 /* HubResult.swift */,
 				C91154721E2566DC007C0DD9 /* HubConnection.swift */,
 				C91154741E256721007C0DD9 /* HubProxy.swift */,
-				C91154781E256760007C0DD9 /* Subscription.swift */,
 				C911547A1E256F98007C0DD9 /* HubInvocation.swift */,
 				C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */,
+				C91154781E256760007C0DD9 /* Subscription.swift */,
 			);
 			path = Hubs;
 			sourceTree = "<group>";

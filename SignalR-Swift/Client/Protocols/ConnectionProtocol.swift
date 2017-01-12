@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import ObjectMapper
 
-protocol ConnectionProtocol {
+public protocol ConnectionProtocol {
     var version: Version { get set }
     var transportConnectTimeout: Double { get set }
     var keepAliveData: KeepAliveData? { get set }

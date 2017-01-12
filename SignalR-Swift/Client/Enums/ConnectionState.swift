@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ConnectionState : Int {
+public enum ConnectionState : Int {
     case connecting
     case connected
     case reconnecting

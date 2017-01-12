@@ -18,7 +18,7 @@ private let kTryWebSockets = "TryWebSockets"
 private let kKeepAliveTimeout = "KeepAliveTimeout"
 private let kTransportConnectTimeout = "TransportConnectTimeout"
 
-class NegotiationResponse: Mappable {
+public class NegotiationResponse: Mappable {
     var connectionId = ""
     var connectionToken = ""
 
@@ -31,11 +31,11 @@ class NegotiationResponse: Mappable {
     var keepAliveTimeout: Double?
     var transportConnectTimeout: Double?
 
-    required init?(map: Map) {
+    required public init?(map: Map) {
 
     }
 
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         connectionId <- map[kConnectionId]
         connectionToken <- map[kConnectionToken]
         url <- map[kUrl]

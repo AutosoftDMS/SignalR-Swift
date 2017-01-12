@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import ObjectMapper
 
-class Version : Equatable, CustomStringConvertible, Mappable {
+public class Version : Equatable, CustomStringConvertible, Mappable {
     var build = 0
     var major = 0
     var majorRevision = 0
@@ -18,11 +18,11 @@ class Version : Equatable, CustomStringConvertible, Mappable {
     var minorRevision = 0
     var revision = 0
 
-    required init?(map: Map) {
+    required public init?(map: Map) {
 
     }
 
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         build <- map["build"]
         major <- map["major"]
         majorRevision <- map["majorRevision"]
@@ -86,11 +86,11 @@ class Version : Equatable, CustomStringConvertible, Mappable {
         return true
     }
 
-    static func == (lhs: Version, rhs: Version) -> Bool {
+    public static func == (lhs: Version, rhs: Version) -> Bool {
         return (lhs.major == rhs.major) && (lhs.minor == rhs.minor) && (lhs.build == rhs.build) && (lhs.revision == rhs.revision)
     }
 
-    var description: String {
+    public var description: String {
         return "\(self.major).\(self.minor).\(self.build).\(self.revision)"
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-protocol ClientTransportProtocol {
+public protocol ClientTransportProtocol {
     var name: String? { get }
     var supportsKeepAlive: Bool { get }
     func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((_ response: NegotiationResponse?, _ error: Error?) -> ())?)

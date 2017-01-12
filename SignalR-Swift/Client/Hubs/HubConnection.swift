@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HubConnection: Connection, HubConnectionProtocol {
+public class HubConnection: Connection, HubConnectionProtocol {
 
     private var hubs = [String: HubProxy]()
     private var callbacks = [String: HubConnectionHubResultClosure]()
@@ -18,7 +18,7 @@ class HubConnection: Connection, HubConnectionProtocol {
         self.init(withUrl: url, useDefault: true)
     }
 
-    init(withUrl url: String, useDefault: Bool) {
+    public init(withUrl url: String, useDefault: Bool) {
         super.init(withUrl: HubConnection.getUrl(url: url, useDefault: useDefault))
     }
 
@@ -26,11 +26,11 @@ class HubConnection: Connection, HubConnectionProtocol {
         self.init(withUrl: url, queryString: queryString, useDefault: true)
     }
 
-    init(withUrl url: String, queryString: [String: String]?, useDefault: Bool) {
+    public init(withUrl url: String, queryString: [String: String]?, useDefault: Bool) {
         super.init(withUrl: HubConnection.getUrl(url: url, useDefault: useDefault), queryString: queryString)
     }
 
-    func createHubProxy(hubName: String) -> HubProxy? {
+    public func createHubProxy(hubName: String) -> HubProxy? {
         if self.state != .disconnected {
             NSException.raise(.internalInconsistencyException, format: NSLocalizedString("Proxies cannot be added after the connection has been started.", comment: "proxy added after connection starts exception"), arguments: getVaList(["nil"]))
         }
@@ -45,7 +45,7 @@ class HubConnection: Connection, HubConnectionProtocol {
         return proxy
     }
 
-    func registerCallback(callback: @escaping HubConnectionHubResultClosure) -> String {
+    public func registerCallback(callback: @escaping HubConnectionHubResultClosure) -> String {
         let newId = String(self.callbackId)
         self.callbacks[newId] = callback
         self.callbackId += 1
@@ -53,7 +53,7 @@ class HubConnection: Connection, HubConnectionProtocol {
         return newId
     }
 
-    func removeCallback(callbackId: String) {
+    public func removeCallback(callbackId: String) {
         self.callbacks.removeValue(forKey: callbackId)
     }
 
@@ -83,7 +83,7 @@ class HubConnection: Connection, HubConnectionProtocol {
 
     // MARK - Sending Data
 
-    override func onSending() -> String {
+    override public func onSending() -> String {
         var data = [HubRegistrationData]()
         for key in self.hubs.keys {
             let registration = HubRegistrationData()
@@ -96,11 +96,26 @@ class HubConnection: Connection, HubConnectionProtocol {
 
     // MARK: - Received Data
 
-    override func didReceiveData(data: Any) {
+    override public func didReceiveData(data: Any) {
+        if let dict = data as? [String: Any] {
+            if dict["I"] != nil, let result = HubResult(JSON: dict), let callback = self.callbacks[result.id!] {
+                callback(result)
+            } else if let invocation = HubInvocation(JSON: dict) {
+                if let hubProxy = self.hubs[invocation.hub.lowercased()] {
+                    if let state = invocation.state {
+                        for key in state.keys {
+                            hubProxy.state[key] = state[key]
+                        }
+                    }
+                    hubProxy.invokeEvent(eventName: invocation.method, withArgs: invocation.args)
+                }
 
+                super.didReceiveData(data: data)
+            }
+        }
     }
 
-    override func willReconnect() {
+    override public func willReconnect() {
         self.clearInvocationCallbacks(error: "Connection started reconnecting before invocation result was received.")
         super.willReconnect()
     }

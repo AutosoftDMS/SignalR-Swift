@@ -20,7 +20,7 @@ class HubInvocation: Mappable {
     var hub = ""
     var method = ""
     var args = [Any]()
-    var state = [String: Any]()
+    var state: [String: Any]?
 
     init() {
 

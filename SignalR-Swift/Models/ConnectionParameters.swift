@@ -20,11 +20,11 @@ class ConnectionParameters: Mappable {
         
     }
 
-    required init?(map: Map) {
+    required public init?(map: Map) {
 
     }
 
-    func mapping(map: Map) {
+    public func mapping(map: Map) {
         clientProtocol <- map["clientProtocol"]
         transport <- map["transport"]
         connectionData <- map["connectionData"]
