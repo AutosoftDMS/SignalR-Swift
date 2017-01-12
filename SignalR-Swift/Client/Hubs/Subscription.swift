@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Subscription {
+public class Subscription {
     var handler: (([Any]) -> ())?
 
     init() {

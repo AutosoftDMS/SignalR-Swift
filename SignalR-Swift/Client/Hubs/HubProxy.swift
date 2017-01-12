@@ -25,7 +25,7 @@ public class HubProxy: HubProxyProtocol {
 
     // MARK: - Subscribe
 
-    func on(eventName: String?, handler: @escaping ((_ args: [Any]) -> ())) -> Subscription? {
+    public func on(eventName: String?, handler: @escaping ((_ args: [Any]) -> ())) -> Subscription? {
         guard eventName != nil && !eventName!.isEmpty else {
             NSException.raise(.invalidArgumentException, format: NSLocalizedString("Argument eventName is null", comment: "null event name exception"), arguments: getVaList(["nil"]))
             return nil
