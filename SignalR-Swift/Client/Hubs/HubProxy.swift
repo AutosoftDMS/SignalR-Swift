@@ -49,7 +49,7 @@ public class HubProxy: HubProxyProtocol {
 
     // MARK: - Publish
 
-    func invoke(method: String?, withArgs args: [Any]) {
+    public func invoke(method: String?, withArgs args: [Any]) {
         self.invoke(method: method, withArgs: args)
     }
 
