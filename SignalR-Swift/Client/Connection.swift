@@ -11,14 +11,14 @@ import UIKit
 import Alamofire
 import ObjectMapper
 
-typealias ConnectionStartedClosure = (() -> ())
-typealias ConnectionReceivedClosure = ((Any) -> ())
-typealias ConnectionErrorClosure = ((Error) -> ())
-typealias ConnectionClosedClosure = (() -> ())
-typealias ConnectionReconnectingClosure = (() -> ())
-typealias ConnectionReconnectedClosure = (() -> ())
-typealias ConnectionStateChangedClosure = ((ConnectionState) -> ())
-typealias ConnectionConnectionSlowClosure = (() -> ())
+public typealias ConnectionStartedClosure = (() -> ())
+public typealias ConnectionReceivedClosure = ((Any) -> ())
+public typealias ConnectionErrorClosure = ((Error) -> ())
+public typealias ConnectionClosedClosure = (() -> ())
+public typealias ConnectionReconnectingClosure = (() -> ())
+public typealias ConnectionReconnectedClosure = (() -> ())
+public typealias ConnectionStateChangedClosure = ((ConnectionState) -> ())
+public typealias ConnectionConnectionSlowClosure = (() -> ())
 
 public class Connection: ConnectionProtocol {
     var defaultAbortTimeout = 30.0
@@ -48,14 +48,14 @@ public class Connection: ConnectionProtocol {
     public var transport: ClientTransportProtocol?
     public var transportConnectTimeout = 0.0
 
-    var started: ConnectionStartedClosure?
-    var received: ConnectionReceivedClosure?
-    var error: ConnectionErrorClosure?
-    var closed: ConnectionClosedClosure?
-    var reconnecting: ConnectionReconnectingClosure?
-    var reconnected: ConnectionReconnectedClosure?
-    var stateChanged: ConnectionStateChangedClosure?
-    var connectionSlow: ConnectionConnectionSlowClosure?
+    public var started: ConnectionStartedClosure?
+    public var received: ConnectionReceivedClosure?
+    public var error: ConnectionErrorClosure?
+    public var closed: ConnectionClosedClosure?
+    public var reconnecting: ConnectionReconnectingClosure?
+    public var reconnected: ConnectionReconnectedClosure?
+    public var stateChanged: ConnectionStateChangedClosure?
+    public var connectionSlow: ConnectionConnectionSlowClosure?
 
     weak var delegate: ConnectionDelegate?
 
