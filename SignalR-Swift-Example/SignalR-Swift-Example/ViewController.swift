@@ -9,7 +9,7 @@
 import UIKit
 import SignalRSwift
 
-class DemoViewController: UIViewController {
+class ViewController: UIViewController {
 
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var messageTextField: UITextField!
@@ -124,5 +124,3 @@ class DemoViewController: UIViewController {
      */
     
 }
-
-

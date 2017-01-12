@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SignalR_Swift
+@testable import SignalRSwift
 
 class SignalR_SwiftTests: XCTestCase {
     

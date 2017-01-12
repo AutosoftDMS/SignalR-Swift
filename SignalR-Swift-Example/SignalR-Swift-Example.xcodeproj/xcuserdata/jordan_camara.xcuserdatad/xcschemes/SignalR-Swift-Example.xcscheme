@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9E64D0C1E27CB3E00DEDC20"
+               BlueprintIdentifier = "C9E64D6B1E27DC3300DEDC20"
                BuildableName = "SignalR-Swift-Example.app"
                BlueprintName = "SignalR-Swift-Example"
                ReferencedContainer = "container:SignalR-Swift-Example.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9E64D201E27CB3E00DEDC20"
+               BlueprintIdentifier = "C9E64D7F1E27DC3400DEDC20"
                BuildableName = "SignalR-Swift-ExampleTests.xctest"
                BlueprintName = "SignalR-Swift-ExampleTests"
                ReferencedContainer = "container:SignalR-Swift-Example.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C9E64D0C1E27CB3E00DEDC20"
+            BlueprintIdentifier = "C9E64D6B1E27DC3300DEDC20"
             BuildableName = "SignalR-Swift-Example.app"
             BlueprintName = "SignalR-Swift-Example"
             ReferencedContainer = "container:SignalR-Swift-Example.xcodeproj">
@@ -65,7 +65,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C9E64D0C1E27CB3E00DEDC20"
+            BlueprintIdentifier = "C9E64D6B1E27DC3300DEDC20"
             BuildableName = "SignalR-Swift-Example.app"
             BlueprintName = "SignalR-Swift-Example"
             ReferencedContainer = "container:SignalR-Swift-Example.xcodeproj">
@@ -84,7 +84,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C9E64D0C1E27CB3E00DEDC20"
+            BlueprintIdentifier = "C9E64D6B1E27DC3300DEDC20"
             BuildableName = "SignalR-Swift-Example.app"
             BlueprintName = "SignalR-Swift-Example"
             ReferencedContainer = "container:SignalR-Swift-Example.xcodeproj">
