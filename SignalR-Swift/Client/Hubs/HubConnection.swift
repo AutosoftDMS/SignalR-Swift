@@ -14,7 +14,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
     private var callbacks = [String: HubConnectionHubResultClosure]()
     private var callbackId = 0
 
-    override convenience init(withUrl url: String) {
+    override public convenience init(withUrl url: String) {
         self.init(withUrl: url, useDefault: true)
     }
 
@@ -22,7 +22,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
         super.init(withUrl: HubConnection.getUrl(url: url, useDefault: useDefault))
     }
 
-    override convenience init(withUrl url: String, queryString: [String: String]?) {
+    override public convenience init(withUrl url: String, queryString: [String: String]?) {
         self.init(withUrl: url, queryString: queryString, useDefault: true)
     }
 

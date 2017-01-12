@@ -59,11 +59,11 @@ public class Connection: ConnectionProtocol {
 
     weak var delegate: ConnectionDelegate?
 
-    static func connection(withUrl url: String) -> Connection {
+    public static func connection(withUrl url: String) -> Connection {
         return Connection(withUrl: url)
     }
 
-    static func connection(withUrl url: String, queryString: [String: String]?) -> Connection {
+    public static func connection(withUrl url: String, queryString: [String: String]?) -> Connection {
         return Connection(withUrl: url, queryString: queryString)
     }
 
@@ -79,12 +79,12 @@ public class Connection: ConnectionProtocol {
         return connection!.state == .reconnecting
     }
 
-    init(withUrl url: String) {
+    public init(withUrl url: String) {
         self.url = url.hasSuffix("/") ? url : url.appending("/")
         self.queryString = nil
     }
 
-    init(withUrl url: String, queryString: [String: String]?) {
+    public init(withUrl url: String, queryString: [String: String]?) {
         self.url = url.hasSuffix("/") ? url : url.appending("/")
         self.queryString = queryString
     }
