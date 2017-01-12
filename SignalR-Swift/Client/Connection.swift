@@ -91,11 +91,11 @@ public class Connection: ConnectionProtocol {
 
     // MARK: - Connection management
 
-    func start() {
+    public func start() {
         self.start(transport: AutoTransport())
     }
 
-    func start(transport: ClientTransportProtocol) {
+    public func start(transport: ClientTransportProtocol) {
         if !self.changeState(oldState: .disconnected, toState: .connecting) {
             return
         }
