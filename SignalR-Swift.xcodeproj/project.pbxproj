@@ -26,6 +26,7 @@
 		C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */; };
 		C9330B371E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9330B361E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift */; };
 		C9330B391E1FE59A00B1F2D5 /* SignalR-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C9B9229D1E295AD7007C2266 /* String+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B9229C1E295AD7007C2266 /* String+Dictionary.swift */; };
 		C9E1C9F81E1FEEF800335B1E /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1C9F71E1FEEF800335B1E /* Connection.swift */; };
 		C9E1C9FB1E1FF03400335B1E /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1C9FA1E1FF03400335B1E /* ConnectionState.swift */; };
 		C9E1CA041E1FF3B700335B1E /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1CA031E1FF3B700335B1E /* Version.swift */; };
@@ -79,6 +80,7 @@
 		C9330B311E1FE59A00B1F2D5 /* SignalR-SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SignalR-SwiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330B361E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalR_SwiftTests.swift; sourceTree = "<group>"; };
 		C9330B381E1FE59A00B1F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9B9229C1E295AD7007C2266 /* String+Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Dictionary.swift"; sourceTree = "<group>"; };
 		C9E1C9F71E1FEEF800335B1E /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		C9E1C9FA1E1FF03400335B1E /* ConnectionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
 		C9E1CA031E1FF3B700335B1E /* Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		C9330B2A1E1FE59A00B1F2D5 /* SignalR-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				C9B9229B1E295A78007C2266 /* Extensions */,
 				C911545F1E23D205007C0DD9 /* Models */,
 				C9E1C9F61E1FEEBE00335B1E /* Client */,
 				C9FC2D931E2025990027FE59 /* Transports */,
@@ -205,6 +208,14 @@
 				C9330B381E1FE59A00B1F2D5 /* Info.plist */,
 			);
 			path = "SignalR-SwiftTests";
+			sourceTree = "<group>";
+		};
+		C9B9229B1E295A78007C2266 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C9B9229C1E295AD7007C2266 /* String+Dictionary.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C9E1C9F61E1FEEBE00335B1E /* Client */ = {
@@ -461,6 +472,7 @@
 			files = (
 				C9E1C9F81E1FEEF800335B1E /* Connection.swift in Sources */,
 				C91154731E2566DC007C0DD9 /* HubConnection.swift in Sources */,
+				C9B9229D1E295AD7007C2266 /* String+Dictionary.swift in Sources */,
 				C91154611E23D20E007C0DD9 /* ConnectionParameters.swift in Sources */,
 				C9E1CA061E1FFADA00335B1E /* HeartbeatMonitor.swift in Sources */,
 				C91154791E256760007C0DD9 /* Subscription.swift in Sources */,

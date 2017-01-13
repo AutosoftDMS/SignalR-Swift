@@ -176,11 +176,9 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         var timedOut = false
         var disconnected = false
 
-        if let connection = self.connectionInfo?.connection {
-            connection.processResponse(response: text, shouldReconnect: &timedOut, disconnected: &disconnected)
+        if let connection = self.connectionInfo?.connection, let data = text.toDictionary() {
+            connection.processResponse(response: data, shouldReconnect: &timedOut, disconnected: &disconnected)
         }
-
-        print("Received Message: \(text)")
 
         if let startClosure = self.startClosure, let connectTimeoutOperation = self.connectTimeoutOperation {
             NSObject.cancelPreviousPerformRequests(withTarget: connectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)

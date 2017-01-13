@@ -17,7 +17,7 @@ class ReceivedMessage: Mappable {
 
     var groupsToken: String?
     var messageId: String?
-    var messages: [String]?
+    var messages: [Any]?
 
     required init?(map: Map) {
 

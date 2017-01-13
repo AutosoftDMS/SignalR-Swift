@@ -369,8 +369,8 @@ public class Connection: ConnectionProtocol {
         }
 
         if let responseDict = response as? [String: Any], let message = ReceivedMessage(JSON: responseDict) {
-            if let resultMessage = message.result {
-                self.didReceiveData(data: resultMessage)
+            if let _ = message.result {
+                self.didReceiveData(data: responseDict)
             }
 
             if let disconnected = message.disconnected, disconnected {
