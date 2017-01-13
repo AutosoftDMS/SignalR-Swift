@@ -50,7 +50,7 @@ public class HubProxy: HubProxyProtocol {
     // MARK: - Publish
 
     public func invoke(method: String?, withArgs args: [Any]) {
-        self.invoke(method: method, withArgs: args)
+        self.invoke(method: method, withArgs: args, completionHandler: nil)
     }
 
     func invoke(method: String?, withArgs args: [Any], completionHandler: ((Any?, Error?) -> ())?) {

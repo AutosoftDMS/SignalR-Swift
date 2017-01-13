@@ -40,7 +40,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     }
 
     override public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
-        self.webSocket?.send(data.toJSON())
+        self.webSocket?.send(text: data.toJSONString()!)
 
         if let handler = completionHandler {
             handler(nil, nil)
@@ -180,8 +180,10 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             connection.processResponse(response: text, shouldReconnect: &timedOut, disconnected: &disconnected)
         }
 
-        if let startClosure = self.startClosure {
-            NSObject.cancelPreviousPerformRequests(withTarget: self.connectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
+        print("Received Message: \(text)")
+
+        if let startClosure = self.startClosure, let connectTimeoutOperation = self.connectTimeoutOperation {
+            NSObject.cancelPreviousPerformRequests(withTarget: connectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
             self.connectTimeoutOperation = nil
 
             self.startClosure = nil
