@@ -342,10 +342,12 @@ public class Connection: ConnectionProtocol {
 
     public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double) -> DataRequest {
         self.headers["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = timeout
-        let manager = Alamofire.SessionManager(configuration: configuration)
-        return manager.request(url, method: httpMethod, parameters: parameters, encoding: encoding, headers: self.headers)
+
+        var urlRequest = try? URLRequest(url: url.asURL(), method: httpMethod, headers: self.headers)
+        urlRequest?.timeoutInterval = timeout
+
+        let encodedURLRequest = try? encoding.encode(urlRequest!, with: parameters)
+        return Alamofire.request(encodedURLRequest!)
     }
 
     func createUserAgentString(client: String) -> String {
