@@ -37,7 +37,6 @@
 		C9FC2D951E2025B80027FE59 /* AutoTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D941E2025B80027FE59 /* AutoTransport.swift */; };
 		C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */; };
 		C9FC2D991E23BC600027FE59 /* ConnectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D981E23BC600027FE59 /* ConnectionDelegate.swift */; };
-		E9F26EC5EFFC4FD08A0158BB /* Pods_SignalR_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024E4E8C48AB529FE2E25FA4 /* Pods_SignalR_Swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,7 +97,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9F26EC5EFFC4FD08A0158BB /* Pods_SignalR_Swift.framework in Frameworks */,
 				92C2EF866E5552EF8D15CBC4 /* Pods_SignalRSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

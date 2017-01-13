@@ -174,7 +174,7 @@ public class Connection: ConnectionProtocol {
     func verifyProtocolVersion(versionString: String?) {
         var version: Version?
 
-        if versionString == nil || versionString!.isEmpty || Version.parse(input: versionString, forVersion: &version) || version == self.version {
+        if versionString == nil || versionString!.isEmpty || !Version.parse(input: versionString, forVersion: &version) || version != self.version {
             NSException.raise(.internalInconsistencyException, format: NSLocalizedString("Incompatible Protocol Version", comment: "internal inconsistency exception"), arguments: getVaList(["nil"]))
         }
     }

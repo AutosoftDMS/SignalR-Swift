@@ -89,7 +89,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             }
         }
 
-        let url = reconnecting ? "reconnect" : "connect"
+        let url = reconnecting ? connection!.url.appending("reconnect") : connection!.url.appending("connect")
 
         let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters)
 
