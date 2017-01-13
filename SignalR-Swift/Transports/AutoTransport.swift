@@ -19,7 +19,7 @@ public class AutoTransport: HttpTransport {
 
             //TODO: implement server sent events. it was decided that for now web sockets and long polling should be enough
 
-//            LongPollingTransport()
+            LongPollingTransport()
         ]
 
         self.init(withTransports: transports)

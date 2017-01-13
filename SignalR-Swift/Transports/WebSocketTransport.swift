@@ -77,7 +77,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     func performConnect(reconnecting: Bool, completionHandler: ((_ response: String?, _ error: Error?) -> ())?) {
         let connection = self.connectionInfo?.connection
         var parameters: [String: Any] = [
-            "transport": self.name ?? "",
+            "transport": self.name!,
             "connectionToken": connection?.connectionToken ?? "",
             "messageId": connection?.messageId ?? "",
             "groupsToken": connection?.groupsToken ?? "",

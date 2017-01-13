@@ -55,8 +55,7 @@ public class HttpTransport: ClientTransportProtocol {
 
         let encodedRequest = Alamofire.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.default, headers: nil)
 
-        let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: JSONEncoding.default, parameters: ["data": data.toJSON()])
-
+        let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: ["data": data.toJSON()])
         request.validate().responseJSON { (response: DataResponse<Any>) in
             switch response.result {
             case .success(let result):

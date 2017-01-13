@@ -66,7 +66,7 @@ public class LongPollingTransport: HttpTransport {
         self.delayConnectionReconnect(connection: connection, canReconnect: &canReconnect)
 
         var parameters: [String: Any] = [
-            "transport": self.name ?? "",
+            "transport": self.name!,
             "connectionToken": connection.connectionToken ?? "",
             "messageId": connection.messageId ?? "",
             "groupsToken": connection.groupsToken ?? "",
@@ -79,10 +79,12 @@ public class LongPollingTransport: HttpTransport {
             }
         }
 
-        let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters, timeout: 240)
-        request.validate().responseString { [unowned self] (response) in
+        let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
+        request.validate().responseJSON { [unowned self] (response) in
             switch response.result {
             case .success(let result):
+
+                print("Response: \(result)")
 
                 var shouldReconnect = false
                 var disconnectedReceived = false
