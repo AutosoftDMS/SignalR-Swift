@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SignalR-Swift/Client/Connection.swift"
-            timestampString = "505931062.501358"
+            filePath = "SignalR-Swift/Transports/WebSocketTransport.swift"
+            timestampString = "505937993.420865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "negotiate(transport:)"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "negotiate(connection:connectionData:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SignalR-Swift/Transports/LongPollingTransport.swift"
+            timestampString = "505938003.21948"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "negotiate(connection:connectionData:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

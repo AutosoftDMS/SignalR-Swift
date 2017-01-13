@@ -28,7 +28,7 @@ public class HttpTransport: ClientTransportProtocol {
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-        let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters.toJSON(), timeout: 30.0)
+        let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters.toJSON(), timeout: 30.0)
 
         encodedRequest.validate().responseObject { (response: DataResponse<NegotiationResponse>) in
             switch response.result {
@@ -53,7 +53,7 @@ public class HttpTransport: ClientTransportProtocol {
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-        let encodedRequest = Alamofire.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.queryString, headers: nil)
+        let encodedRequest = Alamofire.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.default, headers: nil)
 
         let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: JSONEncoding.default, parameters: ["data": data.toJSON()])
 
@@ -99,7 +99,7 @@ public class HttpTransport: ClientTransportProtocol {
 
             let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-            let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters.toJSON(), timeout: 2.0)
+            let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters.toJSON(), timeout: 2.0)
 
             let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: JSONEncoding.default, parameters: nil)
             request.validate().responseJSON(completionHandler: { (response) in
@@ -115,7 +115,7 @@ public class HttpTransport: ClientTransportProtocol {
 
     func getConnectionParameters(connection: ConnectionProtocol, connectionData: String) -> ConnectionParameters {
         let parameters = ConnectionParameters()
-        parameters.clientProtocol = connection.version
+        parameters.clientProtocol = connection.version.description
         parameters.transport = self.name
         parameters.connectionData = connectionData
         parameters.connectionToken = connection.connectionToken

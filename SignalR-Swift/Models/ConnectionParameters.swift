@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class ConnectionParameters: Mappable {
-    var clientProtocol: Version?
+    var clientProtocol: String?
     var connectionData: String?
     var connectionToken: String?
     var transport: String?

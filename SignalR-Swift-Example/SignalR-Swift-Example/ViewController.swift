@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         connection = HubConnection(withUrl: "http://swiftr.azurewebsites.net") //SignalR("http://swiftr.azurewebsites.net")
         //        connection.signalRVersion = .v2_2_0
 
-        chatHub = HubProxy(connection: self.connection, hubName: "chatHub") //Hub("chatHub")
+        chatHub = self.connection.createHubProxy(hubName: "chatHub")
         _ = chatHub.on(eventName: "broadcastMessage") { (args) in
             if let name = args[0] as? String, let message = args[1] as? String, let text = self.chatTextView.text {
                 self.chatTextView.text = "\(text)\n\n\(name): \(message)"

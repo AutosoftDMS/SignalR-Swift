@@ -350,10 +350,10 @@ public class Connection: ConnectionProtocol {
 
     func createUserAgentString(client: String) -> String {
         if self.assemblyVersion == nil {
-            self.assemblyVersion = Version(major: 2, minor: 0, build: 0, revision: 0)
+            self.assemblyVersion = Version(major: 2, minor: 0)
         }
 
-        return "\(client)/\(self.assemblyVersion) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
+        return "\(client)/\(self.assemblyVersion!) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
     }
 
     public func processResponse(response: Any?, shouldReconnect: inout Bool, disconnected: inout Bool) {

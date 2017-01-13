@@ -53,7 +53,7 @@ public class AutoTransport: HttpTransport {
             if error == nil {
                 if let tryWebSockets = response?.tryWebSockets, !tryWebSockets {
                     if let invalidIndex = self.transports.index(where: { (element) -> Bool in
-                        element.name == "webSockets"
+                        element.name == "webSockets" 
                     }) {
                         self.transports.remove(at: invalidIndex)
                     }
