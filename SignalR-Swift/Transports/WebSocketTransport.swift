@@ -8,7 +8,7 @@
 
 import Foundation
 import ObjectMapper
-import Starscream
+import SwiftWebSocket
 import Alamofire
 
 typealias WebSocketStartClosure = ((_ response: String?, _ error: Error?) -> ())
@@ -18,6 +18,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     private var connectionInfo: WebSocketConnectionInfo?
     private var webSocket: WebSocket?
     private var startClosure: WebSocketStartClosure?
+    private var connectTimeoutOperation: BlockOperation?
 
     override public var name: String? {
         return "webSockets"
@@ -39,7 +40,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     }
 
     override public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
-        self.webSocket?.write(string: data.toJSONString()!)
+        self.webSocket?.send(data.toJSON())
 
         if let handler = completionHandler {
             handler(nil, nil)
@@ -63,7 +64,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
     private func stopWebSocket() {
         self.webSocket?.delegate = nil
-        self.webSocket?.disconnect()
+        self.webSocket?.close()
         self.webSocket = nil
     }
 
@@ -89,27 +90,48 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             }
         }
 
-        let url = reconnecting ? connection!.url.appending("reconnect") : connection!.url.appending("connect")
-
-        let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.queryString, parameters: parameters)
-
-        self.startClosure = completionHandler
-        if let startClosure = self.startClosure {
-            let userInfo = [
-                NSLocalizedDescriptionKey: NSLocalizedString("Connection timed out.", comment: "timeout error description"),
-                NSLocalizedFailureReasonErrorKey: NSLocalizedString("Connection did not receive initialized message before the timeout.", comment: "timeout error reason"),
-                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("Retry or switch transports.", comment: "timeout error retry suggestion")
-            ]
-            let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: NSURLErrorTimedOut, userInfo: userInfo)
-            self.stopWebSocket()
-
-            startClosure(nil, error)
-            self.startClosure = nil
+        var urlComponents = URLComponents(string: connection!.url)
+        if let urlScheme = urlComponents?.scheme {
+            if urlScheme.hasPrefix("http") {
+                urlComponents?.scheme = "ws"
+            } else if urlScheme.hasPrefix("https") {
+                urlComponents?.scheme = "wss"
+            }
         }
 
-        self.webSocket = WebSocket(url: request!.request!.url!)
-        self.webSocket?.delegate = self
-        self.webSocket?.connect()
+        do {
+            let baseUrl = try urlComponents?.asURL()
+
+            let url = reconnecting ? baseUrl!.absoluteString.appending("reconnect") : baseUrl!.absoluteString.appending("connect")
+
+            let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters)
+
+            self.startClosure = completionHandler
+            if let startClosure = self.startClosure {
+                self.connectTimeoutOperation = BlockOperation(block: { [unowned self] in
+                    let userInfo = [
+                        NSLocalizedDescriptionKey: NSLocalizedString("Connection timed out.", comment: "timeout error description"),
+                        NSLocalizedFailureReasonErrorKey: NSLocalizedString("Connection did not receive initialized message before the timeout.", comment: "timeout error reason"),
+                        NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("Retry or switch transports.", comment: "timeout error retry suggestion")
+                    ]
+                    let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: NSURLErrorTimedOut, userInfo: userInfo)
+                    self.stopWebSocket()
+
+                    startClosure(nil, error)
+                    self.startClosure = nil
+                })
+
+                self.connectTimeoutOperation?.perform(#selector(BlockOperation.start), with: nil, afterDelay: connection!.transportConnectTimeout)
+            }
+
+            if let encodedRequest = request?.request {
+                self.webSocket = WebSocket(request: encodedRequest)
+                self.webSocket?.delegate = self
+                self.webSocket?.open()
+            }
+        } catch {
+
+        }
     }
 
     func reconnect(connection: ConnectionProtocol?) {
@@ -122,28 +144,45 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
     // MARK: - WebSocketDelegate
 
-    public func websocketDidConnect(socket: WebSocket) {
+    public func webSocketOpen() {
         if let connection = self.connectionInfo?.connection, connection.changeState(oldState: .reconnecting, toState: .connected) {
             connection.didReconnect()
         }
     }
 
-    public func websocketDidReceiveData(socket: WebSocket, data: Data) { }
+    public func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
+        if self.tryCompleteAbort() {
+            return
+        }
 
-    public func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+        self.reconnect(connection: self.connectionInfo?.connection)
+    }
+
+    public func webSocketError(_ error: NSError) {
+        if let startClosure = self.startClosure, let connectTimeoutOperation = self.connectTimeoutOperation {
+            NSObject.cancelPreviousPerformRequests(withTarget: connectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
+
+            self.connectTimeoutOperation = nil
+            self.stopWebSocket()
+
+            startClosure(nil, error)
+            self.startClosure = nil
+        } else if self.startedAbort == nil {
+            self.reconnect(connection: self.connectionInfo?.connection)
+        }
+    }
+
+    public func webSocketMessageText(_ text: String) {
         var timedOut = false
         var disconnected = false
 
         if let connection = self.connectionInfo?.connection {
             connection.processResponse(response: text, shouldReconnect: &timedOut, disconnected: &disconnected)
         }
-    }
 
-    public func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
-        if self.tryCompleteAbort() {
-            return
+        if disconnected {
+            self.connectionInfo?.connection?.disconnect()
+            self.stopWebSocket()
         }
-
-        self.reconnect(connection: self.connectionInfo?.connection)
     }
 }

@@ -21,8 +21,8 @@
     "Alamofire": [
       "~> 4.2.0"
     ],
-    "Starscream": [
-      "~> 2.0.0"
+    "SwiftWebSocket": [
+
     ],
     "AlamofireObjectMapper": [
       "~> 4.0"

@@ -7,7 +7,7 @@ target 'SignalRSwift' do
   
   # Pods for SignalR-Swift
   pod 'Alamofire', '~> 4.2.0'
-  pod 'Starscream', '~> 2.0.0'
+  pod 'SwiftWebSocket'
   pod 'AlamofireObjectMapper', '~> 4.0'
 
   target 'SignalR-SwiftTests' do

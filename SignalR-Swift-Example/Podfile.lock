@@ -7,8 +7,8 @@ PODS:
   - SignalRSwift (0.0.1):
     - Alamofire (~> 4.2.0)
     - AlamofireObjectMapper (~> 4.0)
-    - Starscream (~> 2.0.0)
-  - Starscream (2.0.2)
+    - SwiftWebSocket
+  - SwiftWebSocket (2.6.5)
 
 DEPENDENCIES:
   - SignalRSwift (from `../`)
@@ -21,8 +21,8 @@ SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   AlamofireObjectMapper: 842d2eed43a4d0593ff0110d54ac86a170c4519c
   ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
-  SignalRSwift: 22b2735d45d1803fb7792e1e685d95b574bba312
-  Starscream: 6c135a34e0a6e60cedaa0b30db67a4c05cf7cd38
+  SignalRSwift: 01b36e5a266ebc96ed80546ec72151087a11de98
+  SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
 
 PODFILE CHECKSUM: 6fa37cc77306f26239ba0290aca56e4f46a7ed86
 

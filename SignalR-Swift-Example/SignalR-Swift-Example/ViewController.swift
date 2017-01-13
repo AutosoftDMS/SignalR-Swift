@@ -34,23 +34,17 @@ class ViewController: UIViewController {
             }
         }
 
-        //        connection.addHub(chatHub)
-
         // SignalR events
 
         connection.started = { [unowned self] in
-            self.statusLabel.text = "Started..."
+            self.statusLabel.text = "Connected"
+            self.startButton.isEnabled = true
+            self.startButton.title = "Stop"
+            self.sendButton.isEnabled = true
         }
 
         connection.reconnecting = { [unowned self] in
             self.statusLabel.text = "Reconnection..."
-        }
-
-        connection.reconnected = { [unowned self] in
-            self.statusLabel.text = "Reconnected"
-            self.startButton.isEnabled = true
-            self.startButton.title = "Stop"
-            self.sendButton.isEnabled = true
         }
 
         connection.closed = { [unowned self] in

@@ -21,7 +21,7 @@ public class HttpTransport: ClientTransportProtocol {
         return false
     }
 
-    var startedAbort = false
+    var startedAbort: Bool?
 
     public func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         let url = connection.url.appending("negotiate")
@@ -80,7 +80,10 @@ public class HttpTransport: ClientTransportProtocol {
     }
 
     func tryCompleteAbort() -> Bool {
-        return self.startedAbort
+        if let abort = self.startedAbort {
+            return abort
+        }
+        return false
     }
 
     public func lostConnection(connection: ConnectionProtocol) {
@@ -92,7 +95,7 @@ public class HttpTransport: ClientTransportProtocol {
             return
         }
 
-        if !self.startedAbort {
+        if let abort = self.startedAbort, !abort {
             self.startedAbort = true
 
             let url = connection.url.appending("abort")

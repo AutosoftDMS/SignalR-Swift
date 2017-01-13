@@ -4,19 +4,19 @@ PODS:
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 2.0)
   - ObjectMapper (2.2.2)
-  - Starscream (2.0.2)
+  - SwiftWebSocket (2.6.5)
 
 DEPENDENCIES:
   - Alamofire (~> 4.2.0)
   - AlamofireObjectMapper (~> 4.0)
-  - Starscream (~> 2.0.0)
+  - SwiftWebSocket
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   AlamofireObjectMapper: 842d2eed43a4d0593ff0110d54ac86a170c4519c
   ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
-  Starscream: 6c135a34e0a6e60cedaa0b30db67a4c05cf7cd38
+  SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
 
-PODFILE CHECKSUM: 9707c9c86179d46a41f2557e820f22fb6eea8428
+PODFILE CHECKSUM: 2507bb67775d21b96d7be9ae5fc92e60a4ee4bb1
 
 COCOAPODS: 1.1.1

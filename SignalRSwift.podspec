@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  s.description  = "This is a signalR client written purely in swift using Alamofire, Starscream and ObjectMapper"
+  s.description  = "This is a signalR client written purely in swift using Alamofire, SwiftWebSockets and ObjectMapper"
 
   s.homepage     = "http://EXAMPLE/SignalR-Swift"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
@@ -133,7 +133,7 @@ Pod::Spec.new do |s|
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
   s.dependency "Alamofire", "~> 4.2.0"
-  s.dependency "Starscream", "~> 2.0.0"
+  s.dependency "SwiftWebSocket"
   s.dependency "AlamofireObjectMapper", "~> 4.0"
 
 end

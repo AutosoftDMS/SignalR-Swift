@@ -119,7 +119,7 @@ public class LongPollingTransport: HttpTransport {
 
                     canReconnect = true
 
-                    _ = BlockOperation(block: { [unowned self] () -> () in
+                    _ = BlockOperation(block: { [unowned self] in
                         self.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
                     }).perform(#selector(BlockOperation.start), with: nil, afterDelay: self.errorDelay)
                 } else {
@@ -139,7 +139,7 @@ public class LongPollingTransport: HttpTransport {
             if canReconnect {
                 canReconnect = false
 
-                _ = BlockOperation(block: { [unowned self] () -> () in
+                _ = BlockOperation(block: { [unowned self] in
                     self.connectionReconnect(connection: connection, canReconnect: canReconnectCopy)
                 }).perform(#selector(BlockOperation.start), with: nil, afterDelay: self.reconnectDelay)
             }
