@@ -104,7 +104,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
             let url = reconnecting ? baseUrl!.absoluteString.appending("reconnect") : baseUrl!.absoluteString.appending("connect")
 
-            let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters)
+            let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30)
 
             self.startClosure = completionHandler
             if let startClosure = self.startClosure {
@@ -117,8 +117,8 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
                     let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: NSURLErrorTimedOut, userInfo: userInfo)
                     self.stopWebSocket()
 
-                    startClosure(nil, error)
                     self.startClosure = nil
+                    startClosure(nil, error)
                 })
 
                 self.connectTimeoutOperation?.perform(#selector(BlockOperation.start), with: nil, afterDelay: connection!.transportConnectTimeout)
@@ -165,8 +165,8 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             self.connectTimeoutOperation = nil
             self.stopWebSocket()
 
-            startClosure(nil, error)
             self.startClosure = nil
+            startClosure(nil, error)
         } else if self.startedAbort == nil {
             self.reconnect(connection: self.connectionInfo?.connection)
         }
@@ -178,6 +178,14 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
         if let connection = self.connectionInfo?.connection {
             connection.processResponse(response: text, shouldReconnect: &timedOut, disconnected: &disconnected)
+        }
+
+        if let startClosure = self.startClosure {
+            NSObject.cancelPreviousPerformRequests(withTarget: self.connectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
+            self.connectTimeoutOperation = nil
+
+            self.startClosure = nil
+            startClosure(nil, nil)
         }
 
         if disconnected {
