@@ -13,9 +13,10 @@ import Alamofire
 public class LongPollingTransport: HttpTransport {
     var reconnectDelay = 5.0
     var errorDelay = 2.0
-    private var pollingOperationQueue = DispatchQueue(label: "com.autosoftdms.SignalR-Swift.pollingOperations")
+    private var pollingOperationQueue = OperationQueue()
 
     override init() {
+        self.pollingOperationQueue.maxConcurrentOperationCount = 1
     }
 
     // MARK: - Client Transport Protocol
@@ -78,8 +79,8 @@ public class LongPollingTransport: HttpTransport {
             }
         }
 
-        let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
-        self.pollingOperationQueue.async {
+        self.pollingOperationQueue.addOperation {
+            let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
             request.validate().responseJSON { [weak self] (response) in
                 switch response.result {
                 case .success(let result):
