@@ -44,7 +44,14 @@ class ViewController: UIViewController {
         }
 
         connection.reconnecting = { [unowned self] in
-            self.statusLabel.text = "Reconnection..."
+            self.statusLabel.text = "Reconnecting..."
+        }
+
+        connection.reconnected = { [unowned self] in
+            self.statusLabel.text = "Reconnected. Connection ID: \(self.connection!.connectionId!)"
+            self.startButton.isEnabled = true
+            self.startButton.title = "Stop"
+            self.sendButton.isEnabled = true
         }
 
         connection.closed = { [unowned self] in

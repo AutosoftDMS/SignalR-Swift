@@ -79,8 +79,8 @@ public class HttpTransport: ClientTransportProtocol {
     }
 
     func tryCompleteAbort() -> Bool {
-        if let abort = self.startedAbort {
-            return abort
+        if let _ = self.startedAbort {
+            return true
         }
         return false
     }

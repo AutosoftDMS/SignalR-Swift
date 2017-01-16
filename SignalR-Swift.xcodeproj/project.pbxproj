@@ -218,6 +218,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C9B922A01E297486007C2266 /* ServerSentEvents */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ServerSentEvents;
+			sourceTree = "<group>";
+		};
 		C9E1C9F61E1FEEBE00335B1E /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +272,7 @@
 		C9FC2D931E2025990027FE59 /* Transports */ = {
 			isa = PBXGroup;
 			children = (
+				C9B922A01E297486007C2266 /* ServerSentEvents */,
 				C91154641E24122C007C0DD9 /* WebSockets */,
 				C9FC2D941E2025B80027FE59 /* AutoTransport.swift */,
 				C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */,
