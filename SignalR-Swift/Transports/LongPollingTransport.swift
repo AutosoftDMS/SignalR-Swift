@@ -79,60 +79,59 @@ public class LongPollingTransport: HttpTransport {
             }
         }
 
-        let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
-        request.validate().responseJSON { [unowned self] (response) in
-            switch response.result {
-            case .success(let result):
+        self.pollingOperationQueue.addOperation {
+            let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
+            request.validate().responseJSON { [weak self] (response) in
+                switch response.result {
+                case .success(let result):
 
-                print("Response: \(result)")
+                    var shouldReconnect = false
+                    var disconnectedReceived = false
 
-                var shouldReconnect = false
-                var disconnectedReceived = false
+                    connection.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
 
-                connection.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
-
-                if let handler = completionHandler {
-                    handler(nil, nil)
-                }
-
-                if self.isConnectionReconnecting(connection: connection) {
-                    self.connectionReconnect(connection: connection, canReconnect: canReconnect)
-                }
-
-                if shouldReconnect {
-                    _ = Connection.ensureReconnecting(connection: connection)
-                }
-
-                if disconnectedReceived {
-                    connection.disconnect()
-                }
-
-                if !self.tryCompleteAbort() {
-                    canReconnect = true
-                    self.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
-                }
-            case .failure(let error):
-                canReconnect = false
-
-                _ = Connection.ensureReconnecting(connection: connection)
-
-                if !self.tryCompleteAbort() && ExceptionHelper.isRequestAborted(error: (error as NSError)) {
-                    connection.didReceiveError(error: error)
-
-                    canReconnect = true
-
-                    _ = BlockOperation(block: { [unowned self] in
-                        self.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
-                    }).perform(#selector(BlockOperation.start), with: nil, afterDelay: self.errorDelay)
-                } else {
-                    self.completeAbort()
                     if let handler = completionHandler {
-                        handler(nil, error)
+                        handler(nil, nil)
+                    }
+
+                    if let theSelf = self, theSelf.isConnectionReconnecting(connection: connection) {
+                        theSelf.connectionReconnect(connection: connection, canReconnect: canReconnect)
+                    }
+
+                    if shouldReconnect {
+                        _ = Connection.ensureReconnecting(connection: connection)
+                    }
+
+                    if disconnectedReceived {
+                        connection.disconnect()
+                    }
+
+                    if let theSelf = self, !theSelf.tryCompleteAbort() {
+                        canReconnect = true
+                        theSelf.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
+                    }
+                case .failure(let error):
+                    canReconnect = false
+
+                    _ = Connection.ensureReconnecting(connection: connection)
+
+                    if let theSelf = self, !theSelf.tryCompleteAbort() && ExceptionHelper.isRequestAborted(error: (error as NSError)) {
+                        connection.didReceiveError(error: error)
+
+                        canReconnect = true
+
+                        _ = BlockOperation(block: {
+                            theSelf.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
+                        }).perform(#selector(BlockOperation.start), with: nil, afterDelay: theSelf.errorDelay)
+                    } else {
+                        self?.completeAbort()
+                        if let handler = completionHandler {
+                            handler(nil, error)
+                        }
                     }
                 }
             }
         }
-
     }
 
     func delayConnectionReconnect(connection: ConnectionProtocol, canReconnect: inout Bool) {
