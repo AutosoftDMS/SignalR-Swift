@@ -79,8 +79,8 @@ public class LongPollingTransport: HttpTransport {
             }
         }
 
+        let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
         self.pollingOperationQueue.addOperation {
-            let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
             request.validate().responseJSON { [weak self] (response) in
                 switch response.result {
                 case .success(let result):

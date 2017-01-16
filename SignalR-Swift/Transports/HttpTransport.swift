@@ -94,7 +94,7 @@ public class HttpTransport: ClientTransportProtocol {
             return
         }
 
-        if let abort = self.startedAbort, !abort {
+        if self.startedAbort == nil {
             self.startedAbort = true
 
             let url = connection.url.appending("abort")
@@ -103,15 +103,12 @@ public class HttpTransport: ClientTransportProtocol {
 
             let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters.toJSON(), timeout: 2.0)
 
-            let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: JSONEncoding.default, parameters: nil)
-            request.validate().responseJSON(completionHandler: { (response) in
-                switch response.result {
-                case .success(_):
-                    break
-                case .failure(_):
+            let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: nil)
+            request.validate().response { response in
+                if response.error != nil {
                     self.completeAbort()
                 }
-            })
+            }
         }
     }
 
