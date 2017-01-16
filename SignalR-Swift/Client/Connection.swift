@@ -373,7 +373,12 @@ public class Connection: ConnectionProtocol {
                 self.didReceiveData(data: responseDict)
             }
 
-            if let disconnected = message.disconnected, disconnected {
+            if let reconnect = message.shouldReconnect {
+                shouldReconnect = reconnect
+            }
+
+            if let disconnect = message.disconnected, disconnected {
+                disconnected = disconnect
                 return
             }
 
