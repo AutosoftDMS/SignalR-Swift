@@ -108,4 +108,8 @@ public class AutoTransport: HttpTransport {
     override public func lostConnection(connection: ConnectionProtocol) {
         self.transport?.lostConnection(connection: connection)
     }
+
+    public override func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
+        self.transport?.abort(connection: connection, timeout: timeout, connectionData: connectionData)
+    }
 }
