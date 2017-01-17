@@ -88,7 +88,11 @@ public class LongPollingTransport: HttpTransport {
                     var shouldReconnect = false
                     var disconnectedReceived = false
 
-                    connection.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
+                    if let theSelf = self, !theSelf.tryCompleteAbort() {
+                        connection.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
+                        canReconnect = true
+                        theSelf.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
+                    }
 
                     if let handler = completionHandler {
                         handler(nil, nil)
@@ -104,11 +108,6 @@ public class LongPollingTransport: HttpTransport {
 
                     if disconnectedReceived {
                         connection.disconnect()
-                    }
-
-                    if let theSelf = self, !theSelf.tryCompleteAbort() {
-                        canReconnect = true
-                        theSelf.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
                     }
                 case .failure(let error):
                     canReconnect = false
