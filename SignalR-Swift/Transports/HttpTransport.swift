@@ -48,14 +48,24 @@ public class HttpTransport: ClientTransportProtocol {
 
     }
 
-    public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T: Mappable {
+    public func send(connection: ConnectionProtocol, data: Any, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
         let url = connection.url.appending("send")
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
         let encodedRequest = Alamofire.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.default, headers: nil)
 
-        let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: ["data": data.toJSONString()!])
+        var requestParams = [String: Any]()
+
+        if let dataString = data as? String {
+            requestParams["data"] = dataString
+        } else if let dataDict = data as? [String: Any] {
+            requestParams = dataDict
+        } else if let dataMappable = data as? Mappable {
+            requestParams["data"] = dataMappable.toJSONString()!
+        }
+
+        let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: requestParams)
         request.validate().responseJSON { (response: DataResponse<Any>) in
             switch response.result {
             case .success(let result):

@@ -227,7 +227,7 @@ public class Connection: ConnectionProtocol {
         return nil
     }
 
-    public func send<T>(object: T, completionHandler: ((Any?, Error?) -> ())?) where T: Mappable {
+    public func send(object: Any, completionHandler: ((Any?, Error?) -> ())?) {
         if self.state == .disconnected {
             let userInfo = [
                 NSLocalizedFailureReasonErrorKey: NSExceptionName.internalInconsistencyException.rawValue,

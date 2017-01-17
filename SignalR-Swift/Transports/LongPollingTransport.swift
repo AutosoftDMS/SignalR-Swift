@@ -37,7 +37,7 @@ public class LongPollingTransport: HttpTransport {
         self.poll(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
+    override public func send(connection: ConnectionProtocol, data: Any, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
         super.send(connection: connection, data: data, connectionData: connectionData, completionHandler: completionHandler)
     }
 

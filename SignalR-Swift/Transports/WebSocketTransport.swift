@@ -39,8 +39,14 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         self.performConnect(completionHandler: completionHandler)
     }
 
-    override public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
-        self.webSocket?.send(text: data.toJSONString()!)
+    override public func send(connection: ConnectionProtocol, data: Any, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+        if let dataString = data as? String {
+            self.webSocket?.send(text: dataString)
+        } else if let dataDict = data as? [String: Any] {
+            self.webSocket?.send(text: dataDict.toJSONString()!)
+        } else if let dataMappable = data as? Mappable {
+            self.webSocket?.send(text: dataMappable.toJSONString()!)
+        }
 
         if let handler = completionHandler {
             handler(nil, nil)

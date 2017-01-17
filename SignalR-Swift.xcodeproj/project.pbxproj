@@ -23,6 +23,7 @@
 		C91154791E256760007C0DD9 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154781E256760007C0DD9 /* Subscription.swift */; };
 		C911547B1E256F98007C0DD9 /* HubInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911547A1E256F98007C0DD9 /* HubInvocation.swift */; };
 		C911547D1E25777F007C0DD9 /* HubRegistrationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */; };
+		C92AD2591E2EBCB9009686E2 /* Dictionary+Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92AD2581E2EBCB9009686E2 /* Dictionary+Json.swift */; };
 		C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */; };
 		C9330B371E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9330B361E1FE59A00B1F2D5 /* SignalR_SwiftTests.swift */; };
 		C9330B391E1FE59A00B1F2D5 /* SignalR-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -74,6 +75,7 @@
 		C91154781E256760007C0DD9 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		C911547A1E256F98007C0DD9 /* HubInvocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubInvocation.swift; sourceTree = "<group>"; };
 		C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubRegistrationData.swift; sourceTree = "<group>"; };
+		C92AD2581E2EBCB9009686E2 /* Dictionary+Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Json.swift"; sourceTree = "<group>"; };
 		C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignalR-Swift.h"; sourceTree = "<group>"; };
 		C9330B2C1E1FE59A00B1F2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				C9B9229C1E295AD7007C2266 /* String+Dictionary.swift */,
+				C92AD2581E2EBCB9009686E2 /* Dictionary+Json.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				C9E1CA0E1E1FFE0400335B1E /* NegotiationResponse.swift in Sources */,
 				C9E1CA041E1FF3B700335B1E /* Version.swift in Sources */,
 				C911546A1E253B1B007C0DD9 /* LongPollingTransport.swift in Sources */,
+				C92AD2591E2EBCB9009686E2 /* Dictionary+Json.swift in Sources */,
 				C9E1C9FB1E1FF03400335B1E /* ConnectionState.swift in Sources */,
 				C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */,
 				C91154661E241239007C0DD9 /* WebSocketConnectionInfo.swift in Sources */,

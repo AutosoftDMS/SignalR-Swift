@@ -101,7 +101,7 @@ public class AutoTransport: HttpTransport {
         }
     }
 
-    override public func send<T>(connection: ConnectionProtocol, data: T, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) where T : Mappable {
+    override public func send(connection: ConnectionProtocol, data: Any, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
         self.transport?.send(connection: connection, data: data, connectionData: connectionData, completionHandler: completionHandler)
     }
 
