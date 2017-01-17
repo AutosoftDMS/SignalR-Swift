@@ -68,8 +68,6 @@ public class LongPollingTransport: HttpTransport {
         var parameters: [String: Any] = [
             "transport": self.name!,
             "connectionToken": connection.connectionToken ?? "",
-            "messageId": connection.messageId ?? "",
-            "groupsToken": connection.groupsToken ?? "",
             "connectionData": connectionData ?? ""
         ]
 
@@ -80,7 +78,11 @@ public class LongPollingTransport: HttpTransport {
         }
 
         self.pollingOperationQueue.addOperation {
-            let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
+            let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
+            let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: [
+                    "groupsToken": connection.groupsToken ?? "",
+                    "messageId": connection.messageId ?? ""
+                ])
             request.validate().responseJSON { [weak self] (response) in
                 switch response.result {
                 case .success(let result):
@@ -90,8 +92,6 @@ public class LongPollingTransport: HttpTransport {
 
                     if let theSelf = self, !theSelf.tryCompleteAbort() {
                         connection.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
-                        canReconnect = true
-                        theSelf.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
                     }
 
                     if let handler = completionHandler {
@@ -108,6 +108,11 @@ public class LongPollingTransport: HttpTransport {
 
                     if disconnectedReceived {
                         connection.disconnect()
+                    }
+
+                    if let theSelf = self, !theSelf.tryCompleteAbort() {
+                        canReconnect = true
+                        theSelf.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
                     }
                 case .failure(let error):
                     canReconnect = false

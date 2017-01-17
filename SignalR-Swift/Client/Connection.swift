@@ -35,7 +35,7 @@ public class Connection: ConnectionProtocol {
     var connectionData: String!
     var monitor: HeartbeatMonitor?
 
-    public var version = Version(major: 1, minor: 3)
+    public var version = Version(major: 1, minor: 5)
 
     public var connectionId: String?
     public var connectionToken: String?
