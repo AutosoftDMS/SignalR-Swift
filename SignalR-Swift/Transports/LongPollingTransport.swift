@@ -68,7 +68,9 @@ public class LongPollingTransport: HttpTransport {
         var parameters: [String: Any] = [
             "transport": self.name!,
             "connectionToken": connection.connectionToken ?? "",
-            "connectionData": connectionData ?? ""
+            "connectionData": connectionData ?? "",
+            "groupsToken": connection.groupsToken ?? "",
+            "messageId": connection.messageId ?? ""
         ]
 
         if let queryString = connection.queryString {
@@ -79,20 +81,14 @@ public class LongPollingTransport: HttpTransport {
 
         self.pollingOperationQueue.addOperation {
             let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
-            let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: [
-                    "groupsToken": connection.groupsToken ?? "",
-                    "messageId": connection.messageId ?? ""
-                ])
-            request.validate().responseJSON { [weak self] (response) in
+            encodedRequest.validate().responseJSON { [weak self] (response) in
                 switch response.result {
                 case .success(let result):
 
                     var shouldReconnect = false
                     var disconnectedReceived = false
 
-                    if let theSelf = self, !theSelf.tryCompleteAbort() {
-                        connection.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
-                    }
+                    connection.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
 
                     if let handler = completionHandler {
                         handler(nil, nil)
