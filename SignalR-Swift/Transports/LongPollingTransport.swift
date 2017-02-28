@@ -65,6 +65,8 @@ public class LongPollingTransport: HttpTransport {
 
         self.delayConnectionReconnect(connection: connection, canReconnect: &canReconnect)
 
+        weak var weakConnection = connection
+
         var parameters: [String: Any] = [
             "transport": self.name!,
             "connectionToken": connection.connectionToken ?? "",
@@ -81,50 +83,52 @@ public class LongPollingTransport: HttpTransport {
 
         self.pollingOperationQueue.addOperation {
             let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
-            encodedRequest.validate().responseJSON { [weak self] (response) in
+            encodedRequest.validate().responseJSON { [unowned self] (response) in
                 switch response.result {
                 case .success(let result):
 
+                    let strongConnection = weakConnection
                     var shouldReconnect = false
                     var disconnectedReceived = false
 
-                    connection.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
+                    strongConnection?.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
 
                     if let handler = completionHandler {
                         handler(nil, nil)
                     }
 
-                    if let theSelf = self, theSelf.isConnectionReconnecting(connection: connection) {
-                        theSelf.connectionReconnect(connection: connection, canReconnect: canReconnect)
+                    if self.isConnectionReconnecting(connection: strongConnection!) {
+                        self.connectionReconnect(connection: strongConnection!, canReconnect: canReconnect)
                     }
 
                     if shouldReconnect {
-                        _ = Connection.ensureReconnecting(connection: connection)
+                        _ = Connection.ensureReconnecting(connection: strongConnection)
                     }
 
                     if disconnectedReceived {
-                        connection.disconnect()
+                        strongConnection?.disconnect()
                     }
 
-                    if let theSelf = self, !theSelf.tryCompleteAbort() {
+                    if !self.tryCompleteAbort() {
                         canReconnect = true
-                        theSelf.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
+                        self.poll(connection: strongConnection!, connectionData: connectionData, completionHandler: nil)
                     }
                 case .failure(let error):
+                    let strongConnection = weakConnection
                     canReconnect = false
 
                     _ = Connection.ensureReconnecting(connection: connection)
 
-                    if let theSelf = self, !theSelf.tryCompleteAbort() && ExceptionHelper.isRequestAborted(error: (error as NSError)) {
-                        connection.didReceiveError(error: error)
+                    if !self.tryCompleteAbort() && ExceptionHelper.isRequestAborted(error: (error as NSError)) {
+                        strongConnection?.didReceiveError(error: error)
 
                         canReconnect = true
 
                         _ = BlockOperation(block: {
-                            theSelf.poll(connection: connection, connectionData: connectionData, completionHandler: nil)
-                        }).perform(#selector(BlockOperation.start), with: nil, afterDelay: theSelf.errorDelay)
+                            self.poll(connection: strongConnection!, connectionData: connectionData, completionHandler: nil)
+                        }).perform(#selector(BlockOperation.start), with: nil, afterDelay: self.errorDelay)
                     } else {
-                        self?.completeAbort()
+                        self.completeAbort()
                         if let handler = completionHandler {
                             handler(nil, error)
                         }

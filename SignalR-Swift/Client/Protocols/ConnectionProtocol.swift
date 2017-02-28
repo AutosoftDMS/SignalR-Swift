@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 
-public protocol ConnectionProtocol {
+public protocol ConnectionProtocol: class {
     var version: Version { get set }
     var transportConnectTimeout: Double { get set }
     var keepAliveData: KeepAliveData? { get set }
