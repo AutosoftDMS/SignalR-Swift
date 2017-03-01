@@ -13,11 +13,7 @@ import Alamofire
 public class LongPollingTransport: HttpTransport {
     var reconnectDelay = 5.0
     var errorDelay = 2.0
-    private var pollingOperationQueue = OperationQueue()
-
-    override init() {
-        self.pollingOperationQueue.maxConcurrentOperationCount = 1
-    }
+    var pollingQueue = DispatchQueue(label: "com.autosoftdms.SignalR-Swift.serial")
 
     // MARK: - Client Transport Protocol
 
@@ -65,8 +61,6 @@ public class LongPollingTransport: HttpTransport {
 
         self.delayConnectionReconnect(connection: connection, canReconnect: &canReconnect)
 
-        weak var weakConnection = connection
-
         var parameters: [String: Any] = [
             "transport": self.name!,
             "connectionToken": connection.connectionToken ?? "",
@@ -81,24 +75,26 @@ public class LongPollingTransport: HttpTransport {
             }
         }
 
-        self.pollingOperationQueue.addOperation {
-            let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
-            encodedRequest.validate().responseJSON { [unowned self] (response) in
+        let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
+
+        _ = self.pollingQueue.sync {
+            encodedRequest.validate().responseJSON(completionHandler: { [weak self, weak connection] response in
+                guard let strongSelf = self, let strongConnection = connection else { return }
+
                 switch response.result {
                 case .success(let result):
 
-                    let strongConnection = weakConnection
                     var shouldReconnect = false
                     var disconnectedReceived = false
 
-                    strongConnection?.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
+                    strongConnection.processResponse(response: result, shouldReconnect: &shouldReconnect, disconnected: &disconnectedReceived)
 
                     if let handler = completionHandler {
                         handler(nil, nil)
                     }
 
-                    if self.isConnectionReconnecting(connection: strongConnection!) {
-                        self.connectionReconnect(connection: strongConnection!, canReconnect: canReconnect)
+                    if strongSelf.isConnectionReconnecting(connection: strongConnection) {
+                        strongSelf.connectionReconnect(connection: strongConnection, canReconnect: canReconnect)
                     }
 
                     if shouldReconnect {
@@ -106,35 +102,34 @@ public class LongPollingTransport: HttpTransport {
                     }
 
                     if disconnectedReceived {
-                        strongConnection?.disconnect()
+                        strongConnection.disconnect()
                     }
 
-                    if !self.tryCompleteAbort() {
+                    if !strongSelf.tryCompleteAbort() {
                         canReconnect = true
-                        self.poll(connection: strongConnection!, connectionData: connectionData, completionHandler: nil)
+                        strongSelf.poll(connection: strongConnection, connectionData: connectionData, completionHandler: nil)
                     }
                 case .failure(let error):
-                    let strongConnection = weakConnection
                     canReconnect = false
 
-                    _ = Connection.ensureReconnecting(connection: connection)
+                    _ = Connection.ensureReconnecting(connection: strongConnection)
 
-                    if !self.tryCompleteAbort() && ExceptionHelper.isRequestAborted(error: (error as NSError)) {
-                        strongConnection?.didReceiveError(error: error)
+                    if !strongSelf.tryCompleteAbort() && !ExceptionHelper.isRequestAborted(error: (error as NSError)) {
+                        strongConnection.didReceiveError(error: error)
 
                         canReconnect = true
 
                         _ = BlockOperation(block: {
-                            self.poll(connection: strongConnection!, connectionData: connectionData, completionHandler: nil)
-                        }).perform(#selector(BlockOperation.start), with: nil, afterDelay: self.errorDelay)
+                            strongSelf.poll(connection: strongConnection, connectionData: connectionData, completionHandler: nil)
+                        }).perform(#selector(BlockOperation.start), with: nil, afterDelay: strongSelf.errorDelay)
                     } else {
-                        self.completeAbort()
+                        strongSelf.completeAbort()
                         if let handler = completionHandler {
                             handler(nil, error)
                         }
                     }
                 }
-            }
+            })
         }
     }
 
@@ -144,8 +139,9 @@ public class LongPollingTransport: HttpTransport {
             if canReconnect {
                 canReconnect = false
 
-                _ = BlockOperation(block: { [unowned self] in
-                    self.connectionReconnect(connection: connection, canReconnect: canReconnectCopy)
+                _ = BlockOperation(block: { [weak self, weak connection] in
+                    guard let strongSelf = self, let strongConnection = connection else { return }
+                    strongSelf.connectionReconnect(connection: strongConnection, canReconnect: canReconnectCopy)
                 }).perform(#selector(BlockOperation.start), with: nil, afterDelay: self.reconnectDelay)
             }
         }
