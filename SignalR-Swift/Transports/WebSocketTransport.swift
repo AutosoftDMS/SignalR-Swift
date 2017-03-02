@@ -114,16 +114,18 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
             self.startClosure = completionHandler
             if let startClosure = self.startClosure {
-                self.connectTimeoutOperation = BlockOperation(block: { [unowned self] in
+                self.connectTimeoutOperation = BlockOperation(block: { [weak self] in
+                    guard let strongSelf = self else { return }
+
                     let userInfo = [
                         NSLocalizedDescriptionKey: NSLocalizedString("Connection timed out.", comment: "timeout error description"),
                         NSLocalizedFailureReasonErrorKey: NSLocalizedString("Connection did not receive initialized message before the timeout.", comment: "timeout error reason"),
                         NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("Retry or switch transports.", comment: "timeout error retry suggestion")
                     ]
-                    let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: NSURLErrorTimedOut, userInfo: userInfo)
-                    self.stopWebSocket()
+                    let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: strongSelf))", code: NSURLErrorTimedOut, userInfo: userInfo)
+                    strongSelf.stopWebSocket()
 
-                    self.startClosure = nil
+                    strongSelf.startClosure = nil
                     startClosure(nil, error)
                 })
 
@@ -141,9 +143,11 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     }
 
     func reconnect(connection: ConnectionProtocol?) {
-        _ = BlockOperation { [unowned self] () -> () in
+        _ = BlockOperation { [weak self] () -> () in
+            guard let strongSelf = self else { return }
+
             if Connection.ensureReconnecting(connection: connection) {
-                self.performConnect(reconnecting: true, completionHandler: nil)
+                strongSelf.performConnect(reconnecting: true, completionHandler: nil)
             }
             }.perform(#selector(BlockOperation.start), with: nil, afterDelay: self.reconnectDelay)
     }
