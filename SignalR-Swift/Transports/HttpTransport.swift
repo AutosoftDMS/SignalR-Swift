@@ -23,7 +23,7 @@ public class HttpTransport: ClientTransportProtocol {
 
     var startedAbort: Bool?
 
-    public func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
+    public func negotiate(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         let url = connection.url.appending("negotiate")
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
@@ -44,11 +44,11 @@ public class HttpTransport: ClientTransportProtocol {
         }
     }
 
-    public func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    public func start(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
 
     }
 
-    public func send(connection: ConnectionProtocol, data: Any, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    public func send(connection: ConnectionProtocol, data: Any, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         let url = connection.url.appending("send")
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
@@ -99,7 +99,7 @@ public class HttpTransport: ClientTransportProtocol {
 
     }
 
-    public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
+    public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String?) {
         if timeout <= 0 {
             return
         }
@@ -122,7 +122,7 @@ public class HttpTransport: ClientTransportProtocol {
         }
     }
 
-    func getConnectionParameters(connection: ConnectionProtocol, connectionData: String) -> ConnectionParameters {
+    func getConnectionParameters(connection: ConnectionProtocol, connectionData: String?) -> ConnectionParameters {
         let parameters = ConnectionParameters()
         parameters.clientProtocol = connection.version.description
         parameters.transport = self.name

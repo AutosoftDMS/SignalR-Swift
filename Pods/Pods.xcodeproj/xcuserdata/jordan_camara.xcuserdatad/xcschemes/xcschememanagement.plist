@@ -14,6 +14,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Mockit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Nimble.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -29,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Quick.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftWebSocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,7 +52,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0921CC2F4398BE9A4F1CEACB30684B56</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0BE944EBBAE2975E7853223962A779F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2F5622F3B18DF497981AB58C6D1FC72F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>50846B76CBFF1AB7D0D6E0CEBC9FFC13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,22 +77,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>82144AA2EAE5F8851DB3FE1EFE69E034</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>82159564FE39FCFDC38F26EE7F5A79AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8F0B0EAE6E547F898A8450FE62F7D7DF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>9502FB01641FBABB78522037E882757B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AD2380AA6FF61762E3D48D82A9694DB1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

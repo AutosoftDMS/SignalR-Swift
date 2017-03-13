@@ -13,6 +13,9 @@ target 'SignalRSwift' do
   target 'SignalR-SwiftTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Quick'
+    pod 'Nimble'
+    pod 'Mockit', '1.3.4'
   end
 
 end

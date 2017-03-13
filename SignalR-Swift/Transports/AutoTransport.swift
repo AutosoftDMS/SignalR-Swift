@@ -47,7 +47,7 @@ public class AutoTransport: HttpTransport {
         return false
     }
 
-    override public func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
+    override public func negotiate(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         super.negotiate(connection: connection, connectionData: connectionData) { [unowned self] (response, error) in
 
             if error == nil {
@@ -66,11 +66,11 @@ public class AutoTransport: HttpTransport {
         }
     }
 
-    override public func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override public func start(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         self.start(connection: connection, connectionData: connectionData, transportIndex: 0, completionHandler: completionHandler)
     }
 
-    func start(connection: ConnectionProtocol, connectionData: String, transportIndex index: Int, completionHandler: ((String?, Error?) -> ())?) {
+    func start(connection: ConnectionProtocol, connectionData: String?, transportIndex index: Int, completionHandler: ((String?, Error?) -> ())?) {
         let transport = self.transports[index]
         transport.start(connection: connection, connectionData: connectionData) { [unowned self] (response, error) in
 
@@ -101,7 +101,7 @@ public class AutoTransport: HttpTransport {
         }
     }
 
-    override public func send(connection: ConnectionProtocol, data: Any, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override public func send(connection: ConnectionProtocol, data: Any, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         self.transport?.send(connection: connection, data: data, connectionData: connectionData, completionHandler: completionHandler)
     }
 
@@ -109,7 +109,7 @@ public class AutoTransport: HttpTransport {
         self.transport?.lostConnection(connection: connection)
     }
 
-    public override func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
+    public override func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String?) {
         self.transport?.abort(connection: connection, timeout: timeout, connectionData: connectionData)
     }
 }

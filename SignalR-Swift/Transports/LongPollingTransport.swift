@@ -25,19 +25,19 @@ public class LongPollingTransport: HttpTransport {
         return false
     }
 
-    override public func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
+    override public func negotiate(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         super.negotiate(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override public func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override public func start(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         self.poll(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override public func send(connection: ConnectionProtocol, data: Any, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override public func send(connection: ConnectionProtocol, data: Any, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         super.send(connection: connection, data: data, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
+    override public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String?) {
         super.abort(connection: connection, timeout: timeout, connectionData: connectionData)
     }
 

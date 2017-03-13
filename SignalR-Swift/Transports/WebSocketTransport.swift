@@ -28,18 +28,18 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         return true
     }
 
-    override public func negotiate(connection: ConnectionProtocol, connectionData: String, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
+    override public func negotiate(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         super.negotiate(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
 
-    override public func start(connection: ConnectionProtocol, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override public func start(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         self.connectionInfo = WebSocketConnectionInfo(connection: connection, data: connectionData)
 
         // perform connection
         self.performConnect(completionHandler: completionHandler)
     }
 
-    override public func send(connection: ConnectionProtocol, data: Any, connectionData: String, completionHandler: ((Any?, Error?) -> ())?) {
+    override public func send(connection: ConnectionProtocol, data: Any, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         if let dataString = data as? String {
             self.webSocket?.send(text: dataString)
         } else if let dataDict = data as? [String: Any] {
@@ -53,7 +53,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         }
     }
 
-    override public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String) {
+    override public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String?) {
         self.stopWebSocket()
         super.abort(connection: connection, timeout: timeout, connectionData: connectionData)
     }

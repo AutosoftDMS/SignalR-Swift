@@ -32,7 +32,7 @@ public class Connection: ConnectionProtocol {
     public var items = [String : Any]()
     public let queryString: [String: String]?
 
-    var connectionData: String!
+    var connectionData: String?
     var monitor: HeartbeatMonitor?
 
     public var version = Version(major: 1, minor: 3)
