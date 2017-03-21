@@ -6,7 +6,7 @@ SignalR-ObjC is intended to be used along side ASP.NET SignalR, a new library fo
 
 ### Installation with CocoaPods
 
-[CocoaPods](https://cocoapods.org/) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like SignalR-ObjC in your projects. See the ["Getting Started" guide for more information](https://guides.cocoapods.org/using/getting-started.html). You can install it with the following command:
+[CocoaPods](https://cocoapods.org/) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like SignalR-Swift in your projects. See the ["Getting Started" guide for more information](https://guides.cocoapods.org/using/getting-started.html). You can install it with the following command:
 
 ```
 $ gem install cocoapods
@@ -14,7 +14,7 @@ $ gem install cocoapods
 
 #### Podfile
 
-To integrate SignalR-ObjC into your Xcode project using CocoaPods, specify it in your Podfile:
+To integrate SignalR-Swift into your Xcode project using CocoaPods, specify it in your Podfile:
 
 ```
 source 'https://github.com/CocoaPods/Specs.git'
