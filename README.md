@@ -193,4 +193,4 @@ hubConnection.addValue(value: "another", forHttpHeaderField: "param2")
 ## LICENSE
 
 SignalR-Swift is available under the MIT license. See the [LICENSE](https://github.com/AutosoftDMS/SignalR-Swift/blob/master/LICENSE.md) file for more info.<br/>
-SignalR-Swift uses 3rd-party code which each have specific licenses, see [ACKNOWLEDGEMENTS](https://github.com/DyKnow/SignalR-ObjC/blob/master/ACKNOWLEDGEMENTS.md) for contributions
+SignalR-Swift uses 3rd-party code which each have specific licenses, see [ACKNOWLEDGEMENTS](https://github.com/AutosoftDMS/SignalR-Swift/blob/master/ACKNOWLEDGEMENTS.md) for contributions
