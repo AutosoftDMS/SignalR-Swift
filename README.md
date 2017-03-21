@@ -1,6 +1,6 @@
 
 SignalR-Swift is a client library for iOS based on https://github.com/DyKnow/SignalR-ObjC by DyKnow.  It's built on top of [AlamoFire](https://github.com/Alamofire/Alamofire) and [SwiftWebSocket](https://github.com/tidwall/SwiftWebSocket).
-SignalR-ObjC is intended to be used along side ASP.NET SignalR, a new library for ASP.NET developers that makes it incredibly simple to add real-time functionality to your applications. What is "real-time web" functionality? It's the ability to have your server-side code push content to the connected clients as it happens, in real-time.
+SignalR-Swift is intended to be used along side ASP.NET SignalR, a new library for ASP.NET developers that makes it incredibly simple to add real-time functionality to your applications. What is "real-time web" functionality? It's the ability to have your server-side code push content to the connected clients as it happens, in real-time.
 
 ## Installation
 
@@ -20,7 +20,7 @@ To integrate SignalR-Swift into your Xcode project using CocoaPods, specify it i
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
-pod 'SignalR-Swift', '~> 1.0'
+pod 'SignalR-Swift', '~> 1.0.1'
 ```
 
 Then, run the following command:
