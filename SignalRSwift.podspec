@@ -61,7 +61,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/AutosoftDMS/SignalR-Swift.git", :tag => "#{s.version}" }
 
-  s.source_files  = "SignalR-Swift/*.swift"
+  s.source_files  = "SignalR-Swift/**/*.swift"
   s.exclude_files = "Classes/Exclude"
 
   s.dependency "Alamofire", "~> 4.2.0"
