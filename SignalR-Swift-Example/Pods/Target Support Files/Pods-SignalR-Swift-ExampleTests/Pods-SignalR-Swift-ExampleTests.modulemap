@@ -1,6 +1,0 @@
-framework module Pods_SignalR_Swift_ExampleTests {
-  umbrella header "Pods-SignalR-Swift-ExampleTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
