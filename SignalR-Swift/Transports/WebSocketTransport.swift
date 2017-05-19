@@ -98,10 +98,10 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
         var urlComponents = URLComponents(string: connection!.url)
         if let urlScheme = urlComponents?.scheme {
-            if urlScheme.hasPrefix("http") {
-                urlComponents?.scheme = "ws"
-            } else if urlScheme.hasPrefix("https") {
+            if urlScheme.hasPrefix("https") {
                 urlComponents?.scheme = "wss"
+            } else if urlScheme.hasPrefix("http") {
+                urlComponents?.scheme = "ws"
             }
         }
 
