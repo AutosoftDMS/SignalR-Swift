@@ -9,7 +9,7 @@
 import Foundation
 
 class WebSocketConnectionInfo {
-    var connection: ConnectionProtocol?
+    weak var connection: ConnectionProtocol?
     var data: String?
 
     init(connection: ConnectionProtocol, data: String?) {

@@ -19,7 +19,7 @@ public class HeartbeatMonitor {
         return self.timedOut
     }
 
-    private var connection: ConnectionProtocol!
+    private weak var connection: ConnectionProtocol?
     private var timer: Timer?
 
     init(withConnection connection: ConnectionProtocol) {
@@ -27,16 +27,16 @@ public class HeartbeatMonitor {
     }
 
     func start() {
-        self.connection.updateLastKeepAlive()
+        self.connection?.updateLastKeepAlive()
         self.beenWarned = false
         self.timedOut = false
-        if let interval = self.connection.keepAliveData?.checkInterval {
+        if let interval = self.connection?.keepAliveData?.checkInterval {
             self.timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(self.heartBeat(withTimer:)), userInfo: nil, repeats: true)
         }
     }
 
     @objc func heartBeat(withTimer timer: Timer) {
-        if let lastKeepAlive = self.connection.keepAliveData?.lastKeepAlive {
+        if let lastKeepAlive = self.connection?.keepAliveData?.lastKeepAlive {
             let date = Date()
             let timeElapsed = date.timeIntervalSince(lastKeepAlive)
             self.beat(timeElapsed: timeElapsed)
@@ -44,16 +44,16 @@ public class HeartbeatMonitor {
     }
 
     func beat(timeElapsed: Double) {
-        if self.connection.state == .connected, let keepAlive = self.connection.keepAliveData {
+        if self.connection?.state == .connected, let keepAlive = self.connection?.keepAliveData {
             if timeElapsed >= keepAlive.timeout {
                 if self.didTimeOut! {
                     self.timedOut = true
-                    self.connection.transport?.lostConnection(connection: self.connection)
+                    self.connection?.transport?.lostConnection(connection: self.connection!)
                 }
             } else if timeElapsed >= keepAlive.timeoutWarning {
                 if self.hasBeenWarned! {
                     self.beenWarned = true
-                    self.connection.connectionDidSlow()
+                    self.connection?.connectionDidSlow()
                 }
             } else {
                 self.beenWarned = false
