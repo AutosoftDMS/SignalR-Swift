@@ -397,4 +397,10 @@ public class Connection: ConnectionProtocol {
             }
         }
     }
+    
+    deinit {
+        if self.state != .disconnected {
+            self.stop()
+        }
+    }
 }
