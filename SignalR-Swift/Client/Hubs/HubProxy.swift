@@ -12,7 +12,7 @@ public class HubProxy: HubProxyProtocol {
 
     public var state = [String: Any]()
 
-    private var connection: HubConnectionProtocol!
+    private weak var connection: HubConnectionProtocol?
     private var hubName: String?
     private var subscriptions = [String: Subscription]()
 
@@ -58,8 +58,12 @@ public class HubProxy: HubProxyProtocol {
             NSException.raise(.invalidArgumentException, format: NSLocalizedString("Argument method is null", comment: "null event name exception"), arguments: getVaList(["nil"]))
             return
         }
+        
+        guard let connection = self.connection else {
+            return
+        }
 
-        let callbackId = self.connection.registerCallback { (result) in
+        let callbackId = connection.registerCallback { (result) in
             if let hubResult = result {
                 if let state = hubResult.state {
                     for key in state.keys {
@@ -87,6 +91,6 @@ public class HubProxy: HubProxyProtocol {
             hubData.state = self.state
         }
 
-        self.connection.send(object: hubData, completionHandler: completionHandler)
+        connection.send(object: hubData, completionHandler: completionHandler)
     }
 }
