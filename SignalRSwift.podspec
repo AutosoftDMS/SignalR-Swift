@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
   s.source_files  = "SignalR-Swift/**/*.swift"
   s.exclude_files = "Classes/Exclude"
 
-  s.dependency "Alamofire", "~> 4.2.0"
+  s.dependency "Alamofire", "~> 4.2"
   s.dependency "SwiftWebSocket"
   s.dependency "AlamofireObjectMapper", "~> 4.0"
 
