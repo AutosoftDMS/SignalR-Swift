@@ -326,7 +326,7 @@ public class Connection: ConnectionProtocol {
 
     // MARK: - Prepare Request
 
-    func addValue(value: String, forHttpHeaderField field: String) {
+    public func addValue(value: String, forHttpHeaderField field: String) {
         self.headers[field] = value
     }
 

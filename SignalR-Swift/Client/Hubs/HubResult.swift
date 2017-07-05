@@ -20,7 +20,7 @@ public class HubResult: Mappable {
 
     var id: String?
 
-    var result: String?
+    var result: Any?
     var hubException = false
     var error: String?
 
