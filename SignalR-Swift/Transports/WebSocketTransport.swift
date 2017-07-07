@@ -134,8 +134,9 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
             if let encodedRequest = request?.request {
                 self.webSocket = WebSocket(request: encodedRequest)
-                self.webSocket?.delegate = self
-                self.webSocket?.open()
+                self.webSocket!.allowSelfSignedSSL = connection?.webSocketAllowsSelfSignedSSL ?? false
+                self.webSocket!.delegate = self
+                self.webSocket!.open()
             }
         } catch {
 

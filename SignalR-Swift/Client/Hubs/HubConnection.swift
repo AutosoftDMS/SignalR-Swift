@@ -7,27 +7,21 @@
 //
 
 import Foundation
+import Alamofire
 
 public class HubConnection: Connection, HubConnectionProtocol {
 
     private var hubs = [String: HubProxy]()
     private var callbacks = [String: HubConnectionHubResultClosure]()
-    private var callbackId = 0
-
-    override public convenience init(withUrl url: String) {
-        self.init(withUrl: url, useDefault: true)
-    }
-
-    public init(withUrl url: String, useDefault: Bool) {
-        super.init(withUrl: HubConnection.getUrl(url: url, useDefault: useDefault))
-    }
-
-    override public convenience init(withUrl url: String, queryString: [String: String]?) {
-        self.init(withUrl: url, queryString: queryString, useDefault: true)
-    }
-
-    public init(withUrl url: String, queryString: [String: String]?, useDefault: Bool) {
-        super.init(withUrl: HubConnection.getUrl(url: url, useDefault: useDefault), queryString: queryString)
+    private var callbackId = UInt.min
+    
+    public init(withUrl url: String,
+                queryString: [String: String]? = nil,
+                sessionManager: SessionManager = .default,
+                useDefault: Bool = true) {
+        super.init(withUrl: HubConnection.getUrl(url: url, useDefault: useDefault),
+                   queryString: queryString,
+                   sessionManager: sessionManager)
     }
 
     public func createHubProxy(hubName: String) -> HubProxy? {
@@ -71,8 +65,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
     // MARK: - Private
 
     static func getUrl(url: String, useDefault: Bool) -> String {
-        var urlResult = url
-        urlResult = url.hasSuffix("/") ? url : url.appending("/")
+        let urlResult = url.hasSuffix("/") ? url : url.appending("/")
 
         if useDefault {
             return urlResult.appending("signalr")
