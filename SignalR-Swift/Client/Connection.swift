@@ -44,6 +44,8 @@ public class Connection: ConnectionProtocol {
 
     public var headers = HTTPHeaders()
     public var keepAliveData: KeepAliveData?
+    public var webSocketAllowsSelfSignedSSL = false
+    public internal(set) var sessionManager: SessionManager
 
     public var transport: ClientTransportProtocol?
     public var transportConnectTimeout = 0.0
@@ -79,14 +81,10 @@ public class Connection: ConnectionProtocol {
         return connection!.state == .reconnecting
     }
 
-    public init(withUrl url: String) {
-        self.url = url.hasSuffix("/") ? url : url.appending("/")
-        self.queryString = nil
-    }
-
-    public init(withUrl url: String, queryString: [String: String]?) {
+    public init(withUrl url: String, queryString: [String: String]? = nil, sessionManager: SessionManager = .default) {
         self.url = url.hasSuffix("/") ? url : url.appending("/")
         self.queryString = queryString
+        self.sessionManager = sessionManager
     }
 
     // MARK: - Connection management
@@ -347,7 +345,7 @@ public class Connection: ConnectionProtocol {
         urlRequest?.timeoutInterval = timeout
 
         let encodedURLRequest = try? encoding.encode(urlRequest!, with: parameters)
-        return Alamofire.request(encodedURLRequest!)
+        return sessionManager.request(encodedURLRequest!)
     }
 
     func createUserAgentString(client: String) -> String {

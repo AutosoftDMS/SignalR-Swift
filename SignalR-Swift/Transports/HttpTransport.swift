@@ -53,7 +53,7 @@ public class HttpTransport: ClientTransportProtocol {
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-        let encodedRequest = Alamofire.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.default, headers: nil)
+        let encodedRequest = connection.sessionManager.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.default, headers: nil)
 
         var requestParams = [String: Any]()
 
