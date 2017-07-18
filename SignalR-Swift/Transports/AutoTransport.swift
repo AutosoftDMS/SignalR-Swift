@@ -80,7 +80,7 @@ public class AutoTransport: HttpTransport {
             } else {
                 strongRef.transport = transport
 
-                completionHandler?(nil, error)
+                completionHandler?(nil, nil)
             }
         }
     }
