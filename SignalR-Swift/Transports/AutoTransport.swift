@@ -32,37 +32,24 @@ public class AutoTransport: HttpTransport {
     // MARK: - Client Transport Protocol
 
     override public var name: String? {
-        if self.transport == nil {
-            return nil
-        }
-
         return self.transport?.name
     }
 
     override public var supportsKeepAlive: Bool {
-        if let transport = self.transport {
-            return transport.supportsKeepAlive
-        }
-
-        return false
+        return self.transport?.supportsKeepAlive ?? false
     }
 
     override public func negotiate(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
-        super.negotiate(connection: connection, connectionData: connectionData) { [unowned self] (response, error) in
-
-            if error == nil {
-                if let tryWebSockets = response?.tryWebSockets, !tryWebSockets {
-                    if let invalidIndex = self.transports.index(where: { (element) -> Bool in
-                        element.name == "webSockets" 
-                    }) {
-                        self.transports.remove(at: invalidIndex)
-                    }
-                }
+        super.negotiate(connection: connection, connectionData: connectionData) { [weak self] (response, error) in
+            guard let strongRef = self else { return }
+            
+            if error == nil,
+                let tryWebSockets = response?.tryWebSockets, !tryWebSockets,
+                let invalidIndex = strongRef.transports.index(where: { $0.name == "webSockets" }) {
+                strongRef.transports.remove(at: invalidIndex)
             }
-
-            if let handler = completionHandler {
-                handler(response, error)
-            }
+            
+            completionHandler?(response, error)
         }
     }
 
@@ -72,13 +59,14 @@ public class AutoTransport: HttpTransport {
 
     func start(connection: ConnectionProtocol, connectionData: String?, transportIndex index: Int, completionHandler: ((String?, Error?) -> ())?) {
         let transport = self.transports[index]
-        transport.start(connection: connection, connectionData: connectionData) { [unowned self] (response, error) in
+        transport.start(connection: connection, connectionData: connectionData) { [weak self] (response, error) in
+            guard let strongRef = self else { return }
 
             if error != nil {
                 let nextIndex = index + 1
 
-                if nextIndex < self.transports.count {
-                    self.start(connection: connection, connectionData: connectionData, transportIndex: nextIndex, completionHandler: completionHandler)
+                if nextIndex < strongRef.transports.count {
+                    strongRef.start(connection: connection, connectionData: connectionData, transportIndex: nextIndex, completionHandler: completionHandler)
                 } else {
                     let userInfo = [
                         NSLocalizedFailureReasonErrorKey: NSExceptionName.internalInconsistencyException.rawValue,
@@ -87,16 +75,12 @@ public class AutoTransport: HttpTransport {
 
                     let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: 0, userInfo: userInfo)
 
-                    if let handler = completionHandler {
-                        handler(nil, error)
-                    }
+                    completionHandler?(nil, error)
                 }
             } else {
-                self.transport = transport
+                strongRef.transport = transport
 
-                if let handler = completionHandler {
-                    handler(nil, nil)
-                }
+                completionHandler?(nil, nil)
             }
         }
     }
