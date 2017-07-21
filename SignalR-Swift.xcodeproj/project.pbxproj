@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		03D89CA2D29AD16BE22FB404 /* Pods_SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DD50F71B5A709F5EC093E9 /* Pods_SignalRSwift.framework */; };
 		563B87161F1FA11100D75CEF /* ServerSentEventsTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B87151F1FA11100D75CEF /* ServerSentEventsTransport.swift */; };
-		563B87181F1FAED500D75CEF /* EventSourceStreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B87171F1FAED500D75CEF /* EventSourceStreamReader.swift */; };
+		568A77191F223CB2004F5D1C /* ChunkBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A77181F223CB2004F5D1C /* ChunkBuffer.swift */; };
+		568A771B1F223CF0004F5D1C /* ServerSentEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */; };
 		C91154611E23D20E007C0DD9 /* ConnectionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154601E23D20E007C0DD9 /* ConnectionParameters.swift */; };
 		C91154631E24113F007C0DD9 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154621E24113F007C0DD9 /* WebSocketTransport.swift */; };
 		C91154661E241239007C0DD9 /* WebSocketConnectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154651E241239007C0DD9 /* WebSocketConnectionInfo.swift */; };
@@ -60,7 +61,8 @@
 		42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		508E6B8CFCFE86345D2ADFAA /* Pods_SignalR_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		563B87151F1FA11100D75CEF /* ServerSentEventsTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSentEventsTransport.swift; sourceTree = "<group>"; };
-		563B87171F1FAED500D75CEF /* EventSourceStreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventSourceStreamReader.swift; path = "SignalR-Swift/Transports/EventSourceStreamReader.swift"; sourceTree = SOURCE_ROOT; };
+		568A77181F223CB2004F5D1C /* ChunkBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChunkBuffer.swift; path = "SignalR-Swift/Transports/ChunkBuffer.swift"; sourceTree = SOURCE_ROOT; };
+		568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerSentEvent.swift; path = "SignalR-Swift/Transports/ServerSentEvent.swift"; sourceTree = SOURCE_ROOT; };
 		65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.release.xcconfig"; sourceTree = "<group>"; };
@@ -253,7 +255,8 @@
 		C9B922A01E297486007C2266 /* ServerSentEvents */ = {
 			isa = PBXGroup;
 			children = (
-				563B87171F1FAED500D75CEF /* EventSourceStreamReader.swift */,
+				568A77181F223CB2004F5D1C /* ChunkBuffer.swift */,
+				568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */,
 			);
 			path = ServerSentEvents;
 			sourceTree = "<group>";
@@ -518,13 +521,14 @@
 				C9B9229D1E295AD7007C2266 /* String+Dictionary.swift in Sources */,
 				C91154611E23D20E007C0DD9 /* ConnectionParameters.swift in Sources */,
 				C9E1CA061E1FFADA00335B1E /* HeartbeatMonitor.swift in Sources */,
+				568A771B1F223CF0004F5D1C /* ServerSentEvent.swift in Sources */,
 				C91154791E256760007C0DD9 /* Subscription.swift in Sources */,
 				C911546C1E255CB2007C0DD9 /* ExceptionHelper.swift in Sources */,
+				568A77191F223CB2004F5D1C /* ChunkBuffer.swift in Sources */,
 				C9E1CA0A1E1FFB6600335B1E /* KeepAliveData.swift in Sources */,
 				C91154711E2564C1007C0DD9 /* HubResult.swift in Sources */,
 				C911547D1E25777F007C0DD9 /* HubRegistrationData.swift in Sources */,
 				C9E1CA0C1E1FFDA800335B1E /* ClientTransportProtocol.swift in Sources */,
-				563B87181F1FAED500D75CEF /* EventSourceStreamReader.swift in Sources */,
 				C9E1CA0E1E1FFE0400335B1E /* NegotiationResponse.swift in Sources */,
 				C9E1CA041E1FF3B700335B1E /* Version.swift in Sources */,
 				C911546A1E253B1B007C0DD9 /* LongPollingTransport.swift in Sources */,

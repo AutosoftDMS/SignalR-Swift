@@ -9,16 +9,16 @@
 import Foundation
 import Alamofire
 
-typealias CompletionHandler = (_ respomce: Any?, _ error: Error) -> ()
+private typealias CompletionHandler = (_ respomce: Any?, _ error: Error?) -> ()
 
 public class ServerSentEventsTransport: HttpTransport
 {
-    var stop = false
+    private var stop = false
+    private var connectTimeoutOperation: BlockOperation?
+    private var completionHandler: CompletionHandler?
+    private let sseQueue = DispatchQueue(label: "com.autosoftdms.SignalR-Swift.serverSentEvents", qos: .userInitiated, attributes: .concurrent)
+    
     var reconnectDelay: TimeInterval = 2.0
-    var serverSentEventsOperationQueue = OperationQueue()
-    var connectTimeoutOperation: BlockOperation?
-    var completionHandler: CompletionHandler?
-    var eventSourceStreamReader: EventSourceStreamReader?
     
     override public var name: String? {
         return "serverSentEvents"
@@ -59,15 +59,16 @@ public class ServerSentEventsTransport: HttpTransport
     
     override public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String?) {
         self.stop = true
-        self.serverSentEventsOperationQueue.cancelAllOperations()
         super.abort(connection: connection, timeout: timeout, connectionData: connectionData)
     }
     
     override public func lostConnection(connection: ConnectionProtocol) {
-        self.serverSentEventsOperationQueue.cancelAllOperations()
+
     }
     
     // MARK: - SSE Transport
+    
+    private let buffer = ChunkBuffer()
     
     private func open(connection: ConnectionProtocol, connectionData: String?, isReconnecting: Bool)
     {
@@ -80,14 +81,81 @@ public class ServerSentEventsTransport: HttpTransport
         
         let url = isReconnecting ? connection.url.appending("reconnect") : connection.url.appending("connect")
         
-        let request = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240)
-        request.validate().response(responseSerializer: <#T##DataResponseSerializerProtocol#>, completionHandler: <#T##(DataResponse<DataResponseSerializerProtocol.SerializedObject>) -> Void#>)
-//        request.validate().response(responseSerializer: <#T##DataResponseSerializerProtocol#>, completionHandler: <#T##(DataResponse<DataResponseSerializerProtocol.SerializedObject>) -> Void#>)
-//        request.validate().responseData(queue: nil) { [weak self, weak connection] response in
-//            guard let strongSelf = self, let strongConnection = connection else { return }
-        }
-//        var urlRequest = request.request
-//        urlRequest?.setValue("Keep-Alive", forHTTPHeaderField: "Connection")
+        connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240).stream { [weak self, weak connection] data in
+            guard let strongSelf = self, let strongConnection = connection else { return }
 
+            strongSelf.buffer.append(data: data)
+            
+            while let line = strongSelf.buffer.readLine() {
+                guard let message = ServerSentEvent.tryParse(line: line) else { continue }
+                strongSelf.process(message: message, connection: strongConnection)
+            }
+        }.validate().response(queue: sseQueue) { [weak self, weak connection] dataResponse in
+            guard let strongSelf = self, let strongConnection = connection else { return }
+            
+            strongSelf.cancelTimeoutOperation()
+            
+            if let error = dataResponse.error as NSError?, error.code != NSURLErrorCancelled {
+                strongConnection.didReceiveError(error: error)
+            }
+            
+            if strongSelf.stop {
+                strongSelf.completeAbort()
+            } else if !strongSelf.tryCompleteAbort() && !isReconnecting {
+                strongSelf.reconnect(connection: strongConnection, data: connectionData)
+            }
+        }
+        
+//        urlRequest?.setValue("Keep-Alive", forHTTPHeaderField: "Connection")
+    }
+    
+    private func process(message: ServerSentEvent, connection: ConnectionProtocol)
+    {
+        guard message.event == .data else { return }
+        
+        if message.data == "initialized"
+        {
+            if connection.changeState(oldState: .reconnecting, toState: .connected) {
+                connection.didReconnect()
+            }
+            
+            return
+        }
+        
+        guard let data = message.data?.data(using: String.Encoding.utf8),
+            let json = try? JSONSerialization.jsonObject(with: data) else { return }
+        
+        var shouldReconnect = false
+        var disconnected = false
+        connection.processResponse(response: json, shouldReconnect: &shouldReconnect, disconnected: &disconnected)
+        
+        cancelTimeoutOperation()
+        
+        if disconnected {
+            stop = true
+            connection.disconnect()
+        }
+    }
+    
+    private func cancelTimeoutOperation()
+    {
+        guard let completionHandler = self.completionHandler,
+            let timeoutOperation = connectTimeoutOperation else { return }
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: timeoutOperation, selector: #selector(BlockOperation.start), object: nil)
+        connectTimeoutOperation = nil
+        completionHandler(nil, nil)
+        self.completionHandler = nil
+    }
+    
+    private func reconnect(connection: ConnectionProtocol, data: String?)
+    {
+        _ = BlockOperation { [weak self, weak connection] in
+            guard let strongSelf = self, let strongConnection = connection else { return }
+            
+            if strongConnection.state != .disconnected && Connection.ensureReconnecting(connection: strongConnection) {
+                strongSelf.open(connection: strongConnection, connectionData: data, isReconnecting: true)
+            }
+        }.perform(#selector(BlockOperation.start), with: nil, afterDelay: self.reconnectDelay)
     }
 }
