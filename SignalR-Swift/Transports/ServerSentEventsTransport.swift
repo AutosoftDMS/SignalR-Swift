@@ -81,7 +81,13 @@ public class ServerSentEventsTransport: HttpTransport
         
         let url = isReconnecting ? connection.url.appending("reconnect") : connection.url.appending("connect")
         
-        connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 240).stream { [weak self, weak connection] data in
+        connection.getRequest(url: url,
+                              httpMethod: .get,
+                              encoding: URLEncoding.default,
+                              parameters: parameters,
+                              timeout: 240,
+                              headers: ["Connection": "Keep-Alive"])
+        .stream { [weak self, weak connection] data in
             guard let strongSelf = self, let strongConnection = connection else { return }
 
             strongSelf.buffer.append(data: data)
@@ -105,8 +111,6 @@ public class ServerSentEventsTransport: HttpTransport
                 strongSelf.reconnect(connection: strongConnection, data: connectionData)
             }
         }
-        
-//        urlRequest?.setValue("Keep-Alive", forHTTPHeaderField: "Connection")
     }
     
     private func process(message: ServerSentEvent, connection: ConnectionProtocol)

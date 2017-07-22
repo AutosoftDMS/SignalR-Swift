@@ -335,13 +335,22 @@ public class Connection: ConnectionProtocol {
     }
 
     public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest {
-        return self.getRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: 30.0)
+        return self.getRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: 30.0, headers: [:])
     }
 
     public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double) -> DataRequest {
-        self.headers["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
+        return self.getRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: timeout, headers: [:])
+    }
+    
+    public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double, headers: HTTPHeaders) -> DataRequest {
+        var globalHeaders = self.headers
+        globalHeaders["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
 
-        var urlRequest = try? URLRequest(url: url.asURL(), method: httpMethod, headers: self.headers)
+        for (httpHeader, value) in headers {
+            globalHeaders[httpHeader] = value
+        }
+
+        var urlRequest = try? URLRequest(url: url.asURL(), method: httpMethod, headers: globalHeaders)
         urlRequest?.timeoutInterval = timeout
 
         let encodedURLRequest = try? encoding.encode(urlRequest!, with: parameters)
