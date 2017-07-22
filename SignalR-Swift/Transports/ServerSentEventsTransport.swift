@@ -11,8 +11,7 @@ import Alamofire
 
 private typealias CompletionHandler = (_ respomce: Any?, _ error: Error?) -> ()
 
-public class ServerSentEventsTransport: HttpTransport
-{
+public class ServerSentEventsTransport: HttpTransport {
     private var stop = false
     private var connectTimeoutOperation: BlockOperation?
     private var completionHandler: CompletionHandler?
@@ -70,8 +69,7 @@ public class ServerSentEventsTransport: HttpTransport
     
     private let buffer = ChunkBuffer()
     
-    private func open(connection: ConnectionProtocol, connectionData: String?, isReconnecting: Bool)
-    {
+    private func open(connection: ConnectionProtocol, connectionData: String?, isReconnecting: Bool) {
         var parameters = connection.queryString ?? [:]
         parameters["transport"] = self.name!
         parameters["connectionToken"] = connection.connectionToken ?? ""
@@ -113,12 +111,10 @@ public class ServerSentEventsTransport: HttpTransport
         }
     }
     
-    private func process(message: ServerSentEvent, connection: ConnectionProtocol)
-    {
+    private func process(message: ServerSentEvent, connection: ConnectionProtocol) {
         guard message.event == .data else { return }
         
-        if message.data == "initialized"
-        {
+        if message.data == "initialized" {
             if connection.changeState(oldState: .reconnecting, toState: .connected) {
                 connection.didReconnect()
             }
@@ -141,8 +137,7 @@ public class ServerSentEventsTransport: HttpTransport
         }
     }
     
-    private func cancelTimeoutOperation()
-    {
+    private func cancelTimeoutOperation() {
         guard let completionHandler = self.completionHandler,
             let timeoutOperation = connectTimeoutOperation else { return }
         
@@ -152,8 +147,7 @@ public class ServerSentEventsTransport: HttpTransport
         self.completionHandler = nil
     }
     
-    private func reconnect(connection: ConnectionProtocol, data: String?)
-    {
+    private func reconnect(connection: ConnectionProtocol, data: String?) {
         _ = BlockOperation { [weak self, weak connection] in
             guard let strongSelf = self, let strongConnection = connection else { return }
             
