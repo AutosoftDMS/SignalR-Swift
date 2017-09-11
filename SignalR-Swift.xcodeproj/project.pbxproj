@@ -11,7 +11,6 @@
 		563B87161F1FA11100D75CEF /* ServerSentEventsTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B87151F1FA11100D75CEF /* ServerSentEventsTransport.swift */; };
 		568A77191F223CB2004F5D1C /* ChunkBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A77181F223CB2004F5D1C /* ChunkBuffer.swift */; };
 		568A771B1F223CF0004F5D1C /* ServerSentEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */; };
-		C91154611E23D20E007C0DD9 /* ConnectionParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154601E23D20E007C0DD9 /* ConnectionParameters.swift */; };
 		C91154631E24113F007C0DD9 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154621E24113F007C0DD9 /* WebSocketTransport.swift */; };
 		C91154661E241239007C0DD9 /* WebSocketConnectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154651E241239007C0DD9 /* WebSocketConnectionInfo.swift */; };
 		C91154681E243082007C0DD9 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154671E243082007C0DD9 /* ReceivedMessage.swift */; };
@@ -66,7 +65,6 @@
 		65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.release.xcconfig"; sourceTree = "<group>"; };
-		C91154601E23D20E007C0DD9 /* ConnectionParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionParameters.swift; sourceTree = "<group>"; };
 		C91154621E24113F007C0DD9 /* WebSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketTransport.swift; sourceTree = "<group>"; };
 		C91154651E241239007C0DD9 /* WebSocketConnectionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketConnectionInfo.swift; sourceTree = "<group>"; };
 		C91154671E243082007C0DD9 /* ReceivedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceivedMessage.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 		C911545F1E23D205007C0DD9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C91154601E23D20E007C0DD9 /* ConnectionParameters.swift */,
 				C91154671E243082007C0DD9 /* ReceivedMessage.swift */,
 			);
 			path = Models;
@@ -519,7 +516,6 @@
 				C9E1C9F81E1FEEF800335B1E /* Connection.swift in Sources */,
 				C91154731E2566DC007C0DD9 /* HubConnection.swift in Sources */,
 				C9B9229D1E295AD7007C2266 /* String+Dictionary.swift in Sources */,
-				C91154611E23D20E007C0DD9 /* ConnectionParameters.swift in Sources */,
 				C9E1CA061E1FFADA00335B1E /* HeartbeatMonitor.swift in Sources */,
 				568A771B1F223CF0004F5D1C /* ServerSentEvent.swift in Sources */,
 				C91154791E256760007C0DD9 /* Subscription.swift in Sources */,

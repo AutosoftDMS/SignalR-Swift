@@ -77,13 +77,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
     // MARK - Sending Data
 
     override public func onSending() -> String {
-        var data = [HubRegistrationData]()
-        for key in self.hubs.keys {
-            let registration = HubRegistrationData()
-            registration.name = key
-            data.append(registration)
-        }
-
+        let data = self.hubs.map { (key, _) in HubRegistrationData(name: key) }
         return data.toJSONString()!
     }
 
