@@ -91,8 +91,8 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         ]
 
         if let queryString = self.connectionInfo?.connection?.queryString {
-            for key in queryString.keys {
-                parameters[key] = queryString[key]
+            for (key, value) in queryString {
+                parameters[key] = value
             }
         }
 
@@ -178,7 +178,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
             self.startClosure = nil
             startClosure(nil, error)
-        } else if self.startedAbort == nil {
+        } else if !self.startedAbort {
             self.reconnect(connection: self.connectionInfo?.connection)
         }
     }

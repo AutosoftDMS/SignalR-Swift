@@ -70,8 +70,8 @@ public class LongPollingTransport: HttpTransport {
         ]
 
         if let queryString = connection.queryString {
-            for key in queryString.keys {
-                parameters[key] = queryString[key]
+            for (key, value) in queryString {
+                parameters[key] = value
             }
         }
 

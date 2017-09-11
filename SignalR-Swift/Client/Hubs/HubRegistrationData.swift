@@ -11,18 +11,18 @@ import ObjectMapper
 
 private let kName = "Name"
 
-class HubRegistrationData: Mappable {
-    var name = ""
+struct HubRegistrationData: Mappable {
+    private(set) var name = ""
 
-    init() {
+    init(name: String) {
+        self.name = name
+    }
+
+    init?(map: Map) {
 
     }
 
-    required init?(map: Map) {
-
-    }
-
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         name <- map[kName]
     }
 }
