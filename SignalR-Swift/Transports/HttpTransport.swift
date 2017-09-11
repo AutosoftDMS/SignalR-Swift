@@ -21,14 +21,14 @@ public class HttpTransport: ClientTransportProtocol {
         return false
     }
 
-    var startedAbort: Bool?
+    var startedAbort: Bool = false
 
     public func negotiate(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         let url = connection.url.appending("negotiate")
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-        let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters.toJSON(), timeout: 30.0)
+        let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30.0)
 
         encodedRequest.validate().responseObject { (response: DataResponse<NegotiationResponse>) in
             switch response.result {
@@ -53,7 +53,7 @@ public class HttpTransport: ClientTransportProtocol {
 
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-        let encodedRequest = connection.sessionManager.request(url, method: .get, parameters: parameters.toJSON(), encoding: URLEncoding.default, headers: nil)
+        let encodedRequest = connection.sessionManager.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
 
         var requestParams = [String: Any]()
 
@@ -89,10 +89,7 @@ public class HttpTransport: ClientTransportProtocol {
     }
 
     func tryCompleteAbort() -> Bool {
-        if let _ = self.startedAbort {
-            return true
-        }
-        return false
+        return startedAbort
     }
 
     public func lostConnection(connection: ConnectionProtocol) {
@@ -100,35 +97,38 @@ public class HttpTransport: ClientTransportProtocol {
     }
 
     public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String?) {
-        if timeout <= 0 {
-            return
-        }
+        guard timeout > 0, !self.startedAbort else { return }
+       
+        self.startedAbort = true
 
-        if self.startedAbort == nil {
-            self.startedAbort = true
+        let url = connection.url.appending("abort")
 
-            let url = connection.url.appending("abort")
+        let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
-            let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
+        let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 2.0)
 
-            let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters.toJSON(), timeout: 2.0)
-
-            let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: nil)
-            request.validate().response { response in
-                if response.error != nil {
-                    self.completeAbort()
-                }
+        let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: nil)
+        request.validate().response { response in
+            if response.error != nil {
+                self.completeAbort()
             }
         }
     }
-
-    func getConnectionParameters(connection: ConnectionProtocol, connectionData: String?) -> ConnectionParameters {
-        let parameters = ConnectionParameters()
-        parameters.clientProtocol = connection.version.description
-        parameters.transport = self.name
-        parameters.connectionData = connectionData
-        parameters.connectionToken = connection.connectionToken
-        parameters.queryString = connection.queryString
+    
+    func getConnectionParameters(connection: ConnectionProtocol, connectionData: String?) -> [String: Any] {
+        var parameters: [String: Any] = [
+            "clientProtocol": connection.version.description,
+            "transport": self.name ?? "",
+            "connectionData": connectionData ?? "",
+            "connectionToken": connection.connectionToken ?? "",
+            ]
+        
+        if let queryString = connection.queryString {
+            for (key, value) in queryString {
+                parameters[key] = value
+            }
+        }
+        
         return parameters
     }
 }
