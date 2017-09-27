@@ -8,10 +8,10 @@
 
 import Foundation
 import ObjectMapper
-import SwiftWebSocket
+import Starscream
 import Alamofire
 
-typealias WebSocketStartClosure = ((_ response: String?, _ error: Error?) -> ())
+private typealias WebSocketStartClosure = (String?, Error?) -> ()
 
 public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     var reconnectDelay = 2.0
@@ -41,11 +41,11 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
     override public func send(connection: ConnectionProtocol, data: Any, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         if let dataString = data as? String {
-            self.webSocket?.send(text: dataString)
+            self.webSocket?.write(string: dataString)
         } else if let dataDict = data as? [String: Any] {
-            self.webSocket?.send(text: dataDict.toJSONString()!)
+            self.webSocket?.write(string: dataDict.toJSONString()!)
         } else if let dataMappable = data as? Mappable {
-            self.webSocket?.send(text: dataMappable.toJSONString()!)
+            self.webSocket?.write(string: dataMappable.toJSONString()!)
         }
 
         if let handler = completionHandler {
@@ -70,7 +70,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
     private func stopWebSocket() {
         self.webSocket?.delegate = nil
-        self.webSocket?.close()
+        self.webSocket?.disconnect()
         self.webSocket = nil
     }
 
@@ -134,9 +134,9 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
             if let encodedRequest = request?.request {
                 self.webSocket = WebSocket(request: encodedRequest)
-                self.webSocket!.allowSelfSignedSSL = connection?.webSocketAllowsSelfSignedSSL ?? false
+                self.webSocket!.disableSSLCertValidation = connection?.webSocketAllowsSelfSignedSSL ?? false
                 self.webSocket!.delegate = self
-                self.webSocket!.open()
+                self.webSocket!.connect()
             }
         } catch {
 
@@ -155,21 +155,22 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
 
     // MARK: - WebSocketDelegate
 
-    public func webSocketOpen() {
+    public func websocketDidConnect(socket: WebSocketClient){
         if let connection = self.connectionInfo?.connection, connection.changeState(oldState: .reconnecting, toState: .connected) {
             connection.didReconnect()
         }
     }
-
-    public func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
-        if self.tryCompleteAbort() {
-            return
+    
+    public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        if let error = error {
+            webSocketError(error)
         }
-
-        self.reconnect(connection: self.connectionInfo?.connection)
+        else if !self.tryCompleteAbort() {
+            self.reconnect(connection: self.connectionInfo?.connection)
+        }
     }
 
-    public func webSocketError(_ error: NSError) {
+    private func webSocketError(_ error: Error) {
         if let startClosure = self.startClosure, let connectTimeoutOperation = self.connectTimeoutOperation {
             NSObject.cancelPreviousPerformRequests(withTarget: connectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
 
@@ -183,7 +184,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         }
     }
 
-    public func webSocketMessageText(_ text: String) {
+    public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         var timedOut = false
         var disconnected = false
 
@@ -203,5 +204,8 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             self.connectionInfo?.connection?.disconnect()
             self.stopWebSocket()
         }
+    }
+    
+    public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
     }
 }

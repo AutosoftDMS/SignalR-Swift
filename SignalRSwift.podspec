@@ -65,7 +65,7 @@ Pod::Spec.new do |s|
   s.exclude_files = "Classes/Exclude"
 
   s.dependency "Alamofire", "~> 4.2"
-  s.dependency "SwiftWebSocket"
+  s.dependency "Starscream", "~> 3.0"
   s.dependency "AlamofireObjectMapper", "~> 4.0"
 
 end
