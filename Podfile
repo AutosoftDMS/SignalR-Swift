@@ -15,14 +15,14 @@ target 'SignalRSwift' do
     # Pods for testing
     pod 'Quick'
     pod 'Nimble'
-    pod 'Mockit', '1.3.4'
+    pod 'Mockit', '~> 1.3'
   end
 
 end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
-    if target.name == 'ObjectMapper'
+    if target.name == 'ObjectMapper' || target.name == 'Quick' || target.name == 'Mockit'
       target.build_configurations.each do |config|
         config.build_settings['SWIFT_VERSION'] = '3.2'
       end
