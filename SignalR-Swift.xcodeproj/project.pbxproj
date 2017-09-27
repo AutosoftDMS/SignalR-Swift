@@ -60,8 +60,8 @@
 		42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		508E6B8CFCFE86345D2ADFAA /* Pods_SignalR_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		563B87151F1FA11100D75CEF /* ServerSentEventsTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSentEventsTransport.swift; sourceTree = "<group>"; };
-		568A77181F223CB2004F5D1C /* ChunkBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChunkBuffer.swift; path = "SignalR-Swift/Transports/ChunkBuffer.swift"; sourceTree = SOURCE_ROOT; };
-		568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerSentEvent.swift; path = "SignalR-Swift/Transports/ServerSentEvent.swift"; sourceTree = SOURCE_ROOT; };
+		568A77181F223CB2004F5D1C /* ChunkBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChunkBuffer.swift; path = "SignalR-Swift/Transports/ServerSentEvents/ChunkBuffer.swift"; sourceTree = SOURCE_ROOT; };
+		568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerSentEvent.swift; path = "SignalR-Swift/Transports/ServerSentEvents/ServerSentEvent.swift"; sourceTree = SOURCE_ROOT; };
 		65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +129,15 @@
 				E3DD50F71B5A709F5EC093E9 /* Pods_SignalRSwift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5686CBB81F7C03B3008CA187 /* ServerSentEvents */ = {
+			isa = PBXGroup;
+			children = (
+				568A77181F223CB2004F5D1C /* ChunkBuffer.swift */,
+				568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */,
+			);
+			path = ServerSentEvents;
 			sourceTree = "<group>";
 		};
 		C4B90292188059B3970F0902 /* Pods */ = {
@@ -249,15 +258,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		C9B922A01E297486007C2266 /* ServerSentEvents */ = {
-			isa = PBXGroup;
-			children = (
-				568A77181F223CB2004F5D1C /* ChunkBuffer.swift */,
-				568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */,
-			);
-			path = ServerSentEvents;
-			sourceTree = "<group>";
-		};
 		C9E1C9F61E1FEEBE00335B1E /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,7 +305,7 @@
 		C9FC2D931E2025990027FE59 /* Transports */ = {
 			isa = PBXGroup;
 			children = (
-				C9B922A01E297486007C2266 /* ServerSentEvents */,
+				5686CBB81F7C03B3008CA187 /* ServerSentEvents */,
 				C91154641E24122C007C0DD9 /* WebSockets */,
 				C9FC2D941E2025B80027FE59 /* AutoTransport.swift */,
 				C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */,
