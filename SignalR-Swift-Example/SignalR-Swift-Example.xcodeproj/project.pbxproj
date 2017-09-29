@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F76DC4356895051B3602B52 /* Pods_SignalR_Swift_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA7F9E57044110B56627D8F /* Pods_SignalR_Swift_ExampleTests.framework */; };
-		944BEF9B4DF9943B64688915 /* Pods_SignalR_Swift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FFF387C78E72E85D2EFDEF /* Pods_SignalR_Swift_Example.framework */; };
+		715553CCD279348CB60CA3CA /* Pods_SignalR_Swift_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB5250B3C095B54B6A8372E7 /* Pods_SignalR_Swift_ExampleTests.framework */; };
 		C9E64D701E27DC3300DEDC20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E64D6F1E27DC3300DEDC20 /* AppDelegate.swift */; };
 		C9E64D721E27DC3300DEDC20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E64D711E27DC3300DEDC20 /* ViewController.swift */; };
 		C9E64D771E27DC3300DEDC20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9E64D761E27DC3300DEDC20 /* Assets.xcassets */; };
@@ -28,10 +27,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4FA7F9E57044110B56627D8F /* Pods_SignalR_Swift_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		26A458CE9EF8F3422E825CF9 /* Pods_SignalR_Swift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		790AC94075959051C56799D5 /* Pods-SignalR-Swift-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		793E4C03DAB6B7009192E2EF /* Pods-SignalR-Swift-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example.release.xcconfig"; sourceTree = "<group>"; };
 		A2D0F25BF5CDF45777FDC3D3 /* Pods-SignalR-Swift-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BB5250B3C095B54B6A8372E7 /* Pods_SignalR_Swift_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C61CCEAF90DA9573CAF2F41D /* Pods-SignalR-Swift-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C9E64D6C1E27DC3300DEDC20 /* SignalR-Swift-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SignalR-Swift-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E64D6F1E27DC3300DEDC20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +43,6 @@
 		C9E64D841E27DC3400DEDC20 /* SignalR_Swift_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalR_Swift_ExampleTests.swift; sourceTree = "<group>"; };
 		C9E64D861E27DC3400DEDC20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9E64D901E27E47800DEDC20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D0FFF387C78E72E85D2EFDEF /* Pods_SignalR_Swift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +50,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				944BEF9B4DF9943B64688915 /* Pods_SignalR_Swift_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F76DC4356895051B3602B52 /* Pods_SignalR_Swift_ExampleTests.framework in Frameworks */,
+				715553CCD279348CB60CA3CA /* Pods_SignalR_Swift_ExampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,8 +67,8 @@
 		3074C68C23B280A1578C9624 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D0FFF387C78E72E85D2EFDEF /* Pods_SignalR_Swift_Example.framework */,
-				4FA7F9E57044110B56627D8F /* Pods_SignalR_Swift_ExampleTests.framework */,
+				26A458CE9EF8F3422E825CF9 /* Pods_SignalR_Swift_Example.framework */,
+				BB5250B3C095B54B6A8372E7 /* Pods_SignalR_Swift_ExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
