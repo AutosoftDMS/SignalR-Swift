@@ -15,9 +15,7 @@ public class AutoTransport: HttpTransport {
     override convenience init() {
         let transports = [
             WebSocketTransport(),
-
-            //TODO: implement server sent events. it was decided that for now web sockets and long polling should be enough
-
+            ServerSentEventsTransport()
             LongPollingTransport()
         ]
 
