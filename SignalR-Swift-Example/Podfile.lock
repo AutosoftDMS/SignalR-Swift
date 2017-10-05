@@ -8,7 +8,7 @@ PODS:
     - Alamofire (~> 4.2)
     - AlamofireObjectMapper (~> 4.0)
     - Starscream (~> 3.0)
-  - Starscream (3.0.1)
+  - Starscream (3.0.2)
 
 DEPENDENCIES:
   - SignalRSwift (from `../`)
@@ -22,8 +22,8 @@ SPEC CHECKSUMS:
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
   ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
   SignalRSwift: 3f02b90a29cd6c514b98c0e24ca2cce0ad1a1bb3
-  Starscream: 6608f27f8f00f585ee69d18bfd3aa9353ff9fa6c
+  Starscream: b512c62f6706421221b5ceb2ba01a9f58aca5bea
 
-PODFILE CHECKSUM: 6fa37cc77306f26239ba0290aca56e4f46a7ed86
+PODFILE CHECKSUM: f92ae4ede133928e73223da4c5b07ecc1dd2a9d4
 
 COCOAPODS: 1.3.1

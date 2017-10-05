@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import Alamofire
-import ObjectMapper
 
 public typealias ConnectionStartedClosure = (() -> ())
 public typealias ConnectionReceivedClosure = ((Any) -> ())
@@ -365,42 +364,39 @@ public class Connection: ConnectionProtocol {
         return "\(client)/\(self.assemblyVersion!) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
     }
 
-    public func processResponse(response: Any?, shouldReconnect: inout Bool, disconnected: inout Bool) {
+    public func processResponse(response: Data, shouldReconnect: inout Bool, disconnected: inout Bool) {
         self.updateLastKeepAlive()
 
         shouldReconnect = false
         disconnected = false
 
-        if response == nil {
+        guard let json = try? JSONSerialization.jsonObject(with: response),
+            let message = ReceivedMessage(jsonObject: json) else { return }
+        
+        if message.result != nil {
+            self.didReceiveData(data: json)
+        }
+
+        if let reconnect = message.shouldReconnect {
+            shouldReconnect = reconnect
+        }
+
+        if disconnected, let disconnect = message.disconnected {
+            disconnected = disconnect
             return
         }
 
-        if let responseDict = response as? [String: Any], let message = ReceivedMessage(JSON: responseDict) {
-            if let _ = message.result {
-                self.didReceiveData(data: responseDict)
+        if let groupsToken = message.groupsToken {
+            self.groupsToken = groupsToken
+        }
+
+        if let messages = message.messages {
+            if let messageId = message.messageId {
+                self.messageId = messageId
             }
 
-            if let reconnect = message.shouldReconnect {
-                shouldReconnect = reconnect
-            }
-
-            if let disconnect = message.disconnected, disconnected {
-                disconnected = disconnect
-                return
-            }
-
-            if let groupsToken = message.groupsToken {
-                self.groupsToken = groupsToken
-            }
-
-            if let messages = message.messages {
-                if let messageId = message.messageId {
-                    self.messageId = messageId
-                }
-
-                for message in messages {
-                    self.didReceiveData(data: message)
-                }
+            for message in messages {
+                self.didReceiveData(data: message)
             }
         }
     }

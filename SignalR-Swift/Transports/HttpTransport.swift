@@ -8,8 +8,6 @@
 
 import Foundation
 import Alamofire
-import ObjectMapper
-import AlamofireObjectMapper
 
 public class HttpTransport: ClientTransportProtocol {
 
@@ -30,16 +28,17 @@ public class HttpTransport: ClientTransportProtocol {
 
         let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30.0)
 
-        encodedRequest.validate().responseObject { (response: DataResponse<NegotiationResponse>) in
+        encodedRequest.validate().responseJSON { (response: DataResponse<Any>) in
             switch response.result {
             case .success(let result):
-                if let handler = completionHandler {
-                    handler(result, nil)
+                if let json = result as? [String: Any] {
+                    completionHandler?(NegotiationResponse(jsonObject: json), nil)
+                }
+                else {
+                    completionHandler?(nil, AFError.responseSerializationFailed(reason: .inputDataNil))
                 }
             case .failure(let error):
-                if let handler = completionHandler {
-                    handler(nil, error)
-                }
+                completionHandler?(nil, error)
             }
         }
     }
@@ -54,17 +53,15 @@ public class HttpTransport: ClientTransportProtocol {
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
         let encodedRequest = connection.sessionManager.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil)
-
+        
         var requestParams = [String: Any]()
 
         if let dataString = data as? String {
             requestParams["data"] = dataString
         } else if let dataDict = data as? [String: Any] {
             requestParams = dataDict
-        } else if let dataMappable = data as? Mappable {
-            requestParams["data"] = dataMappable.toJSONString()!
         }
-
+        
         let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: requestParams)
         request.validate().responseJSON { (response: DataResponse<Any>) in
             switch response.result {

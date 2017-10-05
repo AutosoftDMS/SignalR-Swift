@@ -8,15 +8,10 @@
 
 import Foundation
 import UIKit
-import ObjectMapper
 
 public class Version : Equatable, CustomStringConvertible {
     var major = 0
     var minor = 0
-
-    required public init?(map: Map) {
-
-    }
 
     init() {
 

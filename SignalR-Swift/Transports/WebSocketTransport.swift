@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ObjectMapper
 import Starscream
 import Alamofire
 
@@ -44,13 +43,9 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             self.webSocket?.write(string: dataString)
         } else if let dataDict = data as? [String: Any] {
             self.webSocket?.write(string: dataDict.toJSONString()!)
-        } else if let dataMappable = data as? Mappable {
-            self.webSocket?.write(string: dataMappable.toJSONString()!)
         }
-
-        if let handler = completionHandler {
-            handler(nil, nil)
-        }
+        
+        completionHandler?(nil, nil)
     }
 
     override public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String?) {
@@ -188,7 +183,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         var timedOut = false
         var disconnected = false
 
-        if let connection = self.connectionInfo?.connection, let data = text.toDictionary() {
+        if let connection = self.connectionInfo?.connection, let data = text.data(using: .utf8) {
             connection.processResponse(response: data, shouldReconnect: &timedOut, disconnected: &disconnected)
         }
 

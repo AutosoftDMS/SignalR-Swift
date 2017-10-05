@@ -52,8 +52,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
     }
 
     func clearInvocationCallbacks(error: String?) {
-        let result = HubResult()
-        result.error = error
+        let result = HubResult(error: error)
 
         for callback in self.callbacks.values {
             callback(result)
@@ -77,29 +76,35 @@ public class HubConnection: Connection, HubConnectionProtocol {
     // MARK - Sending Data
 
     override public func onSending() -> String {
-        let data = self.hubs.map { (key, _) in HubRegistrationData(name: key) }
-        return data.toJSONString()!
+        let hubNames = self.hubs.keys.map { key in ["Name": key] }
+        let data = try! JSONSerialization.data(withJSONObject: hubNames)
+        return String(data: data, encoding: .utf8)!
     }
 
     // MARK: - Received Data
 
     override public func didReceiveData(data: Any) {
-        if let dict = data as? [String: Any] {
-            if dict["I"] != nil, let result = HubResult(JSON: dict), let callback = self.callbacks[result.id!] {
+        guard let dict = data as? [String: Any]  else { return }
+        
+        if dict["I"] != nil {
+            let result = HubResult(jsonObject: dict)
+            if let callback = self.callbacks[result.id!] {
                 callback(result)
-            } else if let invocation = HubInvocation(JSON: dict) {
-                if let hubProxy = self.hubs[invocation.hub.lowercased()] {
-                    if let state = invocation.state {
-                        for key in state.keys {
-                            hubProxy.state[key] = state[key]
-                        }
-                    }
-                    hubProxy.invokeEvent(eventName: invocation.method, withArgs: invocation.args)
-                }
-
-                super.didReceiveData(data: data)
+                return
             }
         }
+        
+        let invocation = HubInvocation(jsonObject: dict)
+        
+        if let hubProxy = self.hubs[invocation.hub.lowercased()] {
+            for (key, value) in invocation.state {
+                hubProxy.state[key] = value
+            }
+            
+            hubProxy.invokeEvent(eventName: invocation.method, withArgs: invocation.args)
+        }
+
+        super.didReceiveData(data: data)
     }
 
     override public func willReconnect() {

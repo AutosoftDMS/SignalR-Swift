@@ -22,9 +22,7 @@
 		C91154731E2566DC007C0DD9 /* HubConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154721E2566DC007C0DD9 /* HubConnection.swift */; };
 		C91154751E256721007C0DD9 /* HubProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154741E256721007C0DD9 /* HubProxy.swift */; };
 		C91154771E256741007C0DD9 /* HubProxyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154761E256741007C0DD9 /* HubProxyProtocol.swift */; };
-		C91154791E256760007C0DD9 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154781E256760007C0DD9 /* Subscription.swift */; };
 		C911547B1E256F98007C0DD9 /* HubInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911547A1E256F98007C0DD9 /* HubInvocation.swift */; };
-		C911547D1E25777F007C0DD9 /* HubRegistrationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */; };
 		C92AD2591E2EBCB9009686E2 /* Dictionary+Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92AD2581E2EBCB9009686E2 /* Dictionary+Json.swift */; };
 		C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */; };
 		C9330B391E1FE59A00B1F2D5 /* SignalR-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -73,9 +71,7 @@
 		C91154721E2566DC007C0DD9 /* HubConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubConnection.swift; sourceTree = "<group>"; };
 		C91154741E256721007C0DD9 /* HubProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubProxy.swift; sourceTree = "<group>"; };
 		C91154761E256741007C0DD9 /* HubProxyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubProxyProtocol.swift; sourceTree = "<group>"; };
-		C91154781E256760007C0DD9 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		C911547A1E256F98007C0DD9 /* HubInvocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubInvocation.swift; sourceTree = "<group>"; };
-		C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubRegistrationData.swift; sourceTree = "<group>"; };
 		C92AD2581E2EBCB9009686E2 /* Dictionary+Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Json.swift"; sourceTree = "<group>"; };
 		C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignalR-Swift.h"; sourceTree = "<group>"; };
@@ -172,8 +168,6 @@
 				C91154721E2566DC007C0DD9 /* HubConnection.swift */,
 				C91154741E256721007C0DD9 /* HubProxy.swift */,
 				C911547A1E256F98007C0DD9 /* HubInvocation.swift */,
-				C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */,
-				C91154781E256760007C0DD9 /* Subscription.swift */,
 			);
 			path = Hubs;
 			sourceTree = "<group>";
@@ -535,12 +529,10 @@
 				C9B9229D1E295AD7007C2266 /* String+Dictionary.swift in Sources */,
 				C9E1CA061E1FFADA00335B1E /* HeartbeatMonitor.swift in Sources */,
 				568A771B1F223CF0004F5D1C /* ServerSentEvent.swift in Sources */,
-				C91154791E256760007C0DD9 /* Subscription.swift in Sources */,
 				C911546C1E255CB2007C0DD9 /* ExceptionHelper.swift in Sources */,
 				568A77191F223CB2004F5D1C /* ChunkBuffer.swift in Sources */,
 				C9E1CA0A1E1FFB6600335B1E /* KeepAliveData.swift in Sources */,
 				C91154711E2564C1007C0DD9 /* HubResult.swift in Sources */,
-				C911547D1E25777F007C0DD9 /* HubRegistrationData.swift in Sources */,
 				C9E1CA0C1E1FFDA800335B1E /* ClientTransportProtocol.swift in Sources */,
 				C9E1CA0E1E1FFE0400335B1E /* NegotiationResponse.swift in Sources */,
 				C9E1CA041E1FF3B700335B1E /* Version.swift in Sources */,

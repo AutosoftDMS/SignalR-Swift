@@ -25,25 +25,18 @@ public class HubProxy: HubProxyProtocol {
 
     // MARK: - Subscribe
 
-    public func on(eventName: String?, handler: @escaping ((_ args: [Any]) -> ())) -> Subscription? {
+    public func on(eventName: String?, handler: @escaping Subscription) -> Subscription? {
         guard eventName != nil && !eventName!.isEmpty else {
             NSException.raise(.invalidArgumentException, format: NSLocalizedString("Argument eventName is null", comment: "null event name exception"), arguments: getVaList(["nil"]))
             return nil
         }
-
-        var subscription = self.subscriptions[eventName!]
-        if subscription == nil {
-            subscription = Subscription()
-            subscription?.handler = handler
-            self.subscriptions[eventName!] = subscription
-        }
-
-        return subscription!
+        
+        return self.subscriptions[eventName!] ?? self.subscriptions.updateValue(handler, forKey: eventName!)
     }
 
     public func invokeEvent(eventName: String, withArgs args: [Any]) {
-        if let subscription = self.subscriptions[eventName], let handler = subscription.handler {
-            handler(args)
+        if let subscription = self.subscriptions[eventName] {
+            subscription(args)
         }
     }
 
@@ -81,16 +74,12 @@ public class HubProxy: HubProxyProtocol {
             }
         }
 
-        let hubData = HubInvocation()
-        hubData.hub = self.hubName!
-        hubData.method = method!
-        hubData.args = args
-        hubData.callbackId = callbackId
-
-        if self.state.count > 0 {
-            hubData.state = self.state
-        }
-
-        connection.send(object: hubData, completionHandler: completionHandler)
+        let hubData = HubInvocation(callbackId: callbackId,
+                                    hub: self.hubName!,
+                                    method: method!,
+                                    args: args,
+                                    state: self.state)
+        
+        connection.send(object: hubData.toJSONString()!, completionHandler: completionHandler)
     }
 }

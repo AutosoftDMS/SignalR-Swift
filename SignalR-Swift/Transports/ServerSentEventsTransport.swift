@@ -122,12 +122,11 @@ public class ServerSentEventsTransport: HttpTransport {
             return
         }
         
-        guard let data = message.data?.data(using: String.Encoding.utf8),
-            let json = try? JSONSerialization.jsonObject(with: data) else { return }
+        guard let data = message.data?.data(using: .utf8) else { return }
         
         var shouldReconnect = false
         var disconnected = false
-        connection.processResponse(response: json, shouldReconnect: &shouldReconnect, disconnected: &disconnected)
+        connection.processResponse(response: data, shouldReconnect: &shouldReconnect, disconnected: &disconnected)
         
         cancelTimeoutOperation()
         
