@@ -8,7 +8,6 @@ target 'SignalRSwift' do
   # Pods for SignalR-Swift
   pod 'Alamofire', '~> 4.2'
   pod 'Starscream', '~> 3.0'
-  pod 'AlamofireObjectMapper', '~> 4.0'
 
   target 'SignalR-SwiftTests' do
     inherit! :search_paths
@@ -22,7 +21,7 @@ end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
-    if target.name == 'ObjectMapper' || target.name == 'Mockit'
+    if target.name == 'Mockit'
       target.build_configurations.each do |config|
         config.build_settings['SWIFT_VERSION'] = '3.2'
       end

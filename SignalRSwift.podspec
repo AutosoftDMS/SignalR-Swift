@@ -66,6 +66,5 @@ Pod::Spec.new do |s|
 
   s.dependency "Alamofire", "~> 4.2"
   s.dependency "Starscream", "~> 3.0"
-  s.dependency "AlamofireObjectMapper", "~> 4.0"
 
 end
