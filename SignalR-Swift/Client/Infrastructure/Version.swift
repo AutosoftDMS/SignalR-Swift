@@ -22,7 +22,7 @@ public class Version : Equatable, CustomStringConvertible {
 
     }
 
-    init(major: Int, minor: Int) {
+    public init(major: Int, minor: Int) {
         self.major = major
         self.minor = minor
     }
