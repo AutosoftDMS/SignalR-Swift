@@ -189,33 +189,32 @@ public class Connection: ConnectionProtocol {
     }
 
     func stop(withTimeout timeout: Double) {
-        if self.state != .disconnected {
+        guard self.state != .disconnected else { return }
 
-            self.monitor?.stop()
-            self.monitor = nil
+        self.monitor?.stop()
+        self.monitor = nil
 
-            self.transport?.abort(connection: self, timeout: timeout, connectionData: self.connectionData)
-            self.disconnect()
+        self.transport?.abort(connection: self, timeout: timeout, connectionData: self.connectionData)
+        self.disconnect()
 
-            self.transport = nil
-        }
+        self.transport = nil
     }
 
     public func disconnect() {
-        if self.state != .disconnected {
-            self.state = .disconnected
+        guard self.state != .disconnected else { return }
+        
+        self.state = .disconnected
 
-            self.monitor?.stop()
-            self.monitor = nil
+        self.monitor?.stop()
+        self.monitor = nil
 
-            // clear the state for this connection
-            self.connectionId = nil
-            self.connectionToken = nil
-            self.groupsToken = nil
-            self.messageId = nil
+        // clear the state for this connection
+        self.connectionId = nil
+        self.connectionToken = nil
+        self.groupsToken = nil
+        self.messageId = nil
 
-            self.didClose()
-        }
+        self.didClose()
     }
 
     // MARK: - Sending Data
@@ -233,9 +232,7 @@ public class Connection: ConnectionProtocol {
 
             let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: 0, userInfo: userInfo)
             self.didReceiveError(error: error)
-            if let handler = completionHandler {
-                handler(nil, error)
-            }
+            completionHandler?(nil, error)
 
             return
         }
@@ -248,9 +245,7 @@ public class Connection: ConnectionProtocol {
 
             let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: 0, userInfo: userInfo)
             self.didReceiveError(error: error)
-            if let handler = completionHandler {
-                handler(nil, error)
-            }
+            completionHandler?(nil, error)
             return
         }
 
@@ -260,18 +255,12 @@ public class Connection: ConnectionProtocol {
     // MARK: - Received Data
 
     public func didReceiveData(data: Any) {
-        if let received = self.received {
-            received(data)
-        }
-
+        self.received?(data)
         self.delegate?.connection(connection: self, didReceiveData: data)
     }
 
     public func didReceiveError(error: Error) {
-        if let errorClosure = self.error {
-            errorClosure(error)
-        }
-
+        self.error?(error)
         self.delegate?.connection(connection: self, didReceiveError: error)
     }
 
@@ -295,10 +284,8 @@ public class Connection: ConnectionProtocol {
         NSObject.cancelPreviousPerformRequests(withTarget: self.disconnectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
 
         self.disconnectTimeoutOperation = nil
-
-        if let reconnected = self.reconnected {
-            reconnected()
-        }
+        
+        self.reconnected?()
 
         self.delegate?.connectionDidReconnect(connection: self)
 
@@ -306,18 +293,12 @@ public class Connection: ConnectionProtocol {
     }
 
     public func connectionDidSlow() {
-        if let connectionSlow = self.connectionSlow {
-            connectionSlow()
-        }
-
+        self.connectionSlow?()
         self.delegate?.connectionDidSlow(connection: self)
     }
 
     func didClose() {
-        if let closed = self.closed {
-            closed()
-        }
-
+        self.closed?()
         self.delegate?.connectionDidClose(connection: self)
     }
 
@@ -328,9 +309,7 @@ public class Connection: ConnectionProtocol {
     }
 
     public func updateLastKeepAlive() {
-        if let keepAlive = self.keepAliveData {
-            keepAlive.lastKeepAlive = Date()
-        }
+        self.keepAliveData?.lastKeepAlive = Date()
     }
 
     public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest {
@@ -394,10 +373,8 @@ public class Connection: ConnectionProtocol {
             if let messageId = message.messageId {
                 self.messageId = messageId
             }
-
-            for message in messages {
-                self.didReceiveData(data: message)
-            }
+            
+            messages.forEach(self.didReceiveData)
         }
     }
     

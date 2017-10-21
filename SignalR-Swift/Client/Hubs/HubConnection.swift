@@ -28,14 +28,13 @@ public class HubConnection: Connection, HubConnectionProtocol {
         if self.state != .disconnected {
             NSException.raise(.internalInconsistencyException, format: NSLocalizedString("Proxies cannot be added after the connection has been started.", comment: "proxy added after connection starts exception"), arguments: getVaList(["nil"]))
         }
-
-        var proxy: HubProxy? = nil
-
-        if self.hubs[hubName.lowercased()] == nil {
-            proxy = HubProxy(connection: self, hubName: hubName.lowercased())
-            self.hubs[hubName.lowercased()] = proxy
-        }
-
+        
+        let hubName = hubName.lowercased()
+        
+        guard self.hubs[hubName] == nil else { return nil }
+        
+        let proxy = HubProxy(connection: self, hubName: hubName)
+        self.hubs[hubName] = proxy
         return proxy
     }
 
@@ -54,7 +53,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
     func clearInvocationCallbacks(error: String?) {
         let result = HubResult(error: error)
 
-        for callback in self.callbacks.values {
+        for (_, callback) in self.callbacks {
             callback(result)
         }
 
@@ -65,18 +64,13 @@ public class HubConnection: Connection, HubConnectionProtocol {
 
     static func getUrl(url: String, useDefault: Bool) -> String {
         let urlResult = url.hasSuffix("/") ? url : url.appending("/")
-
-        if useDefault {
-            return urlResult.appending("signalr")
-        }
-
-        return urlResult
+        return useDefault ? urlResult.appending("signalr") : urlResult
     }
 
     // MARK - Sending Data
 
     override public func onSending() -> String {
-        let hubNames = self.hubs.keys.map { key in ["Name": key] }
+        let hubNames = self.hubs.map { (key, _) in ["Name": key] }
         let data = try! JSONSerialization.data(withJSONObject: hubNames)
         return String(data: data, encoding: .utf8)!
     }
@@ -97,9 +91,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
         let invocation = HubInvocation(jsonObject: dict)
         
         if let hubProxy = self.hubs[invocation.hub.lowercased()] {
-            for (key, value) in invocation.state {
-                hubProxy.state[key] = value
-            }
+            invocation.state.forEach { (key, value) in hubProxy.state[key] = value }
             
             hubProxy.invokeEvent(eventName: invocation.method, withArgs: invocation.args)
         }
