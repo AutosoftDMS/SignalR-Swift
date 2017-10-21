@@ -9,50 +9,26 @@
 import Foundation
 import UIKit
 
-public class Version : Equatable, CustomStringConvertible {
-    var major = 0
-    var minor = 0
+public struct Version : Equatable, CustomStringConvertible {
+    let major: UInt
+    let minor: UInt
 
-    init() {
-
-    }
-
-    init(major: Int, minor: Int) {
+    public init(major: UInt = 0, minor: UInt = 0) {
         self.major = major
         self.minor = minor
     }
-
-    static func parse(input: String?, forVersion version: inout Version?) -> Bool {
-
-        if input == nil || input!.isEmpty {
-            return false
-        }
-
-        if let components = input?.components(separatedBy: ".") {
-            if components.count < 2 || components.count > 4 {
-                return false
-            }
-
-            let tempVersion = Version()
-            for (index, component) in components.enumerated() {
-                let intComponent = Int(component)!
-                switch index {
-                case 0:
-                    tempVersion.major = intComponent
-                case 1:
-                    tempVersion.minor = intComponent
-                default:
-                    break
-                }
-            }
-            version = tempVersion
-        }
-
-        return true
+    
+    public init?(string input: String) {
+        let components = input.components(separatedBy: ".")
+        guard (2...4) ~= components.count, let major = UInt(components[0]), let minor = UInt(components[1]) else {
+            return nil }
+        
+        self.major = major
+        self.minor = minor
     }
-
+    
     public static func == (lhs: Version, rhs: Version) -> Bool {
-        return (lhs.major == rhs.major) && (lhs.minor == rhs.minor)
+        return lhs.major == rhs.major && lhs.minor == rhs.minor
     }
 
     public var description: String {
