@@ -65,3 +65,8 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
+.idea/modules.xml
+.idea/SignalR-Swift.iml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/xcode.xml
