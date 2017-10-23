@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import Alamofire
-import ObjectMapper
 
 public typealias ConnectionStartedClosure = (() -> ())
 public typealias ConnectionReceivedClosure = ((Any) -> ())
@@ -108,71 +107,63 @@ public class Connection: ConnectionProtocol {
         self.connectionData = self.onSending()
 
         transport.negotiate(connection: self, connectionData: self.connectionData, completionHandler: { [unowned self] (response, error) in
-            if error == nil {
-                self.verifyProtocolVersion(versionString: response?.protocolVersion)
-
-                self.connectionId = response?.connectionId
-                self.connectionToken = response?.connectionToken
-                self.disconnectTimeout = response?.disconnectTimeout
-
-                if let transportTimeout = response?.transportConnectTimeout {
-                    self.transportConnectTimeout += transportTimeout
-                }
-
-                if let keepAlive = response?.keepAliveTimeout {
-                    self.keepAliveData = KeepAliveData(timeout: keepAlive)
-                }
-
-                self.startTransport()
-            } else if let error = error {
+            if let error = error {
                 self.didReceiveError(error: error)
                 self.stopButDoNotCallServer()
+                return
+            }
+            
+            defer { self.startTransport() }
+            
+            guard let response = response else { return }
+            
+            self.verifyProtocolVersion(versionString: response.protocolVersion)
+            
+            self.connectionId = response.connectionId
+            self.connectionToken = response.connectionToken
+            self.disconnectTimeout = response.disconnectTimeout
+            
+            if let transportTimeout = response.transportConnectTimeout {
+                self.transportConnectTimeout += transportTimeout
+            }
+            
+            if let keepAlive = response.keepAliveTimeout {
+                self.keepAliveData = KeepAliveData(timeout: keepAlive)
             }
         })
     }
 
     func startTransport() {
         self.transport?.start(connection: self, connectionData: self.connectionData, completionHandler: { [unowned self] (response, error) in
-            if error == nil {
-                _ = self.changeState(oldState: .connecting, toState: .connected)
-
-                if let _ = self.keepAliveData, let transport = self.transport, transport.supportsKeepAlive {
-                    self.monitor?.start()
-                }
-
-                if let started = self.started {
-                    started()
-                }
-
-                self.delegate?.connectionDidOpen(connection: self)
-            } else if let error = error {
+            if let error = error {
                 self.didReceiveError(error: error)
                 self.stopButDoNotCallServer()
+                return
             }
+            
+            _ = self.changeState(oldState: .connecting, toState: .connected)
+            
+            if self.keepAliveData != nil, let transport = self.transport, transport.supportsKeepAlive {
+                self.monitor?.start()
+            }
+            
+            self.started?()
+            self.delegate?.connectionDidOpen(connection: self)
         })
     }
 
     public func changeState(oldState: ConnectionState, toState newState: ConnectionState) -> Bool {
-        if self.state == oldState {
-            self.state = newState
+        guard self.state == oldState else { /* invalid transition */ return false }
+        
+        self.state = newState
+        self.stateChanged?(self.state)
+        self.delegate?.connection(connection: self, didChangeState: oldState, newState: newState)
 
-            if let stateChanged = self.stateChanged {
-                stateChanged(self.state)
-            }
-
-            self.delegate?.connection(connection: self, didChangeState: oldState, newState: newState)
-
-            return true
-        }
-
-        // invalid transition
-        return false
+        return true
     }
 
-    func verifyProtocolVersion(versionString: String?) {
-        var version: Version?
-
-        if versionString == nil || versionString!.isEmpty || !Version.parse(input: versionString, forVersion: &version) || version != self.version {
+    func verifyProtocolVersion(versionString: String) {
+        if Version(string: versionString) != self.version {
             NSException.raise(.internalInconsistencyException, format: NSLocalizedString("Incompatible Protocol Version", comment: "internal inconsistency exception"), arguments: getVaList(["nil"]))
         }
     }
@@ -190,33 +181,32 @@ public class Connection: ConnectionProtocol {
     }
 
     func stop(withTimeout timeout: Double) {
-        if self.state != .disconnected {
+        guard self.state != .disconnected else { return }
 
-            self.monitor?.stop()
-            self.monitor = nil
+        self.monitor?.stop()
+        self.monitor = nil
 
-            self.transport?.abort(connection: self, timeout: timeout, connectionData: self.connectionData)
-            self.disconnect()
+        self.transport?.abort(connection: self, timeout: timeout, connectionData: self.connectionData)
+        self.disconnect()
 
-            self.transport = nil
-        }
+        self.transport = nil
     }
 
     public func disconnect() {
-        if self.state != .disconnected {
-            self.state = .disconnected
+        guard self.state != .disconnected else { return }
+        
+        self.state = .disconnected
 
-            self.monitor?.stop()
-            self.monitor = nil
+        self.monitor?.stop()
+        self.monitor = nil
 
-            // clear the state for this connection
-            self.connectionId = nil
-            self.connectionToken = nil
-            self.groupsToken = nil
-            self.messageId = nil
+        // clear the state for this connection
+        self.connectionId = nil
+        self.connectionToken = nil
+        self.groupsToken = nil
+        self.messageId = nil
 
-            self.didClose()
-        }
+        self.didClose()
     }
 
     // MARK: - Sending Data
@@ -234,9 +224,7 @@ public class Connection: ConnectionProtocol {
 
             let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: 0, userInfo: userInfo)
             self.didReceiveError(error: error)
-            if let handler = completionHandler {
-                handler(nil, error)
-            }
+            completionHandler?(nil, error)
 
             return
         }
@@ -249,9 +237,7 @@ public class Connection: ConnectionProtocol {
 
             let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: 0, userInfo: userInfo)
             self.didReceiveError(error: error)
-            if let handler = completionHandler {
-                handler(nil, error)
-            }
+            completionHandler?(nil, error)
             return
         }
 
@@ -261,18 +247,12 @@ public class Connection: ConnectionProtocol {
     // MARK: - Received Data
 
     public func didReceiveData(data: Any) {
-        if let received = self.received {
-            received(data)
-        }
-
+        self.received?(data)
         self.delegate?.connection(connection: self, didReceiveData: data)
     }
 
     public func didReceiveError(error: Error) {
-        if let errorClosure = self.error {
-            errorClosure(error)
-        }
-
+        self.error?(error)
         self.delegate?.connection(connection: self, didReceiveError: error)
     }
 
@@ -296,10 +276,8 @@ public class Connection: ConnectionProtocol {
         NSObject.cancelPreviousPerformRequests(withTarget: self.disconnectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
 
         self.disconnectTimeoutOperation = nil
-
-        if let reconnected = self.reconnected {
-            reconnected()
-        }
+        
+        self.reconnected?()
 
         self.delegate?.connectionDidReconnect(connection: self)
 
@@ -307,18 +285,12 @@ public class Connection: ConnectionProtocol {
     }
 
     public func connectionDidSlow() {
-        if let connectionSlow = self.connectionSlow {
-            connectionSlow()
-        }
-
+        self.connectionSlow?()
         self.delegate?.connectionDidSlow(connection: self)
     }
 
     func didClose() {
-        if let closed = self.closed {
-            closed()
-        }
-
+        self.closed?()
         self.delegate?.connectionDidClose(connection: self)
     }
 
@@ -329,9 +301,7 @@ public class Connection: ConnectionProtocol {
     }
 
     public func updateLastKeepAlive() {
-        if let keepAlive = self.keepAliveData {
-            keepAlive.lastKeepAlive = Date()
-        }
+        self.keepAliveData?.lastKeepAlive = Date()
     }
 
     public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest {
@@ -365,43 +335,38 @@ public class Connection: ConnectionProtocol {
         return "\(client)/\(self.assemblyVersion!) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
     }
 
-    public func processResponse(response: Any?, shouldReconnect: inout Bool, disconnected: inout Bool) {
+    public func processResponse(response: Data, shouldReconnect: inout Bool, disconnected: inout Bool) {
         self.updateLastKeepAlive()
 
         shouldReconnect = false
         disconnected = false
 
-        if response == nil {
+        guard let json = try? JSONSerialization.jsonObject(with: response),
+            let message = ReceivedMessage(jsonObject: json) else { return }
+        
+        if message.result != nil {
+            self.didReceiveData(data: json)
+        }
+
+        if let reconnect = message.shouldReconnect {
+            shouldReconnect = reconnect
+        }
+
+        if disconnected, let disconnect = message.disconnected {
+            disconnected = disconnect
             return
         }
 
-        if let responseDict = response as? [String: Any], let message = ReceivedMessage(JSON: responseDict) {
-            if let _ = message.result {
-                self.didReceiveData(data: responseDict)
-            }
+        if let groupsToken = message.groupsToken {
+            self.groupsToken = groupsToken
+        }
 
-            if let reconnect = message.shouldReconnect {
-                shouldReconnect = reconnect
+        if let messages = message.messages {
+            if let messageId = message.messageId {
+                self.messageId = messageId
             }
-
-            if let disconnect = message.disconnected, disconnected {
-                disconnected = disconnect
-                return
-            }
-
-            if let groupsToken = message.groupsToken {
-                self.groupsToken = groupsToken
-            }
-
-            if let messages = message.messages {
-                if let messageId = message.messageId {
-                    self.messageId = messageId
-                }
-
-                for message in messages {
-                    self.didReceiveData(data: message)
-                }
-            }
+            
+            messages.forEach(self.didReceiveData)
         }
     }
     

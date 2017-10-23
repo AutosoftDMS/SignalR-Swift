@@ -10,7 +10,7 @@ import Foundation
 
 public class HeartbeatMonitor {
     private var beenWarned = false
-    var hasBeenWarned: Bool! {
+    var hasBeenWarned: Bool {
         return self.beenWarned
     }
 
@@ -51,7 +51,7 @@ public class HeartbeatMonitor {
                     self.connection?.transport?.lostConnection(connection: self.connection!)
                 }
             } else if timeElapsed >= keepAlive.timeoutWarning {
-                if self.hasBeenWarned! {
+                if self.hasBeenWarned {
                     self.beenWarned = true
                     self.connection?.connectionDidSlow()
                 }

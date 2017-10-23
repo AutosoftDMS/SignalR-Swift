@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ObjectMapper
 
 private let kCallbackId = "I"
 private let kHub = "H"
@@ -15,26 +14,46 @@ private let kMethod = "M"
 private let kArgs = "A"
 private let kState = "S"
 
-class HubInvocation: Mappable {
-    var callbackId = ""
-    var hub = ""
-    var method = ""
-    var args = [Any]()
-    var state: [String: Any]?
-
-    init() {
-
+struct HubInvocation {
+    
+    enum CodingKeys : String, CodingKey {
+        case kCallbackId = "I"
+        case kHub = "H"
+        case kMethod = "M"
+        case kArgs = "A"
+        case kState = "S"
+    }
+    
+    let callbackId: String
+    let hub: String
+    let method: String
+    let args: [Any]
+    let state: [String: Any]
+    
+    init(callbackId: String, hub: String, method: String, args: [Any], state: [String: Any] = [:]) {
+        self.callbackId = callbackId
+        self.hub = hub
+        self.method = method
+        self.args = args
+        self.state = state
+    }
+    
+    init(jsonObject dict: [String: Any]) {
+        callbackId = dict[kCallbackId] as? String ?? ""
+        hub = dict[kHub] as? String ?? ""
+        method = dict[kMethod] as? String ?? ""
+        args = dict[kArgs] as? [Any] ?? []
+        state = dict[kState] as? [String: Any] ?? [:]
     }
 
-    required init?(map: Map) {
-
-    }
-
-    func mapping(map: Map) {
-        callbackId <- map[kCallbackId]
-        hub <- map[kHub]
-        method <- map[kMethod]
-        args <- map[kArgs]
-        state <- map[kState]
+    func toJSONString() -> String? {
+        let json: [String: Any] = [
+            kCallbackId: callbackId,
+            kHub: hub,
+            kMethod: method,
+            kArgs: args,
+            kState: state
+        ]
+        return json.toJSONString()
     }
 }

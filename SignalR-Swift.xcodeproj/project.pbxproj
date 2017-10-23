@@ -11,6 +11,7 @@
 		563B87161F1FA11100D75CEF /* ServerSentEventsTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B87151F1FA11100D75CEF /* ServerSentEventsTransport.swift */; };
 		568A77191F223CB2004F5D1C /* ChunkBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A77181F223CB2004F5D1C /* ChunkBuffer.swift */; };
 		568A771B1F223CF0004F5D1C /* ServerSentEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */; };
+		AA049197DB8438E88C7B3D5D /* Pods_SignalR_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 291C54976E982A542BA4B4C3 /* Pods_SignalR_SwiftTests.framework */; };
 		C91154631E24113F007C0DD9 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154621E24113F007C0DD9 /* WebSocketTransport.swift */; };
 		C91154661E241239007C0DD9 /* WebSocketConnectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154651E241239007C0DD9 /* WebSocketConnectionInfo.swift */; };
 		C91154681E243082007C0DD9 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154671E243082007C0DD9 /* ReceivedMessage.swift */; };
@@ -21,9 +22,7 @@
 		C91154731E2566DC007C0DD9 /* HubConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154721E2566DC007C0DD9 /* HubConnection.swift */; };
 		C91154751E256721007C0DD9 /* HubProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154741E256721007C0DD9 /* HubProxy.swift */; };
 		C91154771E256741007C0DD9 /* HubProxyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154761E256741007C0DD9 /* HubProxyProtocol.swift */; };
-		C91154791E256760007C0DD9 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154781E256760007C0DD9 /* Subscription.swift */; };
 		C911547B1E256F98007C0DD9 /* HubInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911547A1E256F98007C0DD9 /* HubInvocation.swift */; };
-		C911547D1E25777F007C0DD9 /* HubRegistrationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */; };
 		C92AD2591E2EBCB9009686E2 /* Dictionary+Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92AD2581E2EBCB9009686E2 /* Dictionary+Json.swift */; };
 		C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */; };
 		C9330B391E1FE59A00B1F2D5 /* SignalR-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -41,7 +40,6 @@
 		C9FC2D951E2025B80027FE59 /* AutoTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D941E2025B80027FE59 /* AutoTransport.swift */; };
 		C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */; };
 		C9FC2D991E23BC600027FE59 /* ConnectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D981E23BC600027FE59 /* ConnectionDelegate.swift */; };
-		ECC7F9D50C1543CCF9176F7D /* Pods_SignalR_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508E6B8CFCFE86345D2ADFAA /* Pods_SignalR_SwiftTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,13 +53,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0F4417DA6DB4C6D98141D660 /* Pods-SignalR-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift/Pods-SignalR-Swift.debug.xcconfig"; sourceTree = "<group>"; };
-		363C73CFE5251D608E6D5632 /* Pods-SignalR-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift/Pods-SignalR-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		291C54976E982A542BA4B4C3 /* Pods_SignalR_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.debug.xcconfig"; sourceTree = "<group>"; };
-		508E6B8CFCFE86345D2ADFAA /* Pods_SignalR_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		563B87151F1FA11100D75CEF /* ServerSentEventsTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSentEventsTransport.swift; sourceTree = "<group>"; };
-		568A77181F223CB2004F5D1C /* ChunkBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChunkBuffer.swift; path = "SignalR-Swift/Transports/ChunkBuffer.swift"; sourceTree = SOURCE_ROOT; };
-		568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerSentEvent.swift; path = "SignalR-Swift/Transports/ServerSentEvent.swift"; sourceTree = SOURCE_ROOT; };
+		568A77181F223CB2004F5D1C /* ChunkBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChunkBuffer.swift; path = "SignalR-Swift/Transports/ServerSentEvents/ChunkBuffer.swift"; sourceTree = SOURCE_ROOT; };
+		568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerSentEvent.swift; path = "SignalR-Swift/Transports/ServerSentEvents/ServerSentEvent.swift"; sourceTree = SOURCE_ROOT; };
 		65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.release.xcconfig"; sourceTree = "<group>"; };
@@ -75,9 +71,7 @@
 		C91154721E2566DC007C0DD9 /* HubConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubConnection.swift; sourceTree = "<group>"; };
 		C91154741E256721007C0DD9 /* HubProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubProxy.swift; sourceTree = "<group>"; };
 		C91154761E256741007C0DD9 /* HubProxyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubProxyProtocol.swift; sourceTree = "<group>"; };
-		C91154781E256760007C0DD9 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		C911547A1E256F98007C0DD9 /* HubInvocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubInvocation.swift; sourceTree = "<group>"; };
-		C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HubRegistrationData.swift; sourceTree = "<group>"; };
 		C92AD2581E2EBCB9009686E2 /* Dictionary+Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Json.swift"; sourceTree = "<group>"; };
 		C9330B281E1FE59A00B1F2D5 /* SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330B2B1E1FE59A00B1F2D5 /* SignalR-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignalR-Swift.h"; sourceTree = "<group>"; };
@@ -115,7 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */,
-				ECC7F9D50C1543CCF9176F7D /* Pods_SignalR_SwiftTests.framework in Frameworks */,
+				AA049197DB8438E88C7B3D5D /* Pods_SignalR_SwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,17 +119,24 @@
 		316A9BF3DEFAB629DD2C78FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				508E6B8CFCFE86345D2ADFAA /* Pods_SignalR_SwiftTests.framework */,
 				E3DD50F71B5A709F5EC093E9 /* Pods_SignalRSwift.framework */,
+				291C54976E982A542BA4B4C3 /* Pods_SignalR_SwiftTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5686CBB81F7C03B3008CA187 /* ServerSentEvents */ = {
+			isa = PBXGroup;
+			children = (
+				568A77181F223CB2004F5D1C /* ChunkBuffer.swift */,
+				568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */,
+			);
+			path = ServerSentEvents;
 			sourceTree = "<group>";
 		};
 		C4B90292188059B3970F0902 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0F4417DA6DB4C6D98141D660 /* Pods-SignalR-Swift.debug.xcconfig */,
-				363C73CFE5251D608E6D5632 /* Pods-SignalR-Swift.release.xcconfig */,
 				65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */,
 				B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */,
 				42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */,
@@ -167,8 +168,6 @@
 				C91154721E2566DC007C0DD9 /* HubConnection.swift */,
 				C91154741E256721007C0DD9 /* HubProxy.swift */,
 				C911547A1E256F98007C0DD9 /* HubInvocation.swift */,
-				C911547C1E25777F007C0DD9 /* HubRegistrationData.swift */,
-				C91154781E256760007C0DD9 /* Subscription.swift */,
 			);
 			path = Hubs;
 			sourceTree = "<group>";
@@ -249,15 +248,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		C9B922A01E297486007C2266 /* ServerSentEvents */ = {
-			isa = PBXGroup;
-			children = (
-				568A77181F223CB2004F5D1C /* ChunkBuffer.swift */,
-				568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */,
-			);
-			path = ServerSentEvents;
-			sourceTree = "<group>";
-		};
 		C9E1C9F61E1FEEBE00335B1E /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,7 +295,7 @@
 		C9FC2D931E2025990027FE59 /* Transports */ = {
 			isa = PBXGroup;
 			children = (
-				C9B922A01E297486007C2266 /* ServerSentEvents */,
+				5686CBB81F7C03B3008CA187 /* ServerSentEvents */,
 				C91154641E24122C007C0DD9 /* WebSockets */,
 				C9FC2D941E2025B80027FE59 /* AutoTransport.swift */,
 				C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */,
@@ -383,13 +373,13 @@
 				TargetAttributes = {
 					C9330B271E1FE59A00B1F2D5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = P4Q8BC563Y;
+						DevelopmentTeam = 8Z35TU97D6;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					C9330B301E1FE59A00B1F2D5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = P4Q8BC563Y;
+						DevelopmentTeam = 8Z35TU97D6;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -437,9 +427,20 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Mockit/Mockit.framework",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mockit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -452,13 +453,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SignalRSwift-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BE9A67E61EA448B742E04260 /* [CP] Copy Pods Resources */ = {
@@ -497,13 +501,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SignalR-SwiftTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -518,12 +525,10 @@
 				C9B9229D1E295AD7007C2266 /* String+Dictionary.swift in Sources */,
 				C9E1CA061E1FFADA00335B1E /* HeartbeatMonitor.swift in Sources */,
 				568A771B1F223CF0004F5D1C /* ServerSentEvent.swift in Sources */,
-				C91154791E256760007C0DD9 /* Subscription.swift in Sources */,
 				C911546C1E255CB2007C0DD9 /* ExceptionHelper.swift in Sources */,
 				568A77191F223CB2004F5D1C /* ChunkBuffer.swift in Sources */,
 				C9E1CA0A1E1FFB6600335B1E /* KeepAliveData.swift in Sources */,
 				C91154711E2564C1007C0DD9 /* HubResult.swift in Sources */,
-				C911547D1E25777F007C0DD9 /* HubRegistrationData.swift in Sources */,
 				C9E1CA0C1E1FFDA800335B1E /* ClientTransportProtocol.swift in Sources */,
 				C9E1CA0E1E1FFE0400335B1E /* NegotiationResponse.swift in Sources */,
 				C9E1CA041E1FF3B700335B1E /* Version.swift in Sources */,
@@ -606,7 +611,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -653,7 +658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -671,18 +676,19 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P4Q8BC563Y;
+				DEVELOPMENT_TEAM = 8Z35TU97D6;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "SignalR-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.autosoftdms.SignalR-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -693,17 +699,18 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = P4Q8BC563Y;
+				DEVELOPMENT_TEAM = 8Z35TU97D6;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "SignalR-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.autosoftdms.SignalR-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -713,13 +720,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = P4Q8BC563Y;
+				DEVELOPMENT_TEAM = 8Z35TU97D6;
 				INFOPLIST_FILE = "SignalR-SwiftTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.autosoftdms.SignalR-SwiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -729,12 +736,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = P4Q8BC563Y;
+				DEVELOPMENT_TEAM = 8Z35TU97D6;
 				INFOPLIST_FILE = "SignalR-SwiftTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.autosoftdms.SignalR-SwiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -31,12 +31,12 @@ struct ServerSentEvent {
     
     static func tryParse(line: String) -> ServerSentEvent? {
         if line.hasPrefix("data:") {
-            let data = line.substring(from: "data:".endIndex).trimmingCharacters(in: .whitespaces)
+            let data = line["data:".endIndex..<line.endIndex].trimmingCharacters(in: .whitespaces)
             return ServerSentEvent.event(withFields: ["event": Event.data.rawValue, "data": data])
         }
         
         if line.hasPrefix("id:") {
-            let data = line.substring(from: "id:".endIndex).trimmingCharacters(in: .whitespaces)
+            let data = line["id:".endIndex..<line.endIndex].trimmingCharacters(in: .whitespaces)
             return ServerSentEvent.event(withFields: ["event": Event.id.rawValue, "id": data])
         }
         

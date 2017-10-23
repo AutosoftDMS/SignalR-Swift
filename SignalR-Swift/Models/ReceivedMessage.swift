@@ -7,29 +7,25 @@
 //
 
 import Foundation
-import ObjectMapper
 
-class ReceivedMessage: Mappable {
+struct ReceivedMessage {
 
-    var result: String?
-    var shouldReconnect: Bool?
-    var disconnected: Bool?
-
-    var groupsToken: String?
-    var messageId: String?
-    var messages: [Any]?
-
-    required init?(map: Map) {
-
-    }
-
-    func mapping(map: Map) {
-        result <- map["I"]
-        shouldReconnect <- map["T"]
-        disconnected <- map["D"]
-
-        groupsToken <- map["G"]
-        messageId <- map["C"]
-        messages <- map["M"]
+    let result: String?
+    let shouldReconnect: Bool?
+    let disconnected: Bool?
+    let groupsToken: String?
+    let messageId: String?
+    let messages: [Any]?
+    
+    init?(jsonObject: Any) {
+        
+        guard let dict = jsonObject as? [String: Any] else { return nil }
+        
+        result = dict["I"] as? String
+        shouldReconnect = dict["T"] as? Bool
+        disconnected = dict["D"] as? Bool
+        groupsToken = dict["G"] as? String
+        messageId = dict["C"] as? String
+        messages = dict["M"] as? [Any]
     }
 }
