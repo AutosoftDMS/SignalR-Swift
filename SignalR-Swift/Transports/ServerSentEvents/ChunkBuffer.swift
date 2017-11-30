@@ -16,7 +16,7 @@ final class ChunkBuffer {
     }
     
     func append(data: Data) {
-        guard let newChunk = String(data: data, encoding: String.Encoding.utf8), !newChunk.isEmpty else { return }
+        guard let newChunk = String(data: data, encoding: .utf8), !newChunk.isEmpty else { return }
         buffer.append(newChunk)
     }
     
@@ -26,15 +26,15 @@ final class ChunkBuffer {
         
         buffer.enumerateSubstrings(in: buffer.startIndex ..< buffer.endIndex, options: .byLines) {
             substring, substringRange, enclosingRange, stop in
-            guard substringRange.upperBound != enclosingRange.upperBound else { return }
+            guard let substring = substring, !substring.isEmpty else { return }
             
             line = substring
             lineEndIndex = enclosingRange.upperBound
-            stop = !(substring?.trimmingCharacters(in: .newlines).isEmpty ?? true)
+            stop = true
         }
         
         if let endIndex = lineEndIndex {
-            buffer.removeSubrange(buffer.startIndex ... endIndex)
+            buffer.removeSubrange(buffer.startIndex ..< endIndex)
         }
         
         return line
