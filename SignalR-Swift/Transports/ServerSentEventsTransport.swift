@@ -15,7 +15,7 @@ public class ServerSentEventsTransport: HttpTransport {
     private var stop = false
     private var connectTimeoutOperation: BlockOperation?
     private var completionHandler: CompletionHandler?
-    private let sseQueue = DispatchQueue(label: "com.autosoftdms.SignalR-Swift.serverSentEvents", qos: .userInitiated, attributes: .concurrent)
+    private let sseQueue = DispatchQueue(label: "com.autosoftdms.SignalR-Swift.serverSentEvents", qos: .userInitiated)
     
     var reconnectDelay: TimeInterval = 2.0
     
