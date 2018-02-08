@@ -20,7 +20,7 @@ To integrate SignalR-Swift into your Xcode project using CocoaPods, specify it i
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
-pod 'SignalRSwift', '~> 2.0.3'
+pod 'SignalRSwift', '~> 2.0.2'
  ```
 
 Then, run the following command:
