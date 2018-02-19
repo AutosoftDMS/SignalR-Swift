@@ -8,57 +8,49 @@
 
 import Foundation
 
-public class HeartbeatMonitor {
-    private var beenWarned = false
-    var hasBeenWarned: Bool {
-        return self.beenWarned
-    }
+public final class HeartbeatMonitor {
 
-    private var timedOut = false
-    var didTimeOut: Bool! {
-        return self.timedOut
-    }
-
-    private weak var connection: ConnectionProtocol?
+    private(set) var hasBeenWarned = false
+    private(set) var didTimeOut = false
     private var timer: Timer?
+    private unowned let connection: ConnectionProtocol
 
     init(withConnection connection: ConnectionProtocol) {
         self.connection = connection
     }
 
     func start() {
-        self.connection?.updateLastKeepAlive()
-        self.beenWarned = false
-        self.timedOut = false
-        if let interval = self.connection?.keepAliveData?.checkInterval {
-            self.timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(self.heartBeat(withTimer:)), userInfo: nil, repeats: true)
+        self.connection.updateLastKeepAlive()
+        self.hasBeenWarned = false
+        self.didTimeOut = false
+        if let interval = self.connection.keepAliveData?.checkInterval {
+            self.timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(heartBeat(_:)), userInfo: nil, repeats: true)
         }
     }
 
-    @objc func heartBeat(withTimer timer: Timer) {
-        if let lastKeepAlive = self.connection?.keepAliveData?.lastKeepAlive {
-            let date = Date()
-            let timeElapsed = date.timeIntervalSince(lastKeepAlive)
-            self.beat(timeElapsed: timeElapsed)
-        }
+    @objc func heartBeat(_ timer: Timer) {
+        guard let lastKeepAlive = connection.keepAliveData?.lastKeepAlive else { return }
+
+        let timeElapsed = Date().timeIntervalSince(lastKeepAlive)
+        self.beat(timeElapsed: timeElapsed)
     }
 
     func beat(timeElapsed: Double) {
-        if self.connection?.state == .connected, let keepAlive = self.connection?.keepAliveData {
-            if timeElapsed >= keepAlive.timeout {
-                if self.didTimeOut! {
-                    self.timedOut = true
-                    self.connection?.transport?.lostConnection(connection: self.connection!)
-                }
-            } else if timeElapsed >= keepAlive.timeoutWarning {
-                if self.hasBeenWarned {
-                    self.beenWarned = true
-                    self.connection?.connectionDidSlow()
-                }
-            } else {
-                self.beenWarned = false
-                self.timedOut = false
+        guard self.connection.state == .connected, let keepAlive = self.connection.keepAliveData else { return }
+
+        if timeElapsed >= keepAlive.timeout {
+            if !self.didTimeOut {
+                self.didTimeOut = true
+                self.connection.transport?.lostConnection(connection: self.connection)
             }
+        } else if timeElapsed >= keepAlive.timeoutWarning {
+            if !self.hasBeenWarned {
+                self.hasBeenWarned = true
+                self.connection.connectionDidSlow()
+            }
+        } else {
+            self.hasBeenWarned = false
+            self.didTimeOut = false
         }
     }
 

@@ -15,15 +15,7 @@ private let kArgs = "A"
 private let kState = "S"
 
 struct HubInvocation {
-    
-    enum CodingKeys : String, CodingKey {
-        case kCallbackId = "I"
-        case kHub = "H"
-        case kMethod = "M"
-        case kArgs = "A"
-        case kState = "S"
-    }
-    
+
     let callbackId: String
     let hub: String
     let method: String
