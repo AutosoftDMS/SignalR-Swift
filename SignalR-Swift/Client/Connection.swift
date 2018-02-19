@@ -257,11 +257,8 @@ public class Connection: ConnectionProtocol {
     }
 
     public func willReconnect() {
-        self.disconnectTimeoutOperation = BlockOperation(block: { [unowned self] in
-            self.stopButDoNotCallServer()
-        })
-
         if let disconnectTimeout = self.disconnectTimeout {
+            self.disconnectTimeoutOperation = BlockOperation(block: { [weak self] in self?.stopButDoNotCallServer() })
             self.disconnectTimeoutOperation.perform(#selector(BlockOperation.start), with: nil, afterDelay: disconnectTimeout)
         }
 
@@ -274,7 +271,6 @@ public class Connection: ConnectionProtocol {
 
     public func didReconnect() {
         NSObject.cancelPreviousPerformRequests(withTarget: self.disconnectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
-
         self.disconnectTimeoutOperation = nil
         
         self.reconnected?()
