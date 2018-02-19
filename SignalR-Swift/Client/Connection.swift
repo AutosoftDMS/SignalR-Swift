@@ -60,24 +60,12 @@ public class Connection: ConnectionProtocol {
 
     weak var delegate: ConnectionDelegate?
 
-    public static func connection(withUrl url: String) -> Connection {
-        return Connection(withUrl: url)
-    }
-
-    public static func connection(withUrl url: String, queryString: [String: String]?) -> Connection {
-        return Connection(withUrl: url, queryString: queryString)
-    }
-
-    static func ensureReconnecting(connection: ConnectionProtocol?) -> Bool {
-        if connection == nil {
-            return false
+    static func ensureReconnecting(connection: ConnectionProtocol) -> Bool {
+        if connection.changeState(oldState: .connected, toState: .reconnecting) {
+            connection.willReconnect()
         }
 
-        if connection!.changeState(oldState: .connected, toState: .reconnecting) {
-            connection!.willReconnect()
-        }
-
-        return connection!.state == .reconnecting
+        return connection.state == .reconnecting
     }
 
     public init(withUrl url: String, queryString: [String: String]? = nil, sessionManager: SessionManager = .default) {
