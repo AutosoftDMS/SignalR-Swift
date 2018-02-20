@@ -60,24 +60,12 @@ public class Connection: ConnectionProtocol {
 
     weak var delegate: ConnectionDelegate?
 
-    public static func connection(withUrl url: String) -> Connection {
-        return Connection(withUrl: url)
-    }
-
-    public static func connection(withUrl url: String, queryString: [String: String]?) -> Connection {
-        return Connection(withUrl: url, queryString: queryString)
-    }
-
-    static func ensureReconnecting(connection: ConnectionProtocol?) -> Bool {
-        if connection == nil {
-            return false
+    static func ensureReconnecting(connection: ConnectionProtocol) -> Bool {
+        if connection.changeState(oldState: .connected, toState: .reconnecting) {
+            connection.willReconnect()
         }
 
-        if connection!.changeState(oldState: .connected, toState: .reconnecting) {
-            connection!.willReconnect()
-        }
-
-        return connection!.state == .reconnecting
+        return connection.state == .reconnecting
     }
 
     public init(withUrl url: String, queryString: [String: String]? = nil, sessionManager: SessionManager = .default) {
@@ -257,11 +245,8 @@ public class Connection: ConnectionProtocol {
     }
 
     public func willReconnect() {
-        self.disconnectTimeoutOperation = BlockOperation(block: { [unowned self] in
-            self.stopButDoNotCallServer()
-        })
-
         if let disconnectTimeout = self.disconnectTimeout {
+            self.disconnectTimeoutOperation = BlockOperation(block: { [weak self] in self?.stopButDoNotCallServer() })
             self.disconnectTimeoutOperation.perform(#selector(BlockOperation.start), with: nil, afterDelay: disconnectTimeout)
         }
 
@@ -274,7 +259,6 @@ public class Connection: ConnectionProtocol {
 
     public func didReconnect() {
         NSObject.cancelPreviousPerformRequests(withTarget: self.disconnectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
-
         self.disconnectTimeoutOperation = nil
         
         self.reconnected?()

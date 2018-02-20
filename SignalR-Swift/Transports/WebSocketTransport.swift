@@ -139,10 +139,8 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     }
 
     func reconnect(connection: ConnectionProtocol?) {
-        _ = BlockOperation { [weak self] () -> () in
-            guard let strongSelf = self else { return }
-
-            if Connection.ensureReconnecting(connection: connection) {
+        _ = BlockOperation { [weak self] in
+            if let strongSelf = self, let connection = connection, Connection.ensureReconnecting(connection: connection) {
                 strongSelf.performConnect(reconnecting: true, completionHandler: nil)
             }
             }.perform(#selector(BlockOperation.start), with: nil, afterDelay: self.reconnectDelay)
