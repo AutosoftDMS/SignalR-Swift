@@ -55,7 +55,7 @@ public class HttpTransport: ClientTransportProtocol {
         var encodedRequestURL = url
         do {
             let originalRequest = try URLRequest(url: url, method: .get, headers: nil)
-            encodedRequestURL = try URLEncoding.default.encode(originalRequest, with: parameters).url!.absoluteString
+            encodedRequestURL = try URLEncoding.queryString.encode(originalRequest, with: parameters).url!.absoluteString
         } catch {
         }
         
