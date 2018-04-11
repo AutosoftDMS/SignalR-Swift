@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SignalRSwift"
-  s.version      = "2.0.2"
+  s.version      = "2.0.3"
   s.summary      = "A SignalR client library for iOS written in Swift"
 
   # This description is used to generate tags and improve search results.
