@@ -22,21 +22,17 @@ final class ChunkBuffer {
     
     func readLine() -> String? {
         var line: String?
-        var lineEndIndex: String.Index?
-        
-        buffer.enumerateSubstrings(in: buffer.startIndex ..< buffer.endIndex, options: .byLines) {
-            substring, substringRange, enclosingRange, stop in
-            guard let substring = substring, !substring.isEmpty else { return }
-            
-            line = substring
-            lineEndIndex = enclosingRange.upperBound
-            stop = true
+
+        while let endIndex = buffer.index(of: "\n") {
+            let substring = buffer[..<endIndex]
+            buffer.removeSubrange(buffer.startIndex ..< buffer.index(after: endIndex))
+
+            if !substring.isEmpty {
+                line = String(substring)
+                break
+            }
         }
-        
-        if let endIndex = lineEndIndex {
-            buffer.removeSubrange(buffer.startIndex ..< endIndex)
-        }
-        
+
         return line
     }
 }
