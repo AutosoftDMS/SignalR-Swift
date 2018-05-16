@@ -57,7 +57,18 @@ public class HubProxy: HubProxyProtocol {
         let callbackId = connection.registerCallback { result in
             guard let hubResult = result else { return }
             hubResult.state?.forEach { (key, value) in self.state[key] = value }
-            completionHandler?(hubResult.result, nil)
+            if hubResult.error == nil {
+                completionHandler?(hubResult.result, nil)
+            }
+            else {
+                let userInfo = [
+                    NSLocalizedFailureReasonErrorKey: NSExceptionName.objectNotAvailableException.rawValue,
+                    NSLocalizedDescriptionKey: hubResult.error!
+                ]
+
+                let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: self))", code: 0, userInfo: userInfo)
+                completionHandler?(nil, error)
+            }
         }
 
         let hubData = HubInvocation(callbackId: callbackId,
