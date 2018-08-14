@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public class HubConnection: Connection, HubConnectionProtocol {
+open class HubConnection: Connection, HubConnectionProtocol {
 
     private var hubs = [String: HubProxy]()
     private var callbacks = [String: HubConnectionHubResultClosure]()
@@ -24,7 +24,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
                    sessionManager: sessionManager)
     }
 
-    public func createHubProxy(hubName: String) -> HubProxy? {
+    open func createHubProxy(hubName: String) -> HubProxy? {
         if self.state != .disconnected {
             NSException.raise(.internalInconsistencyException, format: NSLocalizedString("Proxies cannot be added after the connection has been started.", comment: "proxy added after connection starts exception"), arguments: getVaList(["nil"]))
         }
@@ -38,7 +38,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
         return proxy
     }
 
-    public func registerCallback(callback: @escaping HubConnectionHubResultClosure) -> String {
+    open func registerCallback(callback: @escaping HubConnectionHubResultClosure) -> String {
         let newId = String(self.callbackId)
         self.callbacks[newId] = callback
         self.callbackId += 1
@@ -46,7 +46,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
         return newId
     }
 
-    public func removeCallback(callbackId: String) {
+    open func removeCallback(callbackId: String) {
         self.callbacks.removeValue(forKey: callbackId)
     }
 
@@ -69,7 +69,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
 
     // MARK - Sending Data
 
-    override public func onSending() -> String {
+    override open func onSending() -> String {
         let hubNames = self.hubs.map { (key, _) in ["Name": key] }
         let data = try! JSONSerialization.data(withJSONObject: hubNames)
         return String(data: data, encoding: .utf8)!
@@ -77,7 +77,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
 
     // MARK: - Received Data
 
-    override public func didReceiveData(data: Any) {
+    override open func didReceiveData(data: Any) {
         guard let dict = data as? [String: Any]  else { return }
         
         if dict["I"] != nil {
@@ -99,7 +99,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
         super.didReceiveData(data: data)
     }
 
-    override public func willReconnect() {
+    override open func willReconnect() {
         self.clearInvocationCallbacks(error: "Connection started reconnecting before invocation result was received.")
         super.willReconnect()
     }
