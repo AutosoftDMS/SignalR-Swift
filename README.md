@@ -17,7 +17,7 @@ $ brew install carthage
 To integrate SignalR-Swift into your Xcode project using Carthage, specify it in your Cartfile:
 
 ```
-git "https://github.com/swift2geek/SignalR-Swift"
+git "https://github.com/swift2geek/SignalR-Swift" "master"
 ```
 
 Then, run the following command:
