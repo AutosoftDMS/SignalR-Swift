@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03D89CA2D29AD16BE22FB404 /* Pods_SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DD50F71B5A709F5EC093E9 /* Pods_SignalRSwift.framework */; };
 		563B87161F1FA11100D75CEF /* ServerSentEventsTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B87151F1FA11100D75CEF /* ServerSentEventsTransport.swift */; };
 		568A77191F223CB2004F5D1C /* ChunkBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A77181F223CB2004F5D1C /* ChunkBuffer.swift */; };
 		568A771B1F223CF0004F5D1C /* ServerSentEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */; };
-		AA049197DB8438E88C7B3D5D /* Pods_SignalR_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 291C54976E982A542BA4B4C3 /* Pods_SignalR_SwiftTests.framework */; };
 		C91154631E24113F007C0DD9 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154621E24113F007C0DD9 /* WebSocketTransport.swift */; };
 		C91154661E241239007C0DD9 /* WebSocketConnectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154651E241239007C0DD9 /* WebSocketConnectionInfo.swift */; };
 		C91154681E243082007C0DD9 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154671E243082007C0DD9 /* ReceivedMessage.swift */; };
@@ -40,6 +38,10 @@
 		C9FC2D951E2025B80027FE59 /* AutoTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D941E2025B80027FE59 /* AutoTransport.swift */; };
 		C9FC2D971E2025DB0027FE59 /* HttpTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */; };
 		C9FC2D991E23BC600027FE59 /* ConnectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FC2D981E23BC600027FE59 /* ConnectionDelegate.swift */; };
+		D28D6C9821231A4A004F1291 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28D6C9621231A4A004F1291 /* Starscream.framework */; };
+		D28D6C9921231A4A004F1291 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28D6C9721231A4A004F1291 /* Alamofire.framework */; };
+		D28D6C9B21231A82004F1291 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D28D6C9721231A4A004F1291 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D28D6C9C21231A82004F1291 /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D28D6C9621231A4A004F1291 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,15 +54,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D28D6C9A21231A76004F1291 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D28D6C9B21231A82004F1291 /* Alamofire.framework in CopyFiles */,
+				D28D6C9C21231A82004F1291 /* Starscream.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		291C54976E982A542BA4B4C3 /* Pods_SignalR_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		563B87151F1FA11100D75CEF /* ServerSentEventsTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSentEventsTransport.swift; sourceTree = "<group>"; };
 		568A77181F223CB2004F5D1C /* ChunkBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChunkBuffer.swift; path = "SignalR-Swift/Transports/ServerSentEvents/ChunkBuffer.swift"; sourceTree = SOURCE_ROOT; };
 		568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerSentEvent.swift; path = "SignalR-Swift/Transports/ServerSentEvents/ServerSentEvent.swift"; sourceTree = SOURCE_ROOT; };
-		65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
-		B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.release.xcconfig"; sourceTree = "<group>"; };
 		C91154621E24113F007C0DD9 /* WebSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketTransport.swift; sourceTree = "<group>"; };
 		C91154651E241239007C0DD9 /* WebSocketConnectionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketConnectionInfo.swift; sourceTree = "<group>"; };
 		C91154671E243082007C0DD9 /* ReceivedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceivedMessage.swift; sourceTree = "<group>"; };
@@ -92,7 +103,8 @@
 		C9FC2D941E2025B80027FE59 /* AutoTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoTransport.swift; sourceTree = "<group>"; };
 		C9FC2D961E2025DB0027FE59 /* HttpTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpTransport.swift; sourceTree = "<group>"; };
 		C9FC2D981E23BC600027FE59 /* ConnectionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionDelegate.swift; sourceTree = "<group>"; };
-		E3DD50F71B5A709F5EC093E9 /* Pods_SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D28D6C9621231A4A004F1291 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
+		D28D6C9721231A4A004F1291 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +112,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03D89CA2D29AD16BE22FB404 /* Pods_SignalRSwift.framework in Frameworks */,
+				D28D6C9821231A4A004F1291 /* Starscream.framework in Frameworks */,
+				D28D6C9921231A4A004F1291 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,22 +122,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */,
-				AA049197DB8438E88C7B3D5D /* Pods_SignalR_SwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		316A9BF3DEFAB629DD2C78FD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E3DD50F71B5A709F5EC093E9 /* Pods_SignalRSwift.framework */,
-				291C54976E982A542BA4B4C3 /* Pods_SignalR_SwiftTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		5686CBB81F7C03B3008CA187 /* ServerSentEvents */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,17 +135,6 @@
 				568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */,
 			);
 			path = ServerSentEvents;
-			sourceTree = "<group>";
-		};
-		C4B90292188059B3970F0902 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */,
-				B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */,
-				42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */,
-				B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		C911545F1E23D205007C0DD9 /* Models */ = {
@@ -178,8 +170,7 @@
 				C9330B2A1E1FE59A00B1F2D5 /* SignalR-Swift */,
 				C9330B351E1FE59A00B1F2D5 /* SignalR-SwiftTests */,
 				C9330B291E1FE59A00B1F2D5 /* Products */,
-				C4B90292188059B3970F0902 /* Pods */,
-				316A9BF3DEFAB629DD2C78FD /* Frameworks */,
+				D28D6C9521231A4A004F1291 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -306,6 +297,15 @@
 			path = Transports;
 			sourceTree = "<group>";
 		};
+		D28D6C9521231A4A004F1291 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D28D6C9721231A4A004F1291 /* Alamofire.framework */,
+				D28D6C9621231A4A004F1291 /* Starscream.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -324,12 +324,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9330B3C1E1FE59A00B1F2D5 /* Build configuration list for PBXNativeTarget "SignalRSwift" */;
 			buildPhases = (
-				8893B2F1770B24873610B1CA /* [CP] Check Pods Manifest.lock */,
 				C9330B231E1FE59A00B1F2D5 /* Sources */,
 				C9330B241E1FE59A00B1F2D5 /* Frameworks */,
 				C9330B251E1FE59A00B1F2D5 /* Headers */,
 				C9330B261E1FE59A00B1F2D5 /* Resources */,
-				BE9A67E61EA448B742E04260 /* [CP] Copy Pods Resources */,
+				D28D6C9A21231A76004F1291 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -344,12 +343,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9330B3F1E1FE59A00B1F2D5 /* Build configuration list for PBXNativeTarget "SignalR-SwiftTests" */;
 			buildPhases = (
-				F71AD12E7750A42FE3671D48 /* [CP] Check Pods Manifest.lock */,
 				C9330B2D1E1FE59A00B1F2D5 /* Sources */,
 				C9330B2E1E1FE59A00B1F2D5 /* Frameworks */,
 				C9330B2F1E1FE59A00B1F2D5 /* Resources */,
-				1408BA98AFE158F7832B6F37 /* [CP] Embed Pods Frameworks */,
-				E29934DC4C7132EA079822B1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -373,7 +369,7 @@
 				TargetAttributes = {
 					C9330B271E1FE59A00B1F2D5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 8Z35TU97D6;
+						DevelopmentTeam = 226D4X4623;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -419,101 +415,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1408BA98AFE158F7832B6F37 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Mockit/Mockit.framework",
-				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
-				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mockit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8893B2F1770B24873610B1CA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SignalRSwift-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BE9A67E61EA448B742E04260 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E29934DC4C7132EA079822B1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F71AD12E7750A42FE3671D48 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SignalR-SwiftTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C9330B231E1FE59A00B1F2D5 /* Sources */ = {
@@ -671,22 +572,27 @@
 		};
 		C9330B3D1E1FE59A00B1F2D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42E40FC4FECA749AD861D67E /* Pods-SignalRSwift.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 8Z35TU97D6;
+				DEVELOPMENT_TEAM = 226D4X4623;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "SignalR-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.autosoftdms.SignalR-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "<Multiple values> $SRCROOT/$PROJECT_NAME/Starscream";
+				"SWIFT_INCLUDE_PATHS[arch=*]" = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
@@ -694,29 +600,32 @@
 		};
 		C9330B3E1E1FE59A00B1F2D5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9B048FC932F5933F9447DCE /* Pods-SignalRSwift.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 8Z35TU97D6;
+				DEVELOPMENT_TEAM = 226D4X4623;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "SignalR-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.autosoftdms.SignalR-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "<Multiple values> $SRCROOT/$PROJECT_NAME/Starscream";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 		C9330B401E1FE59A00B1F2D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65B59CFA9FAF15B46BDCDEC1 /* Pods-SignalR-SwiftTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -732,7 +641,6 @@
 		};
 		C9330B411E1FE59A00B1F2D5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5E080DF752A22D635CE38CF /* Pods-SignalR-SwiftTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;

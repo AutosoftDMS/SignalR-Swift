@@ -19,44 +19,44 @@ public typealias ConnectionReconnectedClosure = (() -> ())
 public typealias ConnectionStateChangedClosure = ((ConnectionState) -> ())
 public typealias ConnectionConnectionSlowClosure = (() -> ())
 
-public class Connection: ConnectionProtocol {
+open class Connection: ConnectionProtocol {
     var defaultAbortTimeout = 30.0
     var assemblyVersion: Version?
     var disconnectTimeout: Double?
     var disconnectTimeoutOperation: BlockOperation!
 
-    public var state = ConnectionState.disconnected
-    public var url: String
+    open var state = ConnectionState.disconnected
+    open var url: String
 
-    public var items = [String : Any]()
-    public let queryString: [String: String]?
+    open var items = [String : Any]()
+    open let queryString: [String: String]?
 
     var connectionData: String?
     var monitor: HeartbeatMonitor?
 
-    public var version = Version(major: 1, minor: 3)
+    open var version = Version(major: 1, minor: 3)
 
-    public var connectionId: String?
-    public var connectionToken: String?
-    public var groupsToken: String?
-    public var messageId: String?
+    open var connectionId: String?
+    open var connectionToken: String?
+    open var groupsToken: String?
+    open var messageId: String?
 
-    public var headers = HTTPHeaders()
-    public var keepAliveData: KeepAliveData?
-    public var webSocketAllowsSelfSignedSSL = false
-    public internal(set) var sessionManager: SessionManager
+    open var headers = HTTPHeaders()
+    open var keepAliveData: KeepAliveData?
+    open var webSocketAllowsSelfSignedSSL = false
+    open internal(set) var sessionManager: SessionManager
 
-    public var transport: ClientTransportProtocol?
-    public var transportConnectTimeout = 0.0
+    open var transport: ClientTransportProtocol?
+    open var transportConnectTimeout = 0.0
 
-    public var started: ConnectionStartedClosure?
-    public var received: ConnectionReceivedClosure?
-    public var error: ConnectionErrorClosure?
-    public var closed: ConnectionClosedClosure?
-    public var reconnecting: ConnectionReconnectingClosure?
-    public var reconnected: ConnectionReconnectedClosure?
-    public var stateChanged: ConnectionStateChangedClosure?
-    public var connectionSlow: ConnectionConnectionSlowClosure?
+    open var started: ConnectionStartedClosure?
+    open var received: ConnectionReceivedClosure?
+    open var error: ConnectionErrorClosure?
+    open var closed: ConnectionClosedClosure?
+    open var reconnecting: ConnectionReconnectingClosure?
+    open var reconnected: ConnectionReconnectedClosure?
+    open var stateChanged: ConnectionStateChangedClosure?
+    open var connectionSlow: ConnectionConnectionSlowClosure?
 
     weak var delegate: ConnectionDelegate?
 
@@ -76,11 +76,11 @@ public class Connection: ConnectionProtocol {
 
     // MARK: - Connection management
 
-    public func start() {
+    open func start() {
         self.start(transport: AutoTransport())
     }
 
-    public func start(transport: ClientTransportProtocol) {
+    open func start(transport: ClientTransportProtocol) {
         if !self.changeState(oldState: .disconnected, toState: .connecting) {
             return
         }
@@ -140,7 +140,7 @@ public class Connection: ConnectionProtocol {
         })
     }
 
-    public func changeState(oldState: ConnectionState, toState newState: ConnectionState) -> Bool {
+    open func changeState(oldState: ConnectionState, toState newState: ConnectionState) -> Bool {
         guard self.state == oldState else { /* invalid transition */ return false }
         
         self.state = newState
@@ -164,7 +164,7 @@ public class Connection: ConnectionProtocol {
         self.stop(withTimeout: -1.0)
     }
 
-    public func stop() {
+    open func stop() {
         self.stopAndCallServer()
     }
 
@@ -180,7 +180,7 @@ public class Connection: ConnectionProtocol {
         self.transport = nil
     }
 
-    public func disconnect() {
+    open func disconnect() {
         guard self.state != .disconnected else { return }
         
         self.state = .disconnected
@@ -199,11 +199,11 @@ public class Connection: ConnectionProtocol {
 
     // MARK: - Sending Data
 
-    public func onSending() -> String? {
+    open func onSending() -> String? {
         return nil
     }
 
-    public func send(object: Any, completionHandler: ((Any?, Error?) -> ())?) {
+    open func send(object: Any, completionHandler: ((Any?, Error?) -> ())?) {
         if self.state == .disconnected {
             let userInfo = [
                 NSLocalizedFailureReasonErrorKey: NSExceptionName.internalInconsistencyException.rawValue,
@@ -234,17 +234,17 @@ public class Connection: ConnectionProtocol {
 
     // MARK: - Received Data
 
-    public func didReceiveData(data: Any) {
+    open func didReceiveData(data: Any) {
         self.received?(data)
         self.delegate?.connection(connection: self, didReceiveData: data)
     }
 
-    public func didReceiveError(error: Error) {
+    open func didReceiveError(error: Error) {
         self.error?(error)
         self.delegate?.connection(connection: self, didReceiveError: error)
     }
 
-    public func willReconnect() {
+    open func willReconnect() {
         if let disconnectTimeout = self.disconnectTimeout {
             self.disconnectTimeoutOperation = BlockOperation(block: { [weak self] in self?.stopButDoNotCallServer() })
             self.disconnectTimeoutOperation.perform(#selector(BlockOperation.start), with: nil, afterDelay: disconnectTimeout)
@@ -257,7 +257,7 @@ public class Connection: ConnectionProtocol {
         self.delegate?.connectionWillReconnect(connection: self)
     }
 
-    public func didReconnect() {
+    open func didReconnect() {
         NSObject.cancelPreviousPerformRequests(withTarget: self.disconnectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
         self.disconnectTimeoutOperation = nil
         
@@ -268,7 +268,7 @@ public class Connection: ConnectionProtocol {
         self.updateLastKeepAlive()
     }
 
-    public func connectionDidSlow() {
+    open func connectionDidSlow() {
         self.connectionSlow?()
         self.delegate?.connectionDidSlow(connection: self)
     }
@@ -280,23 +280,23 @@ public class Connection: ConnectionProtocol {
 
     // MARK: - Prepare Request
 
-    public func addValue(value: String, forHttpHeaderField field: String) {
+    open func addValue(value: String, forHttpHeaderField field: String) {
         self.headers[field] = value
     }
 
-    public func updateLastKeepAlive() {
+    open func updateLastKeepAlive() {
         self.keepAliveData?.lastKeepAlive = Date()
     }
 
-    public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest {
+    open func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest {
         return self.getRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: 30.0, headers: [:])
     }
 
-    public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double) -> DataRequest {
+    open func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double) -> DataRequest {
         return self.getRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: timeout, headers: [:])
     }
     
-    public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double, headers: HTTPHeaders) -> DataRequest {
+    open func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double, headers: HTTPHeaders) -> DataRequest {
         var globalHeaders = self.headers
         globalHeaders["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
 
@@ -319,7 +319,7 @@ public class Connection: ConnectionProtocol {
         return "\(client)/\(self.assemblyVersion!) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
     }
 
-    public func processResponse(response: Data, shouldReconnect: inout Bool, disconnected: inout Bool) {
+    open func processResponse(response: Data, shouldReconnect: inout Bool, disconnected: inout Bool) {
         self.updateLastKeepAlive()
 
         shouldReconnect = false

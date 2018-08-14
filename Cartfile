@@ -1,0 +1,2 @@
+github "Alamofire/Alamofire" ~> 4.7
+github "daltoniam/Starscream" >= 3.0.2
