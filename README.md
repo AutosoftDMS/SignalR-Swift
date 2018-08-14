@@ -4,29 +4,26 @@ SignalR-Swift is intended to be used along side ASP.NET SignalR, a new library f
 
 ## Installation
 
-### Installation with CocoaPods
+### Installation with Carthage
 
-[CocoaPods](https://cocoapods.org/) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like SignalR-Swift in your projects. See the ["Getting Started" guide for more information](https://guides.cocoapods.org/using/getting-started.html). You can install it with the following command:
-
-```
-$ gem install cocoapods
-```
-
-#### Podfile
-
-To integrate SignalR-Swift into your Xcode project using CocoaPods, specify it in your Podfile:
+[Carthage](https://github.com/Carthage/Carthage) is a dependency manager for Swift, written in pure Swift, which automates and simplifies the process of using 3rd-party libraries like SignalR-Swift in your projects. You can install it with the following command:
 
 ```
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+$ brew install carthage
+```
 
-pod 'SignalRSwift', '~> 2.0.2'
- ```
+#### Cartfile
+
+To integrate SignalR-Swift into your Xcode project using Carthage, specify it in your Cartfile:
+
+```
+git "https://github.com/swift2geek/SignalR-Swift" "master"
+```
 
 Then, run the following command:
 
 ```
-$ pod install
+$ carthage update SignalR-Swift --platform iOS --no-use-binaries
 ```
 
 ## Example Usage
