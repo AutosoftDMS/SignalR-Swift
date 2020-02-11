@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		715553CCD279348CB60CA3CA /* Pods_SignalR_Swift_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB5250B3C095B54B6A8372E7 /* Pods_SignalR_Swift_ExampleTests.framework */; };
 		C9E64D701E27DC3300DEDC20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E64D6F1E27DC3300DEDC20 /* AppDelegate.swift */; };
 		C9E64D721E27DC3300DEDC20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E64D711E27DC3300DEDC20 /* ViewController.swift */; };
 		C9E64D771E27DC3300DEDC20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9E64D761E27DC3300DEDC20 /* Assets.xcassets */; };
@@ -27,12 +26,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		26A458CE9EF8F3422E825CF9 /* Pods_SignalR_Swift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		790AC94075959051C56799D5 /* Pods-SignalR-Swift-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		793E4C03DAB6B7009192E2EF /* Pods-SignalR-Swift-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example.release.xcconfig"; sourceTree = "<group>"; };
-		A2D0F25BF5CDF45777FDC3D3 /* Pods-SignalR-Swift-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		BB5250B3C095B54B6A8372E7 /* Pods_SignalR_Swift_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C61CCEAF90DA9573CAF2F41D /* Pods-SignalR-Swift-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		34C423C8415C9D7D709AF98C /* Pods_SignalR_Swift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AC4142A6C198298FE587578 /* Pods-SignalR-Swift-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4E6C9352E26E287BEDA458A8 /* Pods-SignalR-Swift-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		71A5F569092E83301B3A4D30 /* Pods_SignalR_Swift_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A99CC09EC2595A7FD1BA1510 /* Pods-SignalR-Swift-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example.release.xcconfig"; sourceTree = "<group>"; };
+		C15CDE19EABC2C1FC1F180C6 /* Pods-SignalR-Swift-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C9E64D6C1E27DC3300DEDC20 /* SignalR-Swift-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SignalR-Swift-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E64D6F1E27DC3300DEDC20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9E64D711E27DC3300DEDC20 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +56,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				715553CCD279348CB60CA3CA /* Pods_SignalR_Swift_ExampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,8 +65,8 @@
 		3074C68C23B280A1578C9624 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				26A458CE9EF8F3422E825CF9 /* Pods_SignalR_Swift_Example.framework */,
-				BB5250B3C095B54B6A8372E7 /* Pods_SignalR_Swift_ExampleTests.framework */,
+				34C423C8415C9D7D709AF98C /* Pods_SignalR_Swift_Example.framework */,
+				71A5F569092E83301B3A4D30 /* Pods_SignalR_Swift_ExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -76,10 +74,10 @@
 		781EA09133FDDDA08190CC4A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C61CCEAF90DA9573CAF2F41D /* Pods-SignalR-Swift-Example.debug.xcconfig */,
-				793E4C03DAB6B7009192E2EF /* Pods-SignalR-Swift-Example.release.xcconfig */,
-				A2D0F25BF5CDF45777FDC3D3 /* Pods-SignalR-Swift-ExampleTests.debug.xcconfig */,
-				790AC94075959051C56799D5 /* Pods-SignalR-Swift-ExampleTests.release.xcconfig */,
+				C15CDE19EABC2C1FC1F180C6 /* Pods-SignalR-Swift-Example.debug.xcconfig */,
+				A99CC09EC2595A7FD1BA1510 /* Pods-SignalR-Swift-Example.release.xcconfig */,
+				4AC4142A6C198298FE587578 /* Pods-SignalR-Swift-ExampleTests.debug.xcconfig */,
+				4E6C9352E26E287BEDA458A8 /* Pods-SignalR-Swift-ExampleTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -138,7 +136,6 @@
 				C9E64D691E27DC3300DEDC20 /* Frameworks */,
 				C9E64D6A1E27DC3300DEDC20 /* Resources */,
 				6F42A1175AEEF087513135D6 /* [CP] Embed Pods Frameworks */,
-				3B0F052C7D6CDBE56E5190EC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -157,8 +154,6 @@
 				C9E64D7C1E27DC3400DEDC20 /* Sources */,
 				C9E64D7D1E27DC3400DEDC20 /* Frameworks */,
 				C9E64D7E1E27DC3400DEDC20 /* Resources */,
-				10D9A3292E3B053C4B1F1E8B /* [CP] Embed Pods Frameworks */,
-				77521BBF68CE60E8E2BA4051 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,7 +172,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Jordan Camara";
 				TargetAttributes = {
 					C9E64D6B1E27DC3300DEDC20 = {
@@ -195,7 +190,7 @@
 			};
 			buildConfigurationList = C9E64D671E27DC3300DEDC20 /* Build configuration list for PBXProject "SignalR-Swift-Example" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -251,43 +246,13 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		10D9A3292E3B053C4B1F1E8B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3B0F052C7D6CDBE56E5190EC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6F42A1175AEEF087513135D6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SignalRSwift/SignalRSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
@@ -300,22 +265,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		77521BBF68CE60E8E2BA4051 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B721394EE4F0D4E64AB5B418 /* [CP] Check Pods Manifest.lock */ = {
@@ -390,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -399,6 +350,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -406,6 +358,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -446,6 +399,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -455,6 +409,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -462,6 +417,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -493,7 +449,7 @@
 		};
 		C9E64D8A1E27DC3400DEDC20 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C61CCEAF90DA9573CAF2F41D /* Pods-SignalR-Swift-Example.debug.xcconfig */;
+			baseConfigurationReference = C15CDE19EABC2C1FC1F180C6 /* Pods-SignalR-Swift-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8Z35TU97D6;
@@ -507,7 +463,7 @@
 		};
 		C9E64D8B1E27DC3400DEDC20 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 793E4C03DAB6B7009192E2EF /* Pods-SignalR-Swift-Example.release.xcconfig */;
+			baseConfigurationReference = A99CC09EC2595A7FD1BA1510 /* Pods-SignalR-Swift-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8Z35TU97D6;
@@ -521,7 +477,7 @@
 		};
 		C9E64D8D1E27DC3400DEDC20 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A2D0F25BF5CDF45777FDC3D3 /* Pods-SignalR-Swift-ExampleTests.debug.xcconfig */;
+			baseConfigurationReference = 4AC4142A6C198298FE587578 /* Pods-SignalR-Swift-ExampleTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -537,7 +493,7 @@
 		};
 		C9E64D8E1E27DC3400DEDC20 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 790AC94075959051C56799D5 /* Pods-SignalR-Swift-ExampleTests.release.xcconfig */;
+			baseConfigurationReference = 4E6C9352E26E287BEDA458A8 /* Pods-SignalR-Swift-ExampleTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
