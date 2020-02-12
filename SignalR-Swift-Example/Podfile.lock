@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.9.1)
-  - SignalRSwift (2.1.0):
+  - SignalRSwift (2.1.1):
     - Alamofire
     - Starscream
   - Starscream (4.0.0)
@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  SignalRSwift: 41a414a785c59aa7a0b9012df8ace8c1c820ec2e
+  SignalRSwift: 14b50492a093a8863aa9101e9ee02577d2e9dd0b
   Starscream: 04b26f02727e10a002e6b5d21b188ba0d049910b
 
 PODFILE CHECKSUM: 0b670b9c4ac8d7df99f98ba1a30595cebc4466a9

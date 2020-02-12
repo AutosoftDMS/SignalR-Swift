@@ -43,7 +43,7 @@ public class Connection: ConnectionProtocol {
 
     public var headers = HTTPHeaders()
     public var keepAliveData: KeepAliveData?
-    public var webSocketAllowsSelfSignedSSL = false
+    public var webSocketAllowsSelfSignedSSL = true
     public internal(set) var sessionManager: SessionManager
 
     public var transport: ClientTransportProtocol?
