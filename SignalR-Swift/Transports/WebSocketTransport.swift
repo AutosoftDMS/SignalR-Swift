@@ -188,16 +188,16 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     public func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {
         case .connected(let headers):
-            print("websocket is connected: \(headers)")
+            //print("websocket is connected: \(headers)")
             webSocketConnected(headers)
         case .disconnected(let reason, let code):
-            print("websocket is disconnected: \(reason) with code: \(code)")
+            //print("websocket is disconnected: \(reason) with code: \(code)")
             webSocketDisconnected(reason, code)
         case .text(let string):
-            print("Received text: \(string)")
+            //print("Received text: \(string)")
             webSocketReceivedMessage(string)
         case .binary(let data):
-            print("Received data: \(data.count)")
+            //print("Received data: \(data.count)")
         case .ping(_):
             break
         case .pong(_):
