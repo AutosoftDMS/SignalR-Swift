@@ -202,6 +202,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             webSocketReceivedMessage(string)
         case .binary(let data):
             //print("Received data: \(data.count)")
+            break
         case .ping(_):
             break
         case .pong(_):
