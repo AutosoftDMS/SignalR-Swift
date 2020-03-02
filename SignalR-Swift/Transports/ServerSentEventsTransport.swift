@@ -19,6 +19,10 @@ public class ServerSentEventsTransport: HttpTransport {
     
     var reconnectDelay: TimeInterval = 2.0
     
+    public override init() {
+        super.init()
+    }
+    
     override public var name: String? {
         return "serverSentEvents"
     }

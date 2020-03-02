@@ -22,7 +22,7 @@ public class AutoTransport: HttpTransport {
         self.init(withTransports: transports)
     }
 
-    init(withTransports transports: [ClientTransportProtocol]) {
+    public init(withTransports transports: [ClientTransportProtocol]) {
         self.transports = transports
     }
 

@@ -19,6 +19,10 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     private var startClosure: WebSocketStartClosure?
     private var connectTimeoutOperation: BlockOperation?
     
+    public override init() {
+        super.init()
+    }
+    
     override public var name: String? {
         return "webSockets"
     }

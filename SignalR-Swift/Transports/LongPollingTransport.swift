@@ -14,6 +14,10 @@ public class LongPollingTransport: HttpTransport {
     var errorDelay = 2.0
     var pollingQueue = DispatchQueue(label: "com.autosoftdms.SignalR-Swift.serial")
 
+    public override init() {
+        super.init()
+    }
+    
     // MARK: - Client Transport Protocol
 
     override public var name: String? {
