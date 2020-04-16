@@ -207,7 +207,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             break
         case .pong(_):
             break
-        case .viablityChanged(_):
+        case .viabilityChanged(_):
             break
         case .reconnectSuggested(_):
             break
