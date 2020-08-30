@@ -1,9 +1,9 @@
 PODS:
-  - Alamofire (4.9.1)
+  - Alamofire (5.2.2)
   - Mockit (1.5.0)
-  - Nimble (8.0.7)
-  - Quick (2.2.0)
-  - Starscream (4.0.3)
+  - Nimble (8.1.1)
+  - Quick (3.0.0)
+  - Starscream (4.0.4)
 
 DEPENDENCIES:
   - Alamofire
@@ -21,12 +21,12 @@ SPEC REPOS:
     - Starscream
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Mockit: 09492d654a2945096603d76ea77b131bdcfb2233
-  Nimble: a73af6ecd4c9106f434f3d55fc54570be3739e0b
-  Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
-  Starscream: ef06f0961fff0880bca0604416d61141e4faca67
+  Nimble: 5f8a2fb6fa343a7242dfdd9d42f7267419d464b2
+  Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
 
-PODFILE CHECKSUM: fbb16c39d93e3b98af81f291ed56343951baef5b
+PODFILE CHECKSUM: 8cfb1fef9f5267a2491b93bc836d7622db3f8310
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

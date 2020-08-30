@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SignalRSwift"
-  s.version      = "2.1.6"
+  s.version      = "2.1.7"
   s.summary      = "A SignalR client library for iOS written in Swift"
 
   # This description is used to generate tags and improve search results.
@@ -57,7 +57,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform     = :ios, "9.0"
+  s.platform     = :ios, "10.0"
 
   s.source       = { :git => "https://github.com/AutosoftDMS/SignalR-Swift.git", :tag => "#{s.version}" }
 

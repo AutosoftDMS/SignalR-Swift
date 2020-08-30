@@ -200,7 +200,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         case .text(let string):
             //print("Received text: \(string)")
             webSocketReceivedMessage(string)
-        case .binary(let data):
+        case .binary(_):
             //print("Received data: \(data.count)")
             break
         case .ping(_):

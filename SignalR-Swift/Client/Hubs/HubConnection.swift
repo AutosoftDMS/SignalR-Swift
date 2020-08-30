@@ -17,7 +17,7 @@ public class HubConnection: Connection, HubConnectionProtocol {
     
     public init(withUrl url: String,
                 queryString: [String: String]? = nil,
-                sessionManager: SessionManager = .default,
+                sessionManager: Session = .default,
                 useDefault: Bool = true) {
         super.init(withUrl: HubConnection.getUrl(url: url, useDefault: useDefault),
                    queryString: queryString,

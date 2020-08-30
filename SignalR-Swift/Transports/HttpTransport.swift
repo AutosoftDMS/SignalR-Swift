@@ -28,14 +28,14 @@ public class HttpTransport: ClientTransportProtocol {
 
         let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30.0)
 
-        encodedRequest.validate().responseJSON { (response: DataResponse<Any>) in
+        encodedRequest.validate().responseJSON { (response: DataResponse) in
             switch response.result {
             case .success(let result):
                 if let json = result as? [String: Any] {
                     completionHandler?(NegotiationResponse(jsonObject: json), nil)
                 }
                 else {
-                    completionHandler?(nil, AFError.responseSerializationFailed(reason: .inputDataNil))
+                    completionHandler?(nil, AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength))
                 }
             case .failure(let error):
                 completionHandler?(nil, error)
@@ -68,7 +68,7 @@ public class HttpTransport: ClientTransportProtocol {
         }
         
         let request = connection.getRequest(url: encodedRequestURL, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: requestParams)
-        request.validate().responseJSON { (response: DataResponse<Any>) in
+        request.validate().responseJSON { (response: DataResponse) in
             switch response.result {
             case .success(let result):
                 connection.didReceiveData(data: result)

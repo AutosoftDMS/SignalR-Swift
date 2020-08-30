@@ -44,7 +44,7 @@ public class Connection: ConnectionProtocol {
     public var headers = HTTPHeaders()
     public var keepAliveData: KeepAliveData?
     public var webSocketAllowsSelfSignedSSL = true
-    public internal(set) var sessionManager: SessionManager
+    public internal(set) var sessionManager: Session
 
     public var transport: ClientTransportProtocol?
     public var transportConnectTimeout = 0.0
@@ -68,7 +68,7 @@ public class Connection: ConnectionProtocol {
         return connection.state == .reconnecting
     }
 
-    public init(withUrl url: String, queryString: [String: String]? = nil, sessionManager: SessionManager = .default) {
+    public init(withUrl url: String, queryString: [String: String]? = nil, sessionManager: Session = .default) {
         self.url = url.hasSuffix("/") ? url : url.appending("/")
         self.queryString = queryString
         self.sessionManager = sessionManager
@@ -287,28 +287,35 @@ public class Connection: ConnectionProtocol {
     public func updateLastKeepAlive() {
         self.keepAliveData?.lastKeepAlive = Date()
     }
+    
+    private func encodedURLRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double, headers: HTTPHeaders) -> URLRequest? {
+        var globalHeaders = self.headers
+        globalHeaders["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
+        
+        for (httpHeader, value) in headers.dictionary {
+            globalHeaders[httpHeader] = value
+        }
+        
+        var urlRequest = try? URLRequest(url: url.asURL(), method: httpMethod, headers: globalHeaders)
+        urlRequest?.timeoutInterval = timeout
+        
+        let encodedURLRequest = try? encoding.encode(urlRequest!, with: parameters)
+        return encodedURLRequest
+    }
 
     public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest {
-        return self.getRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: 30.0, headers: [:])
+        let request = encodedURLRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: 30.0, headers: [:])
+        return sessionManager.request(request!)
     }
 
     public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double) -> DataRequest {
-        return self.getRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: timeout, headers: [:])
+        let request = encodedURLRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: timeout, headers: [:])
+        return sessionManager.request(request!)
     }
     
-    public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double, headers: HTTPHeaders) -> DataRequest {
-        var globalHeaders = self.headers
-        globalHeaders["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
-
-        for (httpHeader, value) in headers {
-            globalHeaders[httpHeader] = value
-        }
-
-        var urlRequest = try? URLRequest(url: url.asURL(), method: httpMethod, headers: globalHeaders)
-        urlRequest?.timeoutInterval = timeout
-
-        let encodedURLRequest = try? encoding.encode(urlRequest!, with: parameters)
-        return sessionManager.request(encodedURLRequest!)
+    public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double, headers: HTTPHeaders) -> DataStreamRequest {
+        let request = encodedURLRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: timeout, headers: headers)
+        return sessionManager.streamRequest(request!)
     }
 
     func createUserAgentString(client: String) -> String {
