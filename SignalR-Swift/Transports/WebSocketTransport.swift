@@ -105,10 +105,6 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         }
         
         do {
-            let baseUrl = try urlComponents?.asURL()
-            let url = reconnecting ? baseUrl!.absoluteString.appending("reconnect") : baseUrl!.absoluteString.appending("connect")
-            let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30)
-            
             self.startClosure = completionHandler
             if let startClosure = self.startClosure {
                 self.connectTimeoutOperation = BlockOperation(block: { [weak self] in
@@ -127,13 +123,18 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
                 self.connectTimeoutOperation?.perform(#selector(BlockOperation.start), with: nil, afterDelay: connection!.transportConnectTimeout)
             }
             
-            if let encodedRequest = request?.request {
+            let baseUrl = try urlComponents?.asURL()
+            let url = reconnecting ? baseUrl!.absoluteString.appending("reconnect") : baseUrl!.absoluteString.appending("connect")
+            let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30)
+            
+            request?.onURLRequestCreation(perform: { [weak self] encodedRequest in
+                guard let self = self else { return }
                 self.webSocket = WebSocket(request: encodedRequest, certPinner: FoundationSecurity(allowSelfSigned: connection?.webSocketAllowsSelfSignedSSL ?? true))
                 self.webSocket!.delegate = self
                 self.webSocket!.connect()
-            }
+            })
         } catch {
-            
+            print("error: \(error)")
         }
     }
     
@@ -189,7 +190,7 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         }
     }
     
-    public func didReceive(event: WebSocketEvent, client: WebSocket) {
+    public func didReceive(event: WebSocketEvent, client: WebSocketClient) { 
         switch event {
         case .connected(let headers):
             //print("websocket is connected: \(headers)")
