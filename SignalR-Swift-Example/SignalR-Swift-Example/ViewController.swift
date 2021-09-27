@@ -101,7 +101,7 @@ class ViewController: UIViewController {
 
     @IBAction func send(_ sender: AnyObject?) {
         if let hub = chatHub, let message = messageTextField.text {
-            hub.invoke(method: "send", withArgs: [name, message])
+            hub.invoke(method: "send", withArgs: [name ?? "Name: ", message])
         }
         messageTextField.resignFirstResponder()
     }

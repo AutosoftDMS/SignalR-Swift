@@ -163,7 +163,7 @@ public class ServerSentEventsTransport: HttpTransport {
     }
     
     private func reconnect(connection: ConnectionProtocol, data: String?) {
-        _ = BlockOperation { [weak self, weak connection] in
+        BlockOperation { [weak self, weak connection] in
             if let strongSelf = self, let strongConnection = connection,
                strongConnection.state != .disconnected, Connection.ensureReconnecting(connection: strongConnection) {
                 strongSelf.open(connection: strongConnection, connectionData: data, isReconnecting: true)

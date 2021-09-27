@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ConnectionDelegate: class {
+protocol ConnectionDelegate: AnyObject {
     func connectionDidOpen(connection: ConnectionProtocol)
     func connectionDidClose(connection: ConnectionProtocol)
     func connectionWillReconnect(connection: ConnectionProtocol)
