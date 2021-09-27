@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8045ED75F42A9C4443F08EF0 /* Pods_SignalR_Swift_ExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38BF701DB154B564C2657C7 /* Pods_SignalR_Swift_ExampleTests.framework */; };
+		C9A0B2B8AB9CB9D8FF33FC6C /* Pods_SignalR_Swift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C17ABC7303FABDDF9430F0D /* Pods_SignalR_Swift_Example.framework */; };
 		C9E64D701E27DC3300DEDC20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E64D6F1E27DC3300DEDC20 /* AppDelegate.swift */; };
 		C9E64D721E27DC3300DEDC20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E64D711E27DC3300DEDC20 /* ViewController.swift */; };
 		C9E64D771E27DC3300DEDC20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9E64D761E27DC3300DEDC20 /* Assets.xcassets */; };
@@ -29,6 +31,7 @@
 		05E37B89163869AF502F1CDF /* Pods-SignalR-Swift-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-ExampleTests.release.xcconfig"; path = "Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		64FBD2AA863EBC1C6E5F1847 /* Pods-SignalR-Swift-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-ExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-SignalR-Swift-ExampleTests/Pods-SignalR-Swift-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		71D72D02CAC62F15659B33F8 /* Pods-SignalR-Swift-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-Example.debug.xcconfig"; path = "Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		9C17ABC7303FABDDF9430F0D /* Pods_SignalR_Swift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E64D6C1E27DC3300DEDC20 /* SignalR-Swift-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SignalR-Swift-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E64D6F1E27DC3300DEDC20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9E64D711E27DC3300DEDC20 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +43,7 @@
 		C9E64D861E27DC3400DEDC20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9E64D901E27E47800DEDC20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DF6E88DA50252B1C671A3177 /* Pods-SignalR-Swift-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-Swift-Example.release.xcconfig"; path = "Target Support Files/Pods-SignalR-Swift-Example/Pods-SignalR-Swift-Example.release.xcconfig"; sourceTree = "<group>"; };
+		F38BF701DB154B564C2657C7 /* Pods_SignalR_Swift_ExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_Swift_ExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9A0B2B8AB9CB9D8FF33FC6C /* Pods_SignalR_Swift_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8045ED75F42A9C4443F08EF0 /* Pods_SignalR_Swift_ExampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +69,8 @@
 		886B7849965E5C3A8E3E1D7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C17ABC7303FABDDF9430F0D /* Pods_SignalR_Swift_Example.framework */,
+				F38BF701DB154B564C2657C7 /* Pods_SignalR_Swift_ExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

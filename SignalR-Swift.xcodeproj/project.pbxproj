@@ -10,6 +10,8 @@
 		563B87161F1FA11100D75CEF /* ServerSentEventsTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B87151F1FA11100D75CEF /* ServerSentEventsTransport.swift */; };
 		568A77191F223CB2004F5D1C /* ChunkBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A77181F223CB2004F5D1C /* ChunkBuffer.swift */; };
 		568A771B1F223CF0004F5D1C /* ServerSentEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568A771A1F223CF0004F5D1C /* ServerSentEvent.swift */; };
+		998A0F2C310CFB059B3A78D4 /* Pods_SignalRSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27052D99CE4489E31D3864D7 /* Pods_SignalRSwift.framework */; };
+		A73138179358423839ADF882 /* Pods_SignalR_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBF31FDC80F00C1212830C /* Pods_SignalR_SwiftTests.framework */; };
 		C91154631E24113F007C0DD9 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154621E24113F007C0DD9 /* WebSocketTransport.swift */; };
 		C91154661E241239007C0DD9 /* WebSocketConnectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154651E241239007C0DD9 /* WebSocketConnectionInfo.swift */; };
 		C91154681E243082007C0DD9 /* ReceivedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91154671E243082007C0DD9 /* ReceivedMessage.swift */; };
@@ -51,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27052D99CE4489E31D3864D7 /* Pods_SignalRSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalRSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AEBF31FDC80F00C1212830C /* Pods_SignalR_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SignalR_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC113E2B99A23B23569B683 /* Pods-SignalR-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.release.xcconfig"; path = "Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		3019D93A3287DFB23C41B846 /* Pods-SignalR-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalR-SwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-SignalR-SwiftTests/Pods-SignalR-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		49B5BB4A071DD8A199988E10 /* Pods-SignalRSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SignalRSwift.debug.xcconfig"; path = "Target Support Files/Pods-SignalRSwift/Pods-SignalRSwift.debug.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				998A0F2C310CFB059B3A78D4 /* Pods_SignalRSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9330B321E1FE59A00B1F2D5 /* SignalRSwift.framework in Frameworks */,
+				A73138179358423839ADF882 /* Pods_SignalR_SwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +141,8 @@
 		B7D1214F5724602EDD3E0C77 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2AEBF31FDC80F00C1212830C /* Pods_SignalR_SwiftTests.framework */,
+				27052D99CE4489E31D3864D7 /* Pods_SignalRSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -596,6 +604,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -651,6 +660,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -677,7 +687,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -699,7 +709,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.autosoftdms.SignalR-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -714,7 +724,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.autosoftdms.SignalR-SwiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -728,7 +738,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.autosoftdms.SignalR-SwiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

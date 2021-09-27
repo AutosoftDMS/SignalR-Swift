@@ -258,7 +258,9 @@ public class Connection: ConnectionProtocol {
     }
 
     public func didReconnect() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self.disconnectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
+        if let operation = disconnectTimeoutOperation {
+            NSObject.cancelPreviousPerformRequests(withTarget: operation, selector: #selector(BlockOperation.start), object: nil)
+        }
         self.disconnectTimeoutOperation = nil
         
         self.reconnected?()

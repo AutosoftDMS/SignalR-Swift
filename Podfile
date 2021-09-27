@@ -7,7 +7,7 @@ target 'SignalRSwift' do
   
   # Pods for SignalR-Swift
   pod 'Alamofire'
-  pod 'Starscream'
+  pod 'Starscream', :git => 'https://github.com/kamrankhan07/Starscream.git'
 
   target 'SignalR-SwiftTests' do
     inherit! :search_paths
