@@ -127,9 +127,9 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             let url = reconnecting ? baseUrl!.absoluteString.appending("reconnect") : baseUrl!.absoluteString.appending("connect")
             let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30)
             
-            request?.onURLRequestCreation(perform: { [weak self] encodedRequest in
+            request?.onURLRequestCreation(perform: { [weak self] urlRequest in
                 guard let self = self else { return }
-                self.webSocket = WebSocket(request: encodedRequest, certPinner: FoundationSecurity(allowSelfSigned: connection?.webSocketAllowsSelfSignedSSL ?? true))
+                self.webSocket = WebSocket(request: urlRequest, certPinner: FoundationSecurity(allowSelfSigned: connection?.webSocketAllowsSelfSignedSSL ?? true))
                 self.webSocket!.delegate = self
                 self.webSocket!.connect()
             })

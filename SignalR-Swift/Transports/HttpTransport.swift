@@ -28,17 +28,16 @@ public class HttpTransport: ClientTransportProtocol {
 
         let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30.0)
         
-        encodedRequest.responseJSON { (response) in
+        /*encodedRequest.responseJSON { (response) in
             print(response.debugDescription)
-        }
+        }*/
 
         encodedRequest.validate().responseJSON { (response: DataResponse) in
             switch response.result {
             case .success(let result):
                 if let json = result as? [String: Any] {
                     completionHandler?(NegotiationResponse(jsonObject: json), nil)
-                }
-                else {
+                } else {
                     completionHandler?(nil, AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength))
                 }
             case .failure(let error):
@@ -112,11 +111,20 @@ public class HttpTransport: ClientTransportProtocol {
         let parameters = self.getConnectionParameters(connection: connection, connectionData: connectionData)
 
         let encodedRequest = connection.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 2.0)
-
-        let request = connection.getRequest(url: encodedRequest.request!.url!.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: nil)
-        request.validate().response { response in
-            if response.error != nil {
-                self.completeAbort()
+    
+        encodedRequest.onURLRequestCreation { [weak self] urlRequest in
+            if let url = urlRequest.url {
+                let request = connection.getRequest(url: url.absoluteString, httpMethod: .post, encoding: URLEncoding.httpBody, parameters: nil)
+                request.validate().response { response in
+                    switch response.result {
+                    case .success(_):
+                        self?.completeAbort()
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            } else {
+                self?.completeAbort()
             }
         }
     }
