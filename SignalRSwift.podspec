@@ -65,6 +65,6 @@ Pod::Spec.new do |s|
   s.exclude_files = "Classes/Exclude"
 
   s.dependency "Alamofire"
-  s.dependency "kamrankhan07/Starscream"
+  s.dependency "Starscream"
 
 end
