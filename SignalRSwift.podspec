@@ -65,6 +65,6 @@ Pod::Spec.new do |s|
   s.exclude_files = "Classes/Exclude"
 
   s.dependency "Alamofire"
-  s.dependency "Starscream", :path => "https://github.com/kamrankhan07/Starscream.git"
+  s.dependency "kamrankhan07/Starscream"
 
 end
