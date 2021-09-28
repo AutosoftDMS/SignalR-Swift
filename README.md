@@ -23,11 +23,8 @@ pod 'SignalRSwift', :git => 'https://github.com/kamrankhan07/SignalR-Swift.git',
 
 
 platform :ios, '10.0' (onwards)
+pod 'Starscream', :git => 'https://github.com/kamrankhan07/Starscream'
 pod 'SignalRSwift', :git => 'https://github.com/kamrankhan07/SignalR-Swift.git'
-
-
-Add source in your pod file
-source = 'https://github.com/kamrankhan07/Starscream'
  ```
 
 Then, run the following command:
