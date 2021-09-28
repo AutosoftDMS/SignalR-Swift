@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SignalRSwift"
-  s.version      = "2.2.0"
+  s.version      = "2.2.1"
   s.summary      = "A SignalR client library for iOS written in Swift"
 
   # This description is used to generate tags and improve search results.
@@ -65,6 +65,6 @@ Pod::Spec.new do |s|
   s.exclude_files = "Classes/Exclude"
 
   s.dependency "Alamofire"
-  s.dependency "Starscream"
+  s.dependency "Starscream", :path => "https://github.com/kamrankhan07/Starscream.git"
 
 end
