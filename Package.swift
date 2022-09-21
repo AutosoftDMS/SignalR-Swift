@@ -20,9 +20,11 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "SignalRSwift",
-            dependencies: []),
+            dependencies: [],
+            path: "SignalR-Swift"),
         .testTarget(
             name: "SignalRSwiftTests",
-            dependencies: ["SignalRSwift"]),
+            dependencies: ["SignalRSwift"],
+            path: "SignalR-SwiftTests"),
     ]
 )
