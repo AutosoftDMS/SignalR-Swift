@@ -91,6 +91,7 @@
 		C9FC2D981E23BC600027FE59 /* ConnectionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionDelegate.swift; sourceTree = "<group>"; };
 		CE3269EC23F3B26B00B29F0F /* SignalRSwift.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SignalRSwift.podspec; sourceTree = "<group>"; };
 		CE3269ED23F3B26B00B29F0F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CEF6813028DB479400649172 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +175,7 @@
 				C9330B291E1FE59A00B1F2D5 /* Products */,
 				CE3269ED23F3B26B00B29F0F /* README.md */,
 				CE3269EC23F3B26B00B29F0F /* SignalRSwift.podspec */,
+				CEF6813028DB479400649172 /* Package.swift */,
 				89A6BE56D58C5D1F44B4C1F2 /* Pods */,
 				B7D1214F5724602EDD3E0C77 /* Frameworks */,
 			);
