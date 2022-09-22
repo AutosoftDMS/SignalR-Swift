@@ -14,8 +14,8 @@ let package = Package(
             targets: ["SignalRSwift"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire", from: "1.0.0"),
-        .package(url: "https://github.com/kamrankhan07/Starscream", from: "1.0.0"),
+        .package(url: "https://github.com/Alamofire/Alamofire", from: "5.6.2"),
+        .package(url: "https://github.com/kamrankhan07/Starscream", from: "4.0.5"),
     ],
     targets: [
         .target(
