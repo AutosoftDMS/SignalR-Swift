@@ -23,7 +23,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "SignalRSwift",
-            dependencies: [],
+            dependencies: ["Alamofire", "Starscream"],
             path: "SignalR-Swift"),
         .testTarget(
             name: "SignalRSwiftTests",
