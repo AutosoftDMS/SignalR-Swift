@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "SignalRSwift",
+    platforms: [
+        .iOS(.v10)
+    ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -26,5 +29,6 @@ let package = Package(
             name: "SignalRSwiftTests",
             dependencies: ["SignalRSwift"],
             path: "SignalR-SwiftTests"),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
