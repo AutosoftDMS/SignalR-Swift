@@ -9,7 +9,6 @@ let package = Package(
         .iOS(.v11)
     ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "SignalRSwift",
             targets: ["SignalRSwift"]),
@@ -19,16 +18,11 @@ let package = Package(
         .package(url: "https://github.com/kamrankhan07/Starscream", from: "1.0.0"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "SignalRSwift",
             dependencies: ["Alamofire", "Starscream"],
-            path: "SignalR-Swift"),
-        .testTarget(
-            name: "SignalRSwiftTests",
-            dependencies: ["SignalRSwift"],
-            path: "SignalR-SwiftTests"),
+            path: "SignalR-Swift",
+            exclude: ["Info.plist"])
     ],
     swiftLanguageVersions: [.v5]
 )
