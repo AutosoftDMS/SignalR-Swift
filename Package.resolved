@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire",
+      "state" : {
+        "revision" : "8dd85aee02e39dd280c75eef88ffdb86eed4b07b",
+        "version" : "5.6.2"
+      }
+    },
+    {
+      "identity" : "starscream",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kamrankhan07/Starscream",
+      "state" : {
+        "revision" : "0cf71ccdb201271ee706b91ff9c5234c1da29b08",
+        "version" : "4.0.5"
+      }
+    }
+  ],
+  "version" : 2
+}

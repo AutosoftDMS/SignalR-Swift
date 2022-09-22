@@ -8,6 +8,12 @@
 
 import Foundation
 import Alamofire
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#else
+#endif
 
 public typealias ConnectionStartedClosure = (() -> ())
 public typealias ConnectionReceivedClosure = ((Any) -> ())
@@ -323,8 +329,14 @@ public class Connection: ConnectionProtocol {
         if self.assemblyVersion == nil {
             self.assemblyVersion = Version(major: 2, minor: 0)
         }
-
-        return "\(client)/\(self.assemblyVersion!) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
+        
+        #if os(iOS) || os(watchOS) || os(tvOS)
+            return "\(client)/\(self.assemblyVersion!) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
+        #elseif os(macOS)
+            return "\(client)/\(self.assemblyVersion!) (\(Host.current().name ?? ""))"
+        #else
+            return "\(client)/\(self.assemblyVersion!)"
+        #endif
     }
 
     public func processResponse(response: Data, shouldReconnect: inout Bool, disconnected: inout Bool) {
