@@ -19,6 +19,10 @@ public class ServerSentEventsTransport: HttpTransport {
     
     var reconnectDelay: TimeInterval = 2.0
     
+    public override init() {
+        super.init()
+    }
+    
     override public var name: String? {
         return "serverSentEvents"
     }
@@ -85,31 +89,41 @@ public class ServerSentEventsTransport: HttpTransport {
                               parameters: parameters,
                               timeout: 240,
                               headers: ["Connection": "Keep-Alive"])
-        .stream { [weak self] data in
-            self?.sseQueue.async { [weak connection] in
-                guard let strongSelf = self, let strongConnection = connection else { return }
-                
-                strongSelf.buffer.append(data: data)
-                
-                while let line = strongSelf.buffer.readLine() {
-                    guard let message = ServerSentEvent.tryParse(line: line) else { continue }
-                    DispatchQueue.main.async { strongSelf.process(message: message, connection: strongConnection) }
+            .validate()
+            .responseStream { [weak self, weak connection] stream in
+                switch stream.event {
+               
+                case let .stream(result):
+                    if case let .success(data) = result {
+                        self?.sseQueue.async { [weak connection] in
+                            guard let strongSelf = self, let strongConnection = connection else { return }
+                            
+                            strongSelf.buffer.append(data: data)
+                            
+                            while let line = strongSelf.buffer.readLine() {
+                                guard let message = ServerSentEvent.tryParse(line: line) else { continue }
+                                DispatchQueue.main.async { strongSelf.process(message: message, connection: strongConnection) }
+                            }
+                        }
+                    }
+                    
+                case let .complete(completion):
+                    
+                    guard let strongSelf = self, let strongConnection = connection else { return }
+                    
+                    strongSelf.cancelTimeoutOperation()
+                    
+                    if let error = completion.error as NSError?, error.code != NSURLErrorCancelled {
+                        strongConnection.didReceiveError(error: error)
+                    }
+                    
+                    if strongSelf.stop {
+                        strongSelf.completeAbort()
+                    } else if !strongSelf.tryCompleteAbort() && !isReconnecting {
+                        strongSelf.reconnect(connection: strongConnection, data: connectionData)
+                    }
+                    
                 }
-            }
-        }.validate().response() { [weak self, weak connection] dataResponse in
-            guard let strongSelf = self, let strongConnection = connection else { return }
-            
-            strongSelf.cancelTimeoutOperation()
-            
-            if let error = dataResponse.error as NSError?, error.code != NSURLErrorCancelled {
-                strongConnection.didReceiveError(error: error)
-            }
-            
-            if strongSelf.stop {
-                strongSelf.completeAbort()
-            } else if !strongSelf.tryCompleteAbort() && !isReconnecting {
-                strongSelf.reconnect(connection: strongConnection, data: connectionData)
-            }
         }
     }
     
@@ -149,7 +163,7 @@ public class ServerSentEventsTransport: HttpTransport {
     }
     
     private func reconnect(connection: ConnectionProtocol, data: String?) {
-        _ = BlockOperation { [weak self, weak connection] in
+        BlockOperation { [weak self, weak connection] in
             if let strongSelf = self, let strongConnection = connection,
                strongConnection.state != .disconnected, Connection.ensureReconnecting(connection: strongConnection) {
                 strongSelf.open(connection: strongConnection, connectionData: data, isReconnecting: true)

@@ -14,6 +14,10 @@ public class LongPollingTransport: HttpTransport {
     var errorDelay = 2.0
     var pollingQueue = DispatchQueue(label: "com.autosoftdms.SignalR-Swift.serial")
 
+    public override init() {
+        super.init()
+    }
+    
     // MARK: - Client Transport Protocol
 
     override public var name: String? {
@@ -118,7 +122,7 @@ public class LongPollingTransport: HttpTransport {
 
                         canReconnect = true
 
-                        _ = BlockOperation(block: {
+                        BlockOperation(block: {
                             strongSelf.poll(connection: strongConnection, connectionData: connectionData, completionHandler: nil)
                         }).perform(#selector(BlockOperation.start), with: nil, afterDelay: strongSelf.errorDelay)
                     } else {
@@ -138,7 +142,7 @@ public class LongPollingTransport: HttpTransport {
             if canReconnect {
                 canReconnect = false
 
-                _ = BlockOperation(block: { [weak self, weak connection] in
+                BlockOperation(block: { [weak self, weak connection] in
                     guard let strongSelf = self, let strongConnection = connection else { return }
                     strongSelf.connectionReconnect(connection: strongConnection, canReconnect: canReconnectCopy)
                 }).perform(#selector(BlockOperation.start), with: nil, afterDelay: self.reconnectDelay)

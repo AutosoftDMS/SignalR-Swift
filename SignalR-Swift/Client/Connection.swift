@@ -7,8 +7,13 @@
 //
 
 import Foundation
-import UIKit
 import Alamofire
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#else
+#endif
 
 public typealias ConnectionStartedClosure = (() -> ())
 public typealias ConnectionReceivedClosure = ((Any) -> ())
@@ -43,8 +48,8 @@ public class Connection: ConnectionProtocol {
 
     public var headers = HTTPHeaders()
     public var keepAliveData: KeepAliveData?
-    public var webSocketAllowsSelfSignedSSL = false
-    public internal(set) var sessionManager: SessionManager
+    public var webSocketAllowsSelfSignedSSL = true
+    public internal(set) var sessionManager: Session
 
     public var transport: ClientTransportProtocol?
     public var transportConnectTimeout = 0.0
@@ -68,7 +73,7 @@ public class Connection: ConnectionProtocol {
         return connection.state == .reconnecting
     }
 
-    public init(withUrl url: String, queryString: [String: String]? = nil, sessionManager: SessionManager = .default) {
+    public init(withUrl url: String, queryString: [String: String]? = nil, sessionManager: Session = .default) {
         self.url = url.hasSuffix("/") ? url : url.appending("/")
         self.queryString = queryString
         self.sessionManager = sessionManager
@@ -258,7 +263,9 @@ public class Connection: ConnectionProtocol {
     }
 
     public func didReconnect() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self.disconnectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
+        if let operation = disconnectTimeoutOperation {
+            NSObject.cancelPreviousPerformRequests(withTarget: operation, selector: #selector(BlockOperation.start), object: nil)
+        }
         self.disconnectTimeoutOperation = nil
         
         self.reconnected?()
@@ -287,36 +294,49 @@ public class Connection: ConnectionProtocol {
     public func updateLastKeepAlive() {
         self.keepAliveData?.lastKeepAlive = Date()
     }
+    
+    private func encodedURLRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double, headers: HTTPHeaders) -> URLRequest? {
+        var globalHeaders = self.headers
+        globalHeaders["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
+        
+        for (httpHeader, value) in headers.dictionary {
+            globalHeaders[httpHeader] = value
+        }
+        
+        var urlRequest = try? URLRequest(url: url.asURL(), method: httpMethod, headers: globalHeaders)
+        urlRequest?.timeoutInterval = timeout
+        
+        let encodedURLRequest = try? encoding.encode(urlRequest!, with: parameters)
+        return encodedURLRequest
+    }
 
     public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?) -> DataRequest {
-        return self.getRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: 30.0, headers: [:])
+        let request = encodedURLRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: 30.0, headers: [:])
+        return sessionManager.request(request!)
     }
 
     public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double) -> DataRequest {
-        return self.getRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: timeout, headers: [:])
+        let request = encodedURLRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: timeout, headers: [:])
+        return sessionManager.request(request!)
     }
     
-    public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double, headers: HTTPHeaders) -> DataRequest {
-        var globalHeaders = self.headers
-        globalHeaders["User-Agent"] = self.createUserAgentString(client: "SignalR.Client.iOS")
-
-        for (httpHeader, value) in headers {
-            globalHeaders[httpHeader] = value
-        }
-
-        var urlRequest = try? URLRequest(url: url.asURL(), method: httpMethod, headers: globalHeaders)
-        urlRequest?.timeoutInterval = timeout
-
-        let encodedURLRequest = try? encoding.encode(urlRequest!, with: parameters)
-        return sessionManager.request(encodedURLRequest!)
+    public func getRequest(url: URLConvertible, httpMethod: HTTPMethod, encoding: ParameterEncoding, parameters: Parameters?, timeout: Double, headers: HTTPHeaders) -> DataStreamRequest {
+        let request = encodedURLRequest(url: url, httpMethod: httpMethod, encoding: encoding, parameters: parameters, timeout: timeout, headers: headers)
+        return sessionManager.streamRequest(request!)
     }
 
     func createUserAgentString(client: String) -> String {
         if self.assemblyVersion == nil {
             self.assemblyVersion = Version(major: 2, minor: 0)
         }
-
-        return "\(client)/\(self.assemblyVersion!) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
+        
+        #if os(iOS) || os(watchOS) || os(tvOS)
+            return "\(client)/\(self.assemblyVersion!) (\(UIDevice.current.localizedModel) \(UIDevice.current.systemVersion))"
+        #elseif os(macOS)
+            return "\(client)/\(self.assemblyVersion!) (\(Host.current().name ?? ""))"
+        #else
+            return "\(client)/\(self.assemblyVersion!)"
+        #endif
     }
 
     public func processResponse(response: Data, shouldReconnect: inout Bool, disconnected: inout Bool) {

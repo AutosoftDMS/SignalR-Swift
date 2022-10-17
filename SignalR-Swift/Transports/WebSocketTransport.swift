@@ -2,7 +2,7 @@
 //  WebSocketTransport.swift
 //  SignalR-Swift
 //
-//  
+//
 //  Copyright © 2017 Jordan Camara. All rights reserved.
 //
 
@@ -18,26 +18,30 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
     private var webSocket: WebSocket?
     private var startClosure: WebSocketStartClosure?
     private var connectTimeoutOperation: BlockOperation?
-
+    
+    public override init() {
+        super.init()
+    }
+    
     override public var name: String? {
         return "webSockets"
     }
-
+    
     override public var supportsKeepAlive: Bool {
         return true
     }
-
+    
     override public func negotiate(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((NegotiationResponse?, Error?) -> ())?) {
         super.negotiate(connection: connection, connectionData: connectionData, completionHandler: completionHandler)
     }
-
+    
     override public func start(connection: ConnectionProtocol, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         self.connectionInfo = WebSocketConnectionInfo(connection: connection, data: connectionData)
-
+        
         // perform connection
         self.performConnect(completionHandler: completionHandler)
     }
-
+    
     override public func send(connection: ConnectionProtocol, data: Any, connectionData: String?, completionHandler: ((Any?, Error?) -> ())?) {
         if let dataString = data as? String {
             self.webSocket?.write(string: dataString)
@@ -47,34 +51,34 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
         
         completionHandler?(nil, nil)
     }
-
+    
     override public func abort(connection: ConnectionProtocol, timeout: Double, connectionData: String?) {
         self.stopWebSocket()
         super.abort(connection: connection, timeout: timeout, connectionData: connectionData)
     }
-
+    
     override public func lostConnection(connection: ConnectionProtocol) {
         self.stopWebSocket()
-
+        
         if self.tryCompleteAbort() {
             return
         }
-
+        
         self.reconnect(connection: self.connectionInfo?.connection)
     }
-
+    
     private func stopWebSocket() {
         self.webSocket?.delegate = nil
         self.webSocket?.disconnect()
         self.webSocket = nil
     }
-
+    
     // MARK: - WebSockets transport
-
+    
     func performConnect(completionHandler: ((_ response: String?, _ error: Error?) -> ())?) {
         self.performConnect(reconnecting: false, completionHandler: completionHandler)
     }
-
+    
     func performConnect(reconnecting: Bool, completionHandler: ((_ response: String?, _ error: Error?) -> ())?) {
         let connection = self.connectionInfo?.connection
         var parameters: [String: Any] = [
@@ -84,13 +88,13 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
             "groupsToken": connection?.groupsToken ?? "",
             "connectionData": self.connectionInfo?.data ?? ""
         ]
-
+        
         if let queryString = self.connectionInfo?.connection?.queryString {
             for (key, value) in queryString {
                 parameters[key] = value
             }
         }
-
+        
         var urlComponents = URLComponents(string: connection!.url)
         if let urlScheme = urlComponents?.scheme {
             if urlScheme.hasPrefix("https") {
@@ -99,19 +103,13 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
                 urlComponents?.scheme = "ws"
             }
         }
-
+        
         do {
-            let baseUrl = try urlComponents?.asURL()
-
-            let url = reconnecting ? baseUrl!.absoluteString.appending("reconnect") : baseUrl!.absoluteString.appending("connect")
-
-            let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30)
-
             self.startClosure = completionHandler
             if let startClosure = self.startClosure {
                 self.connectTimeoutOperation = BlockOperation(block: { [weak self] in
                     guard let strongSelf = self else { return }
-
+                    
                     let userInfo = [
                         NSLocalizedDescriptionKey: NSLocalizedString("Connection timed out.", comment: "timeout error description"),
                         NSLocalizedFailureReasonErrorKey: NSLocalizedString("Connection did not receive initialized message before the timeout.", comment: "timeout error reason"),
@@ -119,86 +117,107 @@ public class WebSocketTransport: HttpTransport, WebSocketDelegate {
                     ]
                     let error = NSError(domain: "com.autosoftdms.SignalR-Swift.\(type(of: strongSelf))", code: NSURLErrorTimedOut, userInfo: userInfo)
                     strongSelf.stopWebSocket()
-
                     strongSelf.startClosure = nil
                     startClosure(nil, error)
                 })
-
                 self.connectTimeoutOperation?.perform(#selector(BlockOperation.start), with: nil, afterDelay: connection!.transportConnectTimeout)
             }
-
-            if let encodedRequest = request?.request {
-                self.webSocket = WebSocket(request: encodedRequest)
-                self.webSocket!.disableSSLCertValidation = connection?.webSocketAllowsSelfSignedSSL ?? false
+            
+            let baseUrl = try urlComponents?.asURL()
+            let url = reconnecting ? baseUrl!.absoluteString.appending("reconnect") : baseUrl!.absoluteString.appending("connect")
+            let request = connection?.getRequest(url: url, httpMethod: .get, encoding: URLEncoding.default, parameters: parameters, timeout: 30)
+            
+            request?.onURLRequestCreation(perform: { [weak self] urlRequest in
+                guard let self = self else { return }
+                self.webSocket = WebSocket(request: urlRequest, certPinner: FoundationSecurity(allowSelfSigned: connection?.webSocketAllowsSelfSignedSSL ?? true))
                 self.webSocket!.delegate = self
                 self.webSocket!.connect()
-            }
+            })
         } catch {
-
+            print("error: \(error)")
         }
     }
-
+    
     func reconnect(connection: ConnectionProtocol?) {
-        _ = BlockOperation { [weak self] in
+        BlockOperation { [weak self] in
             if let strongSelf = self, let connection = connection, Connection.ensureReconnecting(connection: connection) {
                 strongSelf.performConnect(reconnecting: true, completionHandler: nil)
             }
-            }.perform(#selector(BlockOperation.start), with: nil, afterDelay: self.reconnectDelay)
+        }.perform(#selector(BlockOperation.start), with: nil, afterDelay: self.reconnectDelay)
     }
-
+    
     // MARK: - WebSocketDelegate
-
-    public func websocketDidConnect(socket: WebSocketClient){
-        if let connection = self.connectionInfo?.connection, connection.changeState(oldState: .reconnecting, toState: .connected) {
+    private func stopTimeOutOperation() {
+        if let startClosure = self.startClosure, let connectTimeoutOperation = self.connectTimeoutOperation {
+            NSObject.cancelPreviousPerformRequests(withTarget: connectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
+            self.connectTimeoutOperation = nil
+            self.startClosure = nil
+            startClosure(nil, nil)
+        }
+    }
+    
+    private func webSocketConnected(_ headers: [String: String]) {
+        self.stopTimeOutOperation()
+        if let connection = self.connectionInfo?.connection,
+            connection.changeState(oldState: .reconnecting, toState: .connected) == true {
             connection.didReconnect()
         }
     }
     
-    public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        if let error = error {
-            webSocketError(error)
-        }
-        else if !self.tryCompleteAbort() {
+    private func webSocketDisconnected(_ reason: String, _ code: UInt16) {
+        if self.tryCompleteAbort() == false {
             self.reconnect(connection: self.connectionInfo?.connection)
-        }
-    }
-
-    private func webSocketError(_ error: Error) {
-        if let startClosure = self.startClosure, let connectTimeoutOperation = self.connectTimeoutOperation {
-            NSObject.cancelPreviousPerformRequests(withTarget: connectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
-
-            self.connectTimeoutOperation = nil
-            self.stopWebSocket()
-
-            self.startClosure = nil
-            startClosure(nil, error)
-        } else if !self.startedAbort {
-            self.reconnect(connection: self.connectionInfo?.connection)
-        }
-    }
-
-    public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        var timedOut = false
-        var disconnected = false
-
-        if let connection = self.connectionInfo?.connection, let data = text.data(using: .utf8) {
-            connection.processResponse(response: data, shouldReconnect: &timedOut, disconnected: &disconnected)
-        }
-
-        if let startClosure = self.startClosure, let connectTimeoutOperation = self.connectTimeoutOperation {
-            NSObject.cancelPreviousPerformRequests(withTarget: connectTimeoutOperation, selector: #selector(BlockOperation.start), object: nil)
-            self.connectTimeoutOperation = nil
-
-            self.startClosure = nil
-            startClosure(nil, nil)
-        }
-
-        if disconnected {
+        } else {
             self.connectionInfo?.connection?.disconnect()
             self.stopWebSocket()
         }
     }
     
-    public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+    private func webSocketReceivedMessage(_ string: String) {
+        var timedOut = false
+        var disconnected = false
+        if let connection = self.connectionInfo?.connection, let data = string.data(using: .utf8) {
+            connection.processResponse(response: data, shouldReconnect: &timedOut, disconnected: &disconnected)
+        }
+    }
+    
+    private func webSocketError(_ error: Error?) {
+        if self.startedAbort == false {
+            self.reconnect(connection: self.connectionInfo?.connection)
+        } else {
+            self.stopTimeOutOperation()
+            self.stopWebSocket()
+        }
+    }
+    
+    public func didReceive(event: WebSocketEvent, client: WebSocketClient) { 
+        switch event {
+        case .connected(let headers):
+            //print("websocket is connected: \(headers)")
+            webSocketConnected(headers)
+        case .disconnected(let reason, let code):
+            //print("websocket is disconnected: \(reason) with code: \(code)")
+            webSocketDisconnected(reason, code)
+        case .text(let string):
+            //print("Received text: \(string)")
+            webSocketReceivedMessage(string)
+        case .binary(_):
+            //print("Received data: \(data.count)")
+            break
+        case .ping(_):
+            break
+        case .pong(_):
+            break
+        case .viabilityChanged(_):
+            break
+        case .reconnectSuggested(_):
+            break
+        case .cancelled:
+            break;
+        case .error(let error):
+            print(error.debugDescription)
+            webSocketError(error)
+        }
     }
 }
+
